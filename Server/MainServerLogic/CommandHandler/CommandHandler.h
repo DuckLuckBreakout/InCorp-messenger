@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <functional>
-#include "../MainLogic/MainLogic.h"
-#include "../../../src/libs/Connection/BaseConnection.h"
-#include "../CommandParser/CommandCreator.h"
+#include "Server/MainServerLogic/MainLogic/MainLogic.h"
+#include "src/libs/Connection/BaseConnection.h"
+#include "Server/MainServerLogic/CommandCreator/CommandCreator.h"
 
 class CommandHandler {
 public:

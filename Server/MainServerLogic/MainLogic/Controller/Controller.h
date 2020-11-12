@@ -2,11 +2,10 @@
 #define TP_PPROJECT_CONTROLLER_H
 
 #include <iostream>
-#include "../Managers/DataBaseManager.h"
-#include "../Managers/ChatManager.h"
-#include "../Managers/AuthorizationManager.h"
+#include "Server/MainServerLogic/MainLogic/Managers/DataBaseManager.h"
+#include "Server/MainServerLogic/MainLogic/Managers/ChatManager.h"
+#include "Server/MainServerLogic/MainLogic/Managers/AuthorizationManager.h"
 
-// TODO: hear lives managers
 class Controller {
 public:
     Controller();

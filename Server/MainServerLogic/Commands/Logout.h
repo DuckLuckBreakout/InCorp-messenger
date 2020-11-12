@@ -1,7 +1,3 @@
-//
-// Created by Иван Коваленко on 12.11.2020.
-//
-
 #ifndef SERVER_LOGOUT_H
 #define SERVER_LOGOUT_H
 

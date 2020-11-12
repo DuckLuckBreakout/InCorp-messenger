@@ -1,7 +1,7 @@
 #ifndef TP_PPROJECT_MAINLOGIC_H
 #define TP_PPROJECT_MAINLOGIC_H
 
-#include "../Commands/BaseCommand.h"
+#include "Server/MainServerLogic/Commands/BaseCommand.h"
 #include "Controller/Controller.h"
 
 class MainLogic {

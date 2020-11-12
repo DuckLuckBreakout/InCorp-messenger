@@ -7,8 +7,8 @@
 #include <functional>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
-#include "../MainServerLogic/CommandHandler/CommandHandler.h"
-#include "../../src/libs/Connection/BaseConnection.h"
+#include "Server/MainServerLogic/CommandHandler/CommandHandler.h"
+#include "src/libs/Connection/BaseConnection.h"
 
 
 class BaseServer {

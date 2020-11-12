@@ -2,7 +2,6 @@
 #include <functional>
 #include <iostream>
 #include <thread>
-
 #include <boost/bind.hpp>
 
 

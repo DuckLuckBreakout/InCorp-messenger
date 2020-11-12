@@ -1,43 +1,31 @@
 cmake_minimum_required(VERSION 3.17)
-set(PROJECT server)
-project(${PROJECT})
+project(Server)
+
 set(CMAKE_CXX_STANDARD 17)
 
-set(SOURCES
 
-
-        Connection/Coders/BaseCoder.cpp
-        Connection/Coders/HttpCoder.cpp
-        Connection/ConnectionCreators/BaseConnectionCreator.cpp
-        Connection/ConnectionCreators/HttpConnectionCreator.cpp
-        Connection/Connections/BaseConnection.cpp
-        Connection/Connections/HttpConnection.cpp
-
+add_library(Server STATIC
+        Server.cpp
+        Server/HttpServer.cpp
         MainServerLogic/CommandHandler/CommandHandler.cpp
-        MainServerLogic/CommandParser/CommandCreator.cpp
+        MainServerLogic/CommandCreator/CommandCreator.cpp
+        MainServerLogic/Commands/Login.cpp
+        MainServerLogic/Commands/Logout.cpp
         MainServerLogic/Commands/UpdateChats.cpp
         MainServerLogic/Commands/WriteMessage.cpp
-        MainServerLogic/MainLogic/Controller/Controller.cpp
-        MainServerLogic/MainLogic/Managers/DataBaseManager.cpp
         MainServerLogic/MainLogic/MainLogic.cpp
-
-        Server/HttpServer.cpp
+        MainServerLogic/MainLogic/Controller/Controller.cpp
+        MainServerLogic/MainLogic/Managers/AuthorizationManager.cpp
+        MainServerLogic/MainLogic/Managers/ChatManager.cpp
+        MainServerLogic/MainLogic/Managers/DataBaseManager.cpp
+        ../src/libs/Connection/HttpConnection.cpp
+        ../src/libs/Connection/Coder/HttpCoder.cpp
         )
 
 
-set(BOOST_ROOT "/usr/local/Cellar/boost/1.74.0")
 
-find_package(Boost 1.74.0 COMPONENTS system filesystem REQUIRED)
-
-if(NOT Boost_FOUND)
-    message(FATAL_ERROR "Could not find boost!")
-endif()
-message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
-message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
-message(STATUS "Boost_VERSION: ${Boost_VERSION}")
-include_directories(${Boost_INCLUDE_DIRS})
-include_directories(${Boost_LIBRARIES})
-include_directories(${BOOST_ROOT})
-
-add_executable(${PROJECT} main.cpp ${SOURCES})
-target_link_libraries(${PROJECT} -lpthread -std=c++17)
+target_include_directories(Server PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>)
+target_link_libraries(Server
+        #-lboost_system
+        -lpthread
+        -std=c++17)

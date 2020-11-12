@@ -1,11 +1,7 @@
 #ifndef TP_PPROJECT_COMMANDPARSER_H
 #define TP_PPROJECT_COMMANDPARSER_H
 
-#include "../Commands/BaseCommand.h"
-
-// TODO: CommandCreator
-// switch ("read") -> create ReadCommand();
-// return shared_ptr<BaseCommand>
+#include "Server/MainServerLogic/Commands/BaseCommand.h"
 
 class CommandCreator {
 public:

@@ -2,7 +2,7 @@
 #define SERVER_AUTHORIZATIONMANAGER_H
 
 #include "BaseManager.h"
-#include "../../../../src/libs/Connection/BaseConnection.h"
+#include "src/libs/Connection/BaseConnection.h"
 
 class AuthorizationManager: public BaseManager {
 public:

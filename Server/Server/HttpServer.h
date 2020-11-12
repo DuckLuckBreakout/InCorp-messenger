@@ -3,8 +3,8 @@
 
 
 #include "BaseServer.h"
-#include "../MainServerLogic/CommandHandler/CommandHandler.h"
-#include "../../src/libs/Connection/HttpConnection.h"
+#include "Server/MainServerLogic/CommandHandler/CommandHandler.h"
+#include "src/libs/Connection/HttpConnection.h"
 
 
 class HttpServer: public BaseServer {

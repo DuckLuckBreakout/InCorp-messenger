@@ -2,7 +2,7 @@
 #define TP_PPROJECT_BASECOMMAND_H
 
 #include <iostream>
-#include "../MainLogic/Controller/Controller.h"
+#include "Server/MainServerLogic/MainLogic/Controller/Controller.h"
 
 class BaseCommand {
 public:
