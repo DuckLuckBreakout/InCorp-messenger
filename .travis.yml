@@ -1,0 +1,29 @@
+rch: amd64
+os: linux    
+dist: focal 
+
+language: cpp
+compiler: gcc
+
+addons:
+  apt:
+    packages: lcov
+
+
+install:
+  - echo INSTALLING DEPENDENCES
+
+  # скрипт настройки среды и установки зависимостей:
+  - source src/scripts/travis/install-linux.sh
+
+script:
+  - cmake -DCMAKE_BUILD_TYPE=Test ./
+  - make
+  - valgrind --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no ./Application
+
+after_success:
+  - cd CMakeFiles/Aplication.dir
+  - lcov --directory . --capture --output-file coverage.info
+  - lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' --output-file coverage.info
+  - lcov --list coverage.info
+  - bash <(curl -s https://codecov.io/bash) -f coverage.info
