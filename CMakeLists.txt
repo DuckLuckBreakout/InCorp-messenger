@@ -83,7 +83,7 @@ elseif (CMAKE_BUILD_TYPE MATCHES Test)
     target_link_libraries(${PROJECT_NAME}
             gtest
             gmock_main
-            gcov
+           # gcov
             Server
             )
 

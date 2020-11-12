@@ -1,5 +1,5 @@
-//
-// Created by Иван Коваленко on 12.11.2020.
-//
-
 #include "Login.h"
+
+void Login::execute(std::shared_ptr<Controller> controller) {
+
+}

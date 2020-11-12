@@ -1,5 +1,5 @@
-//
-// Created by Иван Коваленко on 12.11.2020.
-//
-
 #include "Logout.h"
+
+void Logout::execute(std::shared_ptr<Controller> controller) {
+
+}
