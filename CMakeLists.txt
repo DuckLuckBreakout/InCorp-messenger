@@ -1,21 +1,54 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.2)
 set(PROJECT_NAME Application)
+
 project(${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 17)
 
-#set(BOOST_ROOT "/usr/local/Cellar/boost/1.74.0")
+if (APPLE)
+    find_package(libmongocxx REQUIRED)
+    find_package(libbsoncxx REQUIRED)
+    message("LIBMONGOCXX_INCLUDE_DIRS = ${LIBMONGOCXX_INCLUDE_DIRS}")
+    message("LIBMONGOCXX_LIBRARIES = ${LIBMONGOCXX_LIBRARIES}")
+    message("LIBBSONCXX_INCLUDE_DIRS = ${LIBBSONCXX_INCLUDE_DIRS}")
+    message("LIBBSONCXX_LIBRARIES = ${LIBBSONCXX_LIBRARIES}")
 
-#find_package(Boost 1.74.0 COMPONENTS system filesystem REQUIRED)
+    include_directories("/usr/local/include/mongocxx/v_noabi")
+    include_directories("/usr/local/include/bsoncxx/v_noabi")
+    include_directories("/usr/local/include/libmongoc-1.0")
+    include_directories("/usr/local/include/libbson-1.0")
+    include_directories("/usr/local/lib")
 
-#if(NOT Boost_FOUND)
-#    message(FATAL_ERROR "Could not find boost!")
-#endif()
-#message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
-#message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
-#message(STATUS "Boost_VERSION: ${Boost_VERSION}")
-#include_directories(${Boost_INCLUDE_DIRS})
-#include_directories(${Boost_LIBRARIES})
-#include_directories(${BOOST_ROOT})
+    set(BOOST_ROOT "/usr/local/Cellar/boost/1.74.0")
+
+    find_package(Boost 1.71.0 COMPONENTS system filesystem REQUIRED)
+elseif(UNIX)
+    set(BOOST_ROOT "boost")
+    find_package(Boost 1.71.0 COMPONENTS system filesystem REQUIRED)
+    message("CMAKE_BINARY_DIR = ${CMAKE_BINARY_DIR}")
+    set(libmongocxx_DIR "${CMAKE_BINARY_DIR}opt/mongo-cxx-driver/lib/cmake/libmongocxx-3.6.2/")
+    set(libbsoncxx_DIR "${CMAKE_BINARY_DIR}opt/mongo-cxx-driver/lib/cmake/libbsoncxx-3.6.2/")
+    find_package(libmongocxx REQUIRED)
+    find_package(libbsoncxx REQUIRED)
+    message("LIBMONGOCXX_INCLUDE_DIRS = ${LIBMONGOCXX_INCLUDE_DIRS}")
+    message("LIBMONGOCXX_LIBRARIES = ${LIBMONGOCXX_LIBRARIES}")
+    message("LIBBSONCXX_INCLUDE_DIRS = ${LIBBSONCXX_INCLUDE_DIRS}")
+    message("LIBBSONCXX_LIBRARIES = ${LIBBSONCXX_LIBRARIES}")
+    include_directories("/opt/mongo-cxx-driver/include/mongocxx/v_noabi")
+    include_directories("/opt/mongo-cxx-driver/include/bsoncxx/v_noabi")
+    include_directories("/usr/local/include/libmongoc-1.0")
+    include_directories("/usr/local/include/libbson-1.0")
+    include_directories("/opt/mongo-cxx-driver/lib/cmake/")
+endif()
+
+if(NOT Boost_FOUND)
+    message(FATAL_ERROR "Could not find boost!")
+endif()
+message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
+message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
+message(STATUS "Boost_VERSION: ${Boost_VERSION}")
+include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${Boost_LIBRARIES})
+include_directories(${BOOST_ROOT})
 
 # ---------- Compiling flags ----------
 # Release flags
@@ -43,6 +76,8 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
 
     target_link_libraries(${PROJECT_NAME}
             Server
+            ${LIBMONGOCXX_LIBRARIES}
+            ${LIBBSONCXX_LIBRARIES}
             )
 
 elseif (CMAKE_BUILD_TYPE MATCHES Test)
@@ -58,7 +93,7 @@ elseif (CMAKE_BUILD_TYPE MATCHES Test)
     download_project(PROJ                googletest
             GIT_REPOSITORY      https://github.com/google/googletest.git
             GIT_TAG             master
-            ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+            ${UPDATE_DISCONNECTED_IF_AVAILABLE} ${LIBBSONCXX_LIBRARIES}
             )
 
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
@@ -103,5 +138,6 @@ elseif (CMAKE_BUILD_TYPE MATCHES Release)
             )
 
 endif ()
+
 
 target_include_directories(Application PUBLIC "${PROJECT_SOURCE_DIR}")

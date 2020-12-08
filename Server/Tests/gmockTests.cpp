@@ -10,7 +10,6 @@
 #include "Server/MainServerLogic/MainLogic/Controller/Controller.h"
 #include "Server/MainServerLogic/MainLogic/Managers/AuthorizationManager.h"
 #include "Server/MainServerLogic/MainLogic/Managers/ChatManager.h"
-#include "Server/MainServerLogic/MainLogic/Managers/DataBaseManager.h"
 #include "Server/MainServerLogic/MainLogic/MainLogic.h"
 
 using ::testing::AtLeast;

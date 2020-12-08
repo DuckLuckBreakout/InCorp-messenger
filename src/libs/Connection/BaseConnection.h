@@ -22,10 +22,13 @@ public:
     virtual void send() = 0;
     virtual void read() = 0;
 
+    bool loginConfirmed = false;
 protected:
     boost::asio::ip::tcp::socket socket;
-    std::string readBuff = "hello";
-    std::string sendBuff = "hello";
+    char readBuff[1024];
+//    char sendBuff[1024];
+//    std::string readBuff = "hello";
+    std::string sendBuff;
 };
 
 

@@ -3,6 +3,8 @@
 HttpServer::HttpServer() : BaseServer() {}
 
 void HttpServer::startServer(int port) {
+    mongocxx::instance instance{};
+
     boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::tcp::v4(), port);
 
     acceptor.open(endpoint.protocol());
@@ -13,7 +15,7 @@ void HttpServer::startServer(int port) {
 
     std::vector<std::thread> threads;
     int countCPU = sysconf(_SC_NPROCESSORS_ONLN);
-    for (int i = 0; i < countCPU; i++)
+    for (int i = 0; i < 1; i++)
         threads.push_back(std::thread([this] { run(); }));
 
     for (auto& thread : threads)
@@ -35,15 +37,16 @@ void HttpServer::onAccept(std::shared_ptr<BaseConnection> client, const boost::s
 void HttpServer::runTask(std::shared_ptr<BaseConnection> client) {
 
     boost::asio::io_service::strand strandOne(service);
-
     read(strandOne, client);
-    // service.post(strandOne.wrap([client] { client->read(); }));
+//    if (client->getRequest()[0]) {
+        // service.post(strandOne.wrap([client] { client->read(); }));
 
-    std::shared_ptr<CommandHandler> commandHendler(new CommandHandler());
-    service.post(strandOne.wrap([commandHendler, client] { commandHendler->runRequest(client); }));
+        std::shared_ptr<CommandHandler> commandHendler(new CommandHandler());
+        service.post(strandOne.wrap([commandHendler, client] { commandHendler->runRequest(client); }));
 
-    // service.post(strandOne.wrap([client] { client->send(); }));
-    send(strandOne, client);
+        // service.post(strandOne.wrap([client] { client->send(); }));
+        send(strandOne, client);
+//    }
     service.post(strandOne.wrap([this, client] { restart(client); }));
 }
 

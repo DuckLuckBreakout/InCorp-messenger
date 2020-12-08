@@ -2,7 +2,6 @@
 #define TP_PPROJECT_CONTROLLER_H
 
 #include <iostream>
-#include "Server/MainServerLogic/MainLogic/Managers/DataBaseManager.h"
 #include "Server/MainServerLogic/MainLogic/Managers/ChatManager.h"
 #include "Server/MainServerLogic/MainLogic/Managers/AuthorizationManager.h"
 
@@ -18,7 +17,6 @@ public:
     void deleteChat(int chatID);
     void createChat();
 private:
-    std::shared_ptr<DataBaseManager> dbManager;
     std::shared_ptr<ChatManager> chatManager;
     std::shared_ptr<AuthorizationManager> authorizationManager;
 };

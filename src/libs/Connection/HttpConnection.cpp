@@ -13,11 +13,11 @@ void HttpConnection::disconnect() {
 }
 
 void HttpConnection::sendRequest(std::string request) {
-
+    sendBuff = request;
 }
 
 std::string HttpConnection::getRequest() {
-
+    return readBuff;
 }
 
 boost::asio::ip::tcp::socket & HttpConnection::getSocket() {
@@ -25,8 +25,7 @@ boost::asio::ip::tcp::socket & HttpConnection::getSocket() {
 }
 
 void HttpConnection::read() {
-//    readBuff.clear();
-
+    sendBuff.clear();
     std::cerr << "input : " << std::endl;
     std::cerr << "thread is " << pthread_self() << std::endl;
     int n = socket.read_some(boost::asio::buffer(readBuff));
@@ -37,6 +36,9 @@ void HttpConnection::read() {
 }
 
 void HttpConnection::send() {
+    for (int i = 0; i < 1024; i++) {
+        readBuff[i] = '\0';
+    }
     std::cerr << "send: " << std::endl;
     std::cerr << "thread is " << pthread_self() << std::endl;
     int n = socket.write_some(boost::asio::buffer(sendBuff));
