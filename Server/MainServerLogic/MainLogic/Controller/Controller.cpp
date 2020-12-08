@@ -1,3 +1,4 @@
+#include <boost/property_tree/ptree.hpp>
 #include "Controller.h"
 
 // TODO: create all functions of server
@@ -6,31 +7,37 @@
 // loginUser() using concrete manager
 // logoutUser() using concrete manager
 
-Controller::Controller() : dbManager(), chatManager(), authorizationManager() {
+Controller::Controller() :
+                           chatManager(new ChatManager),
+                           authorizationManager(new AuthorizationManager) {
 
 }
 
-void Controller::loginUser(std::shared_ptr<BaseConnection> &connection, std::string token) {
-    authorizationManager->loginUser(connection, token);
+boost::property_tree::ptree Controller::loginUser(boost::property_tree::ptree &params) {
+    return authorizationManager->loginUser(params);
 }
 
-void Controller::logoutUser(std::shared_ptr<BaseConnection> &connection) {
-    authorizationManager->logoutUser(connection);
+boost::property_tree::ptree Controller::logoutUser(boost::property_tree::ptree &params) {
+    return authorizationManager->logoutUser(params);
 }
 
-void Controller::updateChats() {
-    chatManager->updateChats();
+boost::property_tree::ptree Controller::updateChats(boost::property_tree::ptree &params) {
+    return chatManager->updateChats(params);
 }
 
-void Controller::deleteChat(int chatID) {
-    chatManager->deleteChat(chatID);
+boost::property_tree::ptree Controller::deleteChat(boost::property_tree::ptree &params) {
+    return chatManager->deleteChat(params);
 }
 
-void Controller::createChat() {
-    chatManager->createChat();
+boost::property_tree::ptree Controller::createChat(boost::property_tree::ptree &params) {
+    return chatManager->createChat(params);
 }
 
-void Controller::sendMessage(std::string message, int chatID) {
-    chatManager->sendMessage(message, chatID);
+boost::property_tree::ptree Controller::sendMessage(boost::property_tree::ptree &params) {
+    return chatManager->sendMessage(params);
+}
+
+boost::property_tree::ptree Controller::deleteUser(boost::property_tree::ptree &params) {
+    return authorizationManager->deleteUser(params);
 }
 

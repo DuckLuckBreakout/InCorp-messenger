@@ -1,5 +1,9 @@
 #include "WriteMessage.h"
 
-void WriteMessage::execute(std::shared_ptr<Controller> controller) {
-    controller->sendMessage("", 0);
+boost::property_tree::ptree WriteMessage::execute(std::shared_ptr<Controller> controller) {
+    return controller->sendMessage(commandParams);
+}
+
+WriteMessage::WriteMessage(boost::property_tree::ptree &params) {
+    commandParams = params;
 }

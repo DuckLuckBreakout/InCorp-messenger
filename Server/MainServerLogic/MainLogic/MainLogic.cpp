@@ -4,10 +4,9 @@
 // TODO: executeCommand(shared_ptr<BaseCommand> command)
 // TODO: command->execute(Controller);
 
-MainLogic::MainLogic() : controller() {
-
+MainLogic::MainLogic() : controller(new Controller()) {
 }
 
-void MainLogic::executeCommand(std::shared_ptr<BaseCommand> command) {
-    command->execute(controller);
+boost::property_tree::ptree MainLogic::executeCommand(std::shared_ptr<BaseCommand> command) {
+    return command->execute(controller);
 }

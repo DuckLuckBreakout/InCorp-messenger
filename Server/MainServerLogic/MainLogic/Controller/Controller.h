@@ -10,12 +10,13 @@ public:
     Controller();
     ~Controller() = default;
 
-    void loginUser(std::shared_ptr<BaseConnection>& connection, std::string token);
-    void logoutUser(std::shared_ptr<BaseConnection>& connection);
-    void sendMessage(std::string message, int chatID);
-    void updateChats();
-    void deleteChat(int chatID);
-    void createChat();
+    boost::property_tree::ptree loginUser(boost::property_tree::ptree &params);
+    boost::property_tree::ptree logoutUser(boost::property_tree::ptree &params);
+    boost::property_tree::ptree sendMessage(boost::property_tree::ptree &params);
+    boost::property_tree::ptree updateChats(boost::property_tree::ptree &params);
+    boost::property_tree::ptree deleteChat(boost::property_tree::ptree &params);
+    boost::property_tree::ptree createChat(boost::property_tree::ptree &params);
+    boost::property_tree::ptree deleteUser(boost::property_tree::ptree &params);
 private:
     std::shared_ptr<ChatManager> chatManager;
     std::shared_ptr<AuthorizationManager> authorizationManager;

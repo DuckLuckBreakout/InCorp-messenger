@@ -5,9 +5,12 @@
 
 class UpdateChats: public BaseCommand {
 public:
-    ~UpdateChats() override = default;
+    explicit UpdateChats(boost::property_tree::ptree& params);
 
-    void execute(std::shared_ptr<Controller> controller) override;
+    ~UpdateChats() override = default;
+    boost::property_tree::ptree execute(std::shared_ptr<Controller> controller) override;
+
+private:
 };
 
 

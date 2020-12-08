@@ -7,7 +7,7 @@
 class MainLogic {
 public:
     MainLogic();
-    void executeCommand(std::shared_ptr<BaseCommand> command);
+    boost::property_tree::ptree executeCommand(std::shared_ptr<BaseCommand> command);
 private:
     std::shared_ptr<Controller> controller;
 };

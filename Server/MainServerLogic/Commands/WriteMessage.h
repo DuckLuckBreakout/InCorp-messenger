@@ -5,9 +5,11 @@
 
 class WriteMessage: public BaseCommand {
 public:
+    explicit WriteMessage(boost::property_tree::ptree& params);
+
     ~WriteMessage() override = default;
 
-    void execute(std::shared_ptr<Controller> controller) override;
+    boost::property_tree::ptree execute(std::shared_ptr<Controller> controller) override;
 };
 
 #endif //TP_PPROJECT_WRITEMESSAGE_H

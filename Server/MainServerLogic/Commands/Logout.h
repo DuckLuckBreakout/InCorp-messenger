@@ -5,9 +5,10 @@
 
 class Logout: public BaseCommand {
 public:
+    explicit Logout(boost::property_tree::ptree &params);
     ~Logout() override = default;
 
-    void execute(std::shared_ptr<Controller> controller) override;
+    boost::property_tree::ptree execute(std::shared_ptr<Controller> controller) override;
 };
 
 

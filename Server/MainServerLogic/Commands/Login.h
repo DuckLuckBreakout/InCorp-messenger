@@ -5,9 +5,10 @@
 
 class Login: public BaseCommand {
 public:
+    explicit Login(boost::property_tree::ptree& params);
     ~Login() override = default;
 
-    void execute(std::shared_ptr<Controller> controller) override;
+    boost::property_tree::ptree execute(std::shared_ptr<Controller> controller) override;
 };
 
 

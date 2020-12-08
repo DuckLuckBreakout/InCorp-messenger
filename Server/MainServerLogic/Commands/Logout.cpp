@@ -1,5 +1,11 @@
 #include "Logout.h"
 
-void Logout::execute(std::shared_ptr<Controller> controller) {
 
+boost::property_tree::ptree Logout::execute(std::shared_ptr<Controller> controller) {
+    return controller->logoutUser(commandParams);
 }
+
+Logout::Logout(boost::property_tree::ptree &params) {
+    commandParams = params;
+}
+
