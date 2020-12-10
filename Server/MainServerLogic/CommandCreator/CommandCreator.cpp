@@ -7,7 +7,7 @@ std::shared_ptr<BaseCommand> CommandCreator::createCommand(std::string message) 
     boost::property_tree::read_json(is, pt);
 
     int requestCommand(pt.get<int>("command"));
-    requestCommand++;
+//    requestCommand++;
     std::cout << "command: " << requestCommand << std::endl;
     std::shared_ptr<BaseCommand> command;
     if (requestCommand == LOGIN) {
@@ -34,6 +34,10 @@ std::shared_ptr<BaseCommand> CommandCreator::createCommand(std::string message) 
         std::cout << "delete user command" << std::endl;
         std::shared_ptr<DeleteUser> deleteUser(new DeleteUser(pt));
         return deleteUser;
+    } else if (requestCommand == CREATE_USER) {
+        std::cout << "create user command" << std::endl;
+        std::shared_ptr<CreateUser> createUser(new CreateUser(pt));
+        return createUser;
     } else
         std::cout << "unknown command" << std::endl;
 }

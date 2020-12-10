@@ -93,7 +93,7 @@ elseif (CMAKE_BUILD_TYPE MATCHES Test)
     download_project(PROJ                googletest
             GIT_REPOSITORY      https://github.com/google/googletest.git
             GIT_TAG             master
-            ${UPDATE_DISCONNECTED_IF_AVAILABLE} ${LIBBSONCXX_LIBRARIES}
+            ${UPDATE_DISCONNECTED_IF_AVAILABLE}
             )
 
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
@@ -118,8 +118,10 @@ elseif (CMAKE_BUILD_TYPE MATCHES Test)
     target_link_libraries(${PROJECT_NAME}
             gtest
             gmock_main
-            gcov
+#            gcov
             Server
+            ${LIBMONGOCXX_LIBRARIES}
+            ${LIBBSONCXX_LIBRARIES}
             )
 
     add_test(run_tests run_tests)

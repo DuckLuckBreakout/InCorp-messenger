@@ -13,6 +13,7 @@ public:
     boost::property_tree::ptree loginUser(boost::property_tree::ptree &params);
     boost::property_tree::ptree logoutUser(boost::property_tree::ptree &params);
     boost::property_tree::ptree deleteUser(boost::property_tree::ptree &params);
+    boost::property_tree::ptree createUser(boost::property_tree::ptree &params);
 };
 
 #endif //SERVER_AUTHORIZATIONMANAGER_H

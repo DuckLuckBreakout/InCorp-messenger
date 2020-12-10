@@ -10,15 +10,17 @@
 #include "Server/MainServerLogic/Commands/CreateChat.h"
 #include "Server/MainServerLogic/Commands/DeleteChat.h"
 #include "Server/MainServerLogic/Commands/DeleteUser.h"
+#include "Server/MainServerLogic/Commands/CreateUser.h"
 
 enum Command {
-    PING,
+    PING=-1,
     LOGIN,
     WRITE_MESSAGE,
     LOGOUT,
     CREATE_CHAT,
     DELETE_CHAT,
-    DELETE_USER
+    DELETE_USER,
+    CREATE_USER
 };
 
 class CommandCreator {

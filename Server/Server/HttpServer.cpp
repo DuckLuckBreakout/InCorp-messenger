@@ -15,7 +15,7 @@ void HttpServer::startServer(int port) {
 
     std::vector<std::thread> threads;
     int countCPU = sysconf(_SC_NPROCESSORS_ONLN);
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < countCPU; i++)
         threads.push_back(std::thread([this] { run(); }));
 
     for (auto& thread : threads)
@@ -35,10 +35,11 @@ void HttpServer::onAccept(std::shared_ptr<BaseConnection> client, const boost::s
 }
 
 void HttpServer::runTask(std::shared_ptr<BaseConnection> client) {
+    try {
 
-    boost::asio::io_service::strand strandOne(service);
-    read(strandOne, client);
-//    if (client->getRequest()[0]) {
+        boost::asio::io_service::strand strandOne(service);
+        read(strandOne, client);
+        //    if (client->getRequest()[0]) {
         // service.post(strandOne.wrap([client] { client->read(); }));
 
         std::shared_ptr<CommandHandler> commandHendler(new CommandHandler());
@@ -46,8 +47,12 @@ void HttpServer::runTask(std::shared_ptr<BaseConnection> client) {
 
         // service.post(strandOne.wrap([client] { client->send(); }));
         send(strandOne, client);
-//    }
-    service.post(strandOne.wrap([this, client] { restart(client); }));
+        //    }
+        service.post(strandOne.wrap([this, client] { restart(client); }));
+    }
+    catch(...) {
+        std::cerr << "lalala" << std::endl;
+    }
 }
 
 void HttpServer::startAccept() {
@@ -65,7 +70,12 @@ void HttpServer::restart(std::shared_ptr<BaseConnection> client) {
 }
 
 void HttpServer::read(boost::asio::io_service::strand &strandOne, std::shared_ptr<BaseConnection> client) {
+    try {
     service.post(strandOne.wrap([client] { client->read(); }));
+    }
+    catch(...) {
+    std::cerr << "lalala" << std::endl;
+    }
 }
 
 void HttpServer::send(boost::asio::io_service::strand &strandOne, std::shared_ptr<BaseConnection> client) {

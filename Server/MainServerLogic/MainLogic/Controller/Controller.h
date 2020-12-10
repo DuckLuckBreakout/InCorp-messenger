@@ -17,6 +17,7 @@ public:
     boost::property_tree::ptree deleteChat(boost::property_tree::ptree &params);
     boost::property_tree::ptree createChat(boost::property_tree::ptree &params);
     boost::property_tree::ptree deleteUser(boost::property_tree::ptree &params);
+    boost::property_tree::ptree createUser(boost::property_tree::ptree &params);
 private:
     std::shared_ptr<ChatManager> chatManager;
     std::shared_ptr<AuthorizationManager> authorizationManager;

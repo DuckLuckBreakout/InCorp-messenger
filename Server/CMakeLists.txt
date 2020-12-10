@@ -15,6 +15,7 @@ add_library(Server STATIC
         MainServerLogic/Commands/CreateChat.cpp
         MainServerLogic/Commands/DeleteChat.cpp
         MainServerLogic/Commands/DeleteUser.cpp
+        MainServerLogic/Commands/CreateUser.cpp
         MainServerLogic/MainLogic/MainLogic.cpp
         MainServerLogic/MainLogic/Controller/Controller.cpp
         MainServerLogic/MainLogic/Managers/AuthorizationManager.cpp

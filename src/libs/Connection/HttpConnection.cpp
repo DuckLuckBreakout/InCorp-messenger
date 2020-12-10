@@ -25,14 +25,20 @@ boost::asio::ip::tcp::socket & HttpConnection::getSocket() {
 }
 
 void HttpConnection::read() {
-    sendBuff.clear();
-    std::cerr << "input : " << std::endl;
-    std::cerr << "thread is " << pthread_self() << std::endl;
-    int n = socket.read_some(boost::asio::buffer(readBuff));
+    try {
+        sendBuff.clear();
+        std::cerr << "input : " << std::endl;
+        std::cerr << "thread is " << pthread_self() << std::endl;
+        int n = socket.read_some(boost::asio::buffer(readBuff));
+        std::cerr << "was read message: [ " << n << " ] ";
+        std::cerr << "http: " << readBuff << "\n";
+    }
 
-    std::cerr << "was read message: [ " << n << " ] ";
-    std::cerr << "http: " << readBuff << "\n";
+
 //    std::cerr << "decoding: " << coder->decode(readBuff) << "\n";
+    catch(...) {
+        std::cerr << "close connection" << std::endl;
+    }
 }
 
 void HttpConnection::send() {

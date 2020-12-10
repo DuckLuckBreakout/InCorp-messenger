@@ -2,53 +2,62 @@
 
 
 boost::property_tree::ptree AuthorizationManager::loginUser(boost::property_tree::ptree &params) {
-    std::string token = params.get<std::string>("body.token");
-    std::cout << token << std::endl;
+    std::string token = params.get<std::string>("body.login");
     if (dbConnector.userIsRegistered(token)) {
         dbConnector.authorizeUser(token);
+        dbConnector.getUserInfo(params);
         params.add("status", "true");
-        params.add("body.userId", 1234);
-        params.add("body.chatsId", "[1, 2, 3]");
-        params.add("body.firstName", "Ivan");
-        params.add("body.lastName", "Kovalenko");
         params.add("error", "");
         params.put("body.role", "employee");
-
     }
-    else
+    else {
         params.add("status", "false");
+        params.add("error", "Not registered");
+    }
     return params;
 }
 
 boost::property_tree::ptree AuthorizationManager::logoutUser(boost::property_tree::ptree &params) {
-    std::string token = params.get<std::string>("body.token");
-    std::cout << token << std::endl;
+    std::string token = params.get<std::string>("body.login");
 
     if (dbConnector.userIsAuthorized(token)) {
-        std::cout << "logout success" << std::endl;
         dbConnector.logoutUser(token);
-        params.add("status", "");
+        params.add("status", "true");
+        params.add("error", "");
     }
     else {
-        std::cout << "user not login" << std::endl;
-        params.add("status", "User not login");
-        params.add("body.role", "employee");
+        params.add("error", "User not login");
+        params.add("status", "false");
     }
     return params;
 }
 
 boost::property_tree::ptree AuthorizationManager::deleteUser(boost::property_tree::ptree &params) {
-    std::string token = params.get<std::string>("body.userToken");
+    std::string token = params.get<std::string>("body.login");
     if (dbConnector.userIsRegistered(token)) {
-        std::cout << "delete success" << std::endl;
         dbConnector.deleteUser(params);
-        params.add("status", "");
+        params.add("status", "true");
+        params.add("error", "");
     }
     else {
-        std::cout << "user not registered" << std::endl;
-        params.add("status", "User not registered");
+        params.add("error", "User not registered");
+        params.add("status", "false");
+
     }
     return params;
 }
 
 
+boost::property_tree::ptree AuthorizationManager::createUser(boost::property_tree::ptree &params) {
+    std::string token = params.get<std::string>("body.login");
+    if (!dbConnector.userIsRegistered(token)) {
+        dbConnector.createUser(params);
+        params.add("status", "true");
+        params.add("error", "");
+    }
+    else {
+        params.add("error", "User already registered");
+        params.add("status", "true");
+    }
+    return params;
+}

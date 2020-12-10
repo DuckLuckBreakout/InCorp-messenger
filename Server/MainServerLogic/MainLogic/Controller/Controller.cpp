@@ -41,3 +41,6 @@ boost::property_tree::ptree Controller::deleteUser(boost::property_tree::ptree &
     return authorizationManager->deleteUser(params);
 }
 
+boost::property_tree::ptree Controller::createUser(boost::property_tree::ptree &params) {
+    return authorizationManager->createUser(params);
+}

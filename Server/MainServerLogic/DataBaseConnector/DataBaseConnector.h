@@ -36,6 +36,8 @@ public:
     void createChat(boost::property_tree::ptree &params);
     void deleteChat(boost::property_tree::ptree &params);
     void deleteUser(boost::property_tree::ptree &params);
+    void createUser(boost::property_tree::ptree &params);
+    void getUserInfo(boost::property_tree::ptree &params);
 
 private:
     mongocxx::uri uri;
