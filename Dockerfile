@@ -81,21 +81,14 @@ RUN curl -OL https://github.com/mongodb/mongo-cxx-driver/releases/download/r3.6.
     && cmake --build . \
     && cmake --build . --target install
 
-RUN apt install software-properties-common -y
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
-
 COPY . .
+#CMD /bin/bash
 
 RUN cmake -DCMAKE_BUILD_TYPE=Test ./
 
 RUN make
 CMD ./Application
 
-#RUN cd CMakeFiles/Aplication.dir \
-# && lcov --directory . --capture --output-file coverage.info \
-# && lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' --output-file coverage.info \
-# && lcov --list coverage.info \
-# && bash <(curl -s https://codecov.io/bash) -f coverage.info
 
 #RUN apt-get -y install firefox
 #
