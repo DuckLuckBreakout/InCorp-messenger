@@ -28,7 +28,7 @@ RUN apt install curl -y
 #RUN curl -OL https://github.com/mongodb/mongo-cxx-driver/releases/download/r3.6.2/mongo-cxx-driver-r3.6.2.tar.gz
 #RUN tar -xzf mongo-cxx-driver-r3.6.2.tar.gz
 #WORKDIR mongo-cxx-driver-r3.6.2/build
-#RUN apt install -y mongodb
+RUN apt install -y mongodb
 RUN apt-get install -y \
     openssh-server \
     g++ \
@@ -81,21 +81,21 @@ RUN curl -OL https://github.com/mongodb/mongo-cxx-driver/releases/download/r3.6.
     && cmake --build . \
     && cmake --build . --target install
 
+RUN apt install software-properties-common -y
+RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
+
 COPY . .
-#CMD /bin/bash
-RUN apt install gnupg -y
-RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
-RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
-RUN echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-RUN apt update
-RUN apt install -y mongodb-org
-RUN mongo
 
 RUN cmake -DCMAKE_BUILD_TYPE=Test ./
 
 RUN make
 CMD ./Application
 
+RUN cd CMakeFiles/Aplication.dir \
+ && lcov --directory . --capture --output-file coverage.info \
+ && lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' --output-file coverage.info \
+ && lcov --list coverage.info \
+ && bash <(curl -s https://codecov.io/bash) -f coverage.info
 
 #RUN apt-get -y install firefox
 #
