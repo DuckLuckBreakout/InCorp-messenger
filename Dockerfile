@@ -33,7 +33,7 @@ RUN apt install qt5-default -y
 
 COPY . .
 #CMD /bin/bash
-
+RUN apt install git -y
 RUN cmake -DCMAKE_BUILD_TYPE=Test ./
 
 RUN make
