@@ -6,7 +6,7 @@ Project repository of DuckLuck group for advanced C/C++ course
 [![Build Status](https://travis-ci.com/vaderoi/InCorp-messenger.svg?token=M3zfEqeJswoRuvxUTXEk&branch=client)](https://travis-ci.com/vaderoi/InCorp-messenger)
 
 #### UML diagram
-![uml](src/docs/uml/client.png "UML diagram of client")
+![uml](docs/uml/client.png "UML diagram of client")
 
 
 

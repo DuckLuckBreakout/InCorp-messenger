@@ -1,0 +1,45 @@
+#ifndef TP_PPROJECT_BASECLIENT_H
+#define TP_PPROJECT_BASECLIENT_H
+
+#include <utility>
+#include <iostream>
+#include <memory>
+#include <queue>
+#include <boost/bind.hpp>
+#include <boost/asio/io_service.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <thread>
+#include <boost/asio/streambuf.hpp>
+
+
+class BaseClient {
+public:
+    BaseClient()
+            : service(), socket(service),
+            iterator(), readBuffer(), thread(), messages() {}
+
+    virtual ~BaseClient() = default;
+
+    virtual void sendMessage(const std::string& message) = 0;
+    virtual void setMessageHandler(const std::function<void(const std::string&)>& func) = 0;
+    virtual void setErrorHandler(const std::function<void(int)>& func) = 0;
+
+    virtual std::optional<std::function<void(int)>> getErrorHandler() = 0;
+
+    virtual void startClient(const std::string& ip, const std::string& port) = 0;
+    virtual void endClient() = 0;
+
+protected:
+    boost::asio::io_service service;
+    boost::asio::ip::tcp::socket socket;
+
+    boost::asio::ip::tcp::resolver::iterator iterator;
+    std::optional<std::function<void(const std::string &)>> messageHandler;
+    std::optional<std::function<void(int)>> errorHandler;
+    boost::asio::streambuf readBuffer;
+    std::thread thread;
+    std::queue<std::string> messages;
+};
+
+
+#endif //TP_PPROJECT_BASECLIENT_H
