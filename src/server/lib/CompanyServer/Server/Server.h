@@ -4,7 +4,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/asio.hpp>
-#include "src/server/lib/Connection/HttpConnection.h"
+#include "src/server/lib/Connection/Connection.h"
 
 using namespace boost::asio;
 
@@ -20,7 +20,7 @@ public:
 
 private:
     void run();
-    void on_accept(std::shared_ptr<HttpConnection> new_abstract_Connection, const boost::system::error_code& error);
+    void on_accept(std::shared_ptr<Connection> connection, const boost::system::error_code& error);
 
     boost::asio::io_service &io_service;
     tcp::acceptor acceptor;

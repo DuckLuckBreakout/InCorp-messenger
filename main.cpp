@@ -1,6 +1,6 @@
 #include "src/server/lib/CompanyServer/Server/Server.h"
 #include <boost/asio.hpp>
-#include "src/server/lib/Connection/HttpConnection.h"
+#include "src/server/lib/Connection/Connection.h"
 #include <boost/thread/thread.hpp>
 #include <thread>
 #include <mutex>

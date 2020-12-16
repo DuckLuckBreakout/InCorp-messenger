@@ -1,5 +1,5 @@
 #include "Server.h"
-#include "src/server/lib/Connection/HttpConnection.h"
+#include "src/server/lib/Connection/Connection.h"
 #include <boost/asio.hpp>
 #include <boost/thread/thread.hpp>
 #include <thread>
@@ -16,7 +16,7 @@ Server::Server(boost::asio::io_service& io_service,
 }
 
 void Server::run() {
-    std::shared_ptr<HttpConnection> new_abstract_Connection(new HttpConnection(io_service, strand));
+    std::shared_ptr<Connection> new_abstract_Connection(new Connection(io_service, strand));
     acceptor.async_accept(new_abstract_Connection->socket(),
                           strand.wrap(boost::bind(&Server::on_accept,
                                                   this,
@@ -24,7 +24,8 @@ void Server::run() {
                                                   _1)));
 }
 
-void Server::on_accept(std::shared_ptr<HttpConnection> new_abstract_Connection, const boost::system::error_code& error) {
-    new_abstract_Connection->read_handler(error, 0);
+void Server::on_accept(std::shared_ptr<Connection> connection, const boost::system::error_code& error) {
+    connection->read_handler(error, 0);
+
     run();
 }

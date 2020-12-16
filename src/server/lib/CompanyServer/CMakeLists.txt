@@ -30,7 +30,7 @@ add_library(ServerApp STATIC
         MainServerLogic/MainLogic/Managers/AuthorizationManager.cpp
         MainServerLogic/MainLogic/Managers/ChatManager.cpp
         MainServerLogic/DataBaseConnector/DataBaseConnector.cpp
-        ../Connection/HttpConnection.cpp
+        ../Connection/Connection.cpp
         )
 
 

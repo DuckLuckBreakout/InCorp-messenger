@@ -5,11 +5,11 @@
 #include "BaseConnection.h"
 
 
-class HttpConnection : public BaseConnection,
-                       public std::enable_shared_from_this<HttpConnection> {
+class Connection : public BaseConnection,
+                   public std::enable_shared_from_this<Connection> {
 public:
-    HttpConnection(boost::asio::io_service& io_service,
-                   boost::asio::io_service::strand& strand) :
+    Connection(boost::asio::io_service& io_service,
+               boost::asio::io_service::strand& strand) :
             socket_(io_service),
             strand(strand) {}
     void read_handler(const boost::system::error_code& error, size_t bytes_transferred);
