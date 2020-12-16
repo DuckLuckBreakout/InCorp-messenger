@@ -77,23 +77,26 @@ void ChatModel::updateMessageStatus(unsigned int number, MessageView::MessageTyp
 
 
 void ChatModel::setData(std::vector<Message>& messages) {
-    int row = this->rowCount();
-    auto uniqIds = getUniqueIds(messages);
-    auto chatId = messages[0].chatId;
-    beginInsertRows(QModelIndex(),row,row + messages.size() - 1);
-    int myId = UserData::getInstance()->userId;
-    for (auto& object : messages) {
-        items.emplace_back(Message(object));
-        if (object.isChecked)
-            items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_READ;
-        else
-            items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_SEND;
-    }
+    if (!messages.empty()) {
+        int row = this->rowCount();
+        auto uniqIds = getUniqueIds(messages);
+        auto chatId = messages[0].chatId;
 
-    for (auto& object : uniqIds) {
-        User user(object, chatId);
-        Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
-                                           std::make_shared<GetUserForChatCallback>(shared_from_this()));
+        beginInsertRows(QModelIndex(), row, row + messages.size() - 1);
+        int myId = UserData::getInstance()->userId;
+        for (auto &object : messages) {
+            items.emplace_back(Message(object));
+            if (object.isChecked)
+                items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_READ;
+            else
+                items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_SEND;
+        }
+
+        for (auto &object : uniqIds) {
+            User user(object, chatId);
+            Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
+                                               std::make_shared<GetUserForChatCallback>(shared_from_this()));
+        }
     }
 
     endInsertRows();
