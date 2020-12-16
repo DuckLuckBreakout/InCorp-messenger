@@ -86,6 +86,17 @@ void MainWidget::on_sendMessageButton_clicked() {
     chatModel->createMessage(message);
     Controller::getInstance()->sendMessage(message, userData->userId,
                                     std::make_shared<SendMessageCallback>(shared_from_this()));
+
+    auto it = std::find_if(groupModel->items.begin(),groupModel->items.end(), [message](GroupView &chat){
+        return chat.chatId == message.chatId;
+    });
+
+    MessageView newMessage(message);
+
+    it.base()->lastMessage = newMessage;
+    User user(newMessage.ownerId, newMessage.chatId);
+    Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
+                                       std::make_shared<GetUserForGroupCallback>(groupModel));
 }
 
 void MainWidget::setChatRoomInfo(const ChatRoom& chatRoom) {
