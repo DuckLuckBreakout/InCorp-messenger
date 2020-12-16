@@ -79,7 +79,7 @@ void MainWidget::on_sendMessageButton_clicked() {
     currentTime = time(NULL);
 
     auto userData = UserData::getInstance();
-    Message message(0, text.toStdString(),
+    Message message(userData->currentChatId, text.toStdString(),
                     userData->userId, currentTime, chatModel->rowCount() + 1);
 
     ui->messageInput->clear();
