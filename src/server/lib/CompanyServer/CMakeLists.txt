@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(ServerApp STATIC
         Server/HttpServer.cpp
+        Server/WorkerThread.cpp
         MainServerLogic/CommandHandler/CommandHandler.cpp
         MainServerLogic/CommandCreator/CommandCreator.cpp
         MainServerLogic/Commands/Login.cpp
@@ -22,7 +23,6 @@ add_library(ServerApp STATIC
         MainServerLogic/MainLogic/Managers/ChatManager.cpp
         MainServerLogic/DataBaseConnector/DataBaseConnector.cpp
         ../Connection/HttpConnection.cpp
-        ../Connection/Coder/HttpCoder.cpp
         )
 
 

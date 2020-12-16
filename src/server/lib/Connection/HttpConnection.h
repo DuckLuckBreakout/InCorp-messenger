@@ -2,27 +2,30 @@
 #define TP_PPROJECT_HTTPCONNECTION_H
 
 #include <boost/bind.hpp>
-
 #include "BaseConnection.h"
-#include "src/server/lib/Connection/Coder/HttpCoder.h"
 
-class HttpConnection : public BaseConnection {
+
+class HttpConnection : public BaseConnection,
+                       public std::enable_shared_from_this<HttpConnection> {
 public:
-    HttpConnection(boost::asio::io_service& service);
-    ~HttpConnection() override;
+    HttpConnection(boost::asio::io_service& io_service,
+                   boost::asio::io_service::strand& strand) :
+            socket_(io_service),
+            strand(strand) {}
+    void read_handler(const boost::system::error_code& error, size_t bytes_transferred);
 
-    void connect() override;
-    void disconnect() override;
-    void sendRequest(std::string request) override;
-    std::string getRequest() override;
-
-    boost::asio::ip::tcp::socket& getSocket() override;
-    void send() override;
-    void read() override;
+public:
+    boost::asio::ip::tcp::socket &socket();
+    void on_message(std::string &msg);
 
 private:
-    std::shared_ptr<HttpCoder> coder;
-};
+    void write_handler(const boost::system::error_code& error);
 
+private:
+    boost::asio::ip::tcp::socket socket_;
+    boost::asio::io_service::strand& strand;
+    boost::asio::streambuf read_msg;
+    std::deque<std::string> write_msgs;
+};
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef TP_PPROJECT_BASEMANAGER_H
 #define TP_PPROJECT_BASEMANAGER_H
 
-#include "src/server/lib/Server/MainServerLogic/DataBaseConnector/DataBaseConnector.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/DataBaseConnector/DataBaseConnector.h"
 
 class BaseManager {
 public:

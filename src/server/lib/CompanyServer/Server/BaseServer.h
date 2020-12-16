@@ -7,7 +7,7 @@
 #include <functional>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
-#include "src/server/lib/Server/MainServerLogic/CommandHandler/CommandHandler.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/CommandHandler/CommandHandler.h"
 #include "src/server/lib/Connection/BaseConnection.h"
 
 

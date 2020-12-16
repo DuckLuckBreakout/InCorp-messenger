@@ -4,7 +4,7 @@
 #include <iostream>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
-#include "src/server/lib/Server/MainServerLogic/MainLogic/Controller/Controller.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/MainLogic/Controller/Controller.h"
 
 class BaseCommand {
 public:

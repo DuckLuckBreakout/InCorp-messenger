@@ -1,8 +1,8 @@
 #ifndef TP_PPROJECT_MAINLOGIC_H
 #define TP_PPROJECT_MAINLOGIC_H
 
-#include "src/server/lib/Server/MainServerLogic/Commands/BaseCommand.h"
-#include "src/server/lib/Server/MainServerLogic/MainLogic/Controller/Controller.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/BaseCommand.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/MainLogic/Controller/Controller.h"
 
 class MainLogic {
 public:

@@ -21,6 +21,8 @@ if (APPLE)
     set(BOOST_ROOT "/usr/local/Cellar/boost/1.74.0")
 
     find_package(Boost 1.71.0 COMPONENTS system filesystem REQUIRED)
+    INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
+    LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 elseif(UNIX)
     set(BOOST_ROOT "boost")
     find_package(Boost 1.71.0 COMPONENTS system filesystem REQUIRED)
@@ -55,12 +57,12 @@ include_directories(${BOOST_ROOT})
 set(RELEASE_CXX_FLAGS "-std=c++17 -Wall -Werror -pedantic")
 set(RELEASE_C_FLAGS "-std=c99 -Wall -Werror -pedantic")
 # Debug flags
-set(DEBUG_CXX_FLAGS "-std=c++17 -pthread -g3")
+set(DEBUG_CXX_FLAGS "-std=c++17 -pthread -g3 -lboost_thread")
 set(DEBUG_C_FLAGS "-std=c99 -pthread -g3")
 
 
 # -------- Build lib ---------
-add_subdirectory(src/server/lib/Server)
+add_subdirectory(src/server/lib/CompanyServer)
 
 
 # ---------- Build target -----------
@@ -111,7 +113,7 @@ elseif (CMAKE_BUILD_TYPE MATCHES Test)
 
 
     add_executable(${PROJECT_NAME}
-            src/server/lib/Server/Tests/gmockTests.cpp
+            src/server/lib/CompanyServer/Tests/gmockTests.cpp
             src/server/Tests/test.cpp
             )
 
@@ -119,7 +121,7 @@ elseif (CMAKE_BUILD_TYPE MATCHES Test)
             gtest
             gmock_main
 #            gcov
-            src/server/lib/Server
+            src/server/lib/CompanyServer
             ${LIBMONGOCXX_LIBRARIES}
             ${LIBBSONCXX_LIBRARIES}
             )
@@ -136,7 +138,7 @@ elseif (CMAKE_BUILD_TYPE MATCHES Release)
             )
 
     target_link_libraries(${PROJECT_NAME}
-            src/server/lib/Server
+            src/server/lib/CompanyServer
             )
 
 endif ()

@@ -2,8 +2,8 @@
 #define TP_PPROJECT_CONTROLLER_H
 
 #include <iostream>
-#include "src/server/lib/Server/MainServerLogic/MainLogic/Managers/ChatManager.h"
-#include "src/server/lib/Server/MainServerLogic/MainLogic/Managers/AuthorizationManager.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/MainLogic/Managers/ChatManager.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/MainLogic/Managers/AuthorizationManager.h"
 
 class Controller {
 public:
