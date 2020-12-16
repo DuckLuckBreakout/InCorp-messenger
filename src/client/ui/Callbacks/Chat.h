@@ -167,7 +167,7 @@ public:
                     const std::optional<std::string>& error) override {
         auto window = widget;
         auto message = std::static_pointer_cast<Message>(data);
-        if (message->ownerId == UserData::getInstance()->currentChatId) {
+        if (message->chatId == UserData::getInstance()->currentChatId) {
             emit window->addNewMessage(*message);
         }
         auto it = std::find_if(widget->items.begin(),widget->items.end(),[message](GroupView &chat){
@@ -175,6 +175,7 @@ public:
         });
 
         MessageView newMessage(*message);
+
         it.base()->lastMessage = newMessage;
         User user(newMessage.ownerId, newMessage.chatId);
         Controller::getInstance()->getUser(user, UserData::getInstance()->userId,

@@ -34,6 +34,8 @@ namespace KeyWords {
     static const std::string chatName = "chatName";
     static const std::string chats = "chats";
     static const std::string usersId = "usersId";
+    static const std::string chatAction = "chatAction";
+    static const std::string message = "message";
 }
 
 
