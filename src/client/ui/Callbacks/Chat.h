@@ -10,24 +10,6 @@
 #include "ui/MainWidget/mainwidget.h"
 
 
-class SendMessageCallback : public BaseCallback {
-public:
-    SendMessageCallback(std::shared_ptr<MainWidget> widget) : widget(widget) {};
-
-public:
-    void operator()(std::shared_ptr<BaseObject> data,
-                    const std::optional<std::string>& error) override {
-
-        auto message = std::static_pointer_cast<Message>(data);
-        widget->chatModel->updateMessageStatus(message->number, MessageView::MessageType::MESSAGE_WAS_NOT_SEND);
-        emit widget->chatModel->updateItems();
-    }
-
-private:
-    std::shared_ptr<MainWidget> widget;
-};
-
-
 class UpdateMessagesCallback : public BaseCallback {
 public:
     UpdateMessagesCallback(std::shared_ptr<MainWidget> widget) : widget(widget) {};
@@ -203,5 +185,26 @@ public:
 private:
     std::shared_ptr<GroupModel> widget;
 };
+
+class SendMessageCallback : public BaseCallback {
+public:
+    SendMessageCallback(std::shared_ptr<MainWidget> widget) : widget(widget) {};
+
+public:
+    void operator()(std::shared_ptr<BaseObject> data,
+                    const std::optional<std::string>& error) override {
+        auto window = widget;
+        auto message = std::static_pointer_cast<Message>(data);
+        window->chatModel->updateMessageStatus(message->number, MessageView::MessageType::MESSAGE_WAS_NOT_SEND);
+        User user(message->ownerId, message->chatId);
+        Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
+                                           std::make_shared<GetUserForChatCallback>(window->chatModel));
+        emit window->chatModel->updateItems();
+    }
+
+private:
+    std::shared_ptr<MainWidget> widget;
+};
+
 
 #endif //APPLICATION_CHAT_H
