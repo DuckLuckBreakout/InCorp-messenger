@@ -54,6 +54,7 @@ public:
         auto window = widget;
         auto updates = std::static_pointer_cast<ChatUpdates>(data);
         widget->chatModel->setData(updates->messages);
+
         if (updates->messages.size() == updates->maxNumMessages) {
             ChatUpdates chatUpdates(updates->chatId, updates->lastMessageNum + updates->maxNumMessages,
                                     updates->maxNumMessages);

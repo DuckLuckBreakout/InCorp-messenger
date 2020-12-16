@@ -96,12 +96,14 @@ void MainWidget::on_groupList_clicked(const QModelIndex &index) {
     ui->label->setText(QString::fromStdString("<b>" + index.model()->data(index).value<GroupView>().chatName + "<b>"));
     GroupView chat = index.model()->data(index).value<GroupView>();
     if (UserData::getInstance()->currentChatId != chat.chatId) {
+
         chatModel->Clear();
         Controller::getInstance()->getChatRoom(ChatRoom(chat.chatId), UserData::getInstance()->userId,
                                                std::make_shared<GetChatRoomCallback>(shared_from_this()));
         UserData::getInstance()->currentChatId = chat.chatId;
 
-        ChatUpdates chatUpdates(1, 0, 5);
+
+        ChatUpdates chatUpdates(chat.chatId, 0, 5);
         Controller::getInstance()->getChatMessages(chatUpdates, UserData::getInstance()->userId,
                                                    std::make_shared<GetChatMessagesCallback>(shared_from_this()));
     }
