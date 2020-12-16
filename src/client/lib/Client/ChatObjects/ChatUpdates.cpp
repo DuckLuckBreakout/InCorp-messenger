@@ -1,17 +1,18 @@
 #include "ChatUpdates.h"
 
-ChatUpdates::ChatUpdates() {}
+ChatUpdates::ChatUpdates()
+        : chatId(-1), lastMessageNum(-1), maxNumMessages(-1) {}
 
-ChatUpdates::ChatUpdates(int chatId, int lastMessageId,
+ChatUpdates::ChatUpdates(int chatId, int lastMessageNum,
                          int maxNumMessages)
-        : chatId(chatId), lastMessageId(lastMessageId),
+        : chatId(chatId), lastMessageNum(lastMessageNum),
           maxNumMessages(maxNumMessages) {}
 
 std::string ChatUpdates::encode() const {
     parser->clear();
 
     parser->addValue(chatId, KeyWords::chatId);
-    parser->addValue(lastMessageId, KeyWords::lastMessageId);
+    parser->addValue(lastMessageNum, KeyWords::lastMessageNum);
 
     return parser->getJson();
 }
@@ -22,8 +23,7 @@ void ChatUpdates::decode(const std::string &jsonStr) {
     chatId = parser->getValue<int>(KeyWords::chatId);
     Message message;
 
-    messages.push_back(message);
-    for (const auto& item : parser->getArray<std::string>(KeyWords::messages)) {
+    for (const auto& item : parser->getArrayJsonStr(KeyWords::messages)) {
         message.decode(item);
         messages.push_back(message);
     }

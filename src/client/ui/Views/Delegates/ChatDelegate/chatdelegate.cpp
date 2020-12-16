@@ -51,13 +51,6 @@ bool ChatDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
     MessageRect.setX(textOffset);
     MessageRect.setWidth(option.widget->width() - rightMessageOffset);
     QFontMetrics fMetrics(option.font);
-    int height = fMetrics.boundingRect(QRect(0,0,
-                                             option.widget->width() - 240,0),
-                                       Qt::TextWordWrap,QString::fromStdString(item.text)).height();
-
-    QRect pictureRect = QRect(QPoint(textOffset,MessageRect.y()+height),QSize(200,200));
-
-    QMouseEvent *mouse_event = static_cast<QMouseEvent*>(event);
     QRect ButtonRect = option.rect;
     ButtonRect.setWidth(45);
 
@@ -96,7 +89,7 @@ void ChatDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     painter->setFont(f);
     painter->setPen(QColor(76,148,224));
     painter->drawText(NameRect, Qt::TextSingleLine,
-                      (item.firstName + " " + item.lastName));
+                      (item.firstName + " " + item.lastName + "   (" + item.role + ")" ));
 
     QRect TimeRect = myOpt.rect;
     TimeRect.setHeight(baseTextHeight);
@@ -121,7 +114,7 @@ void ChatDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
      if (item.type != MessageView::MessageType::OTHER_MESSAGE) {
          if (item.type == MessageView::MessageType::SELF_MESSAGE_IN_PROGRESS) {
-              QPixmap checkScaled = unload->scaled(20, 20,
+              QPixmap checkScaled = unload->scaled(15, 15,
                                                    Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
               QBrush check(checkScaled);
               painter->setRenderHint(QPainter::Antialiasing);
@@ -131,7 +124,7 @@ void ChatDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
               painter->drawPixmap(checkScaled.rect(),checkScaled);
          }
          if (item.type == MessageView::MessageType::SELF_MESSAGE_DONE) {
-              QPixmap checkScaled = uncheck->scaled(20, 20,
+              QPixmap checkScaled = uncheck->scaled(15, 15,
                                                     Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
               QBrush check(checkScaled);
               painter->setRenderHint(QPainter::Antialiasing);
@@ -142,7 +135,7 @@ void ChatDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
          }
          if (item.type == MessageView::MessageType::READ_MESSAGE) {
 
-             QPixmap checkScaled = check->scaled(20, 20,
+             QPixmap checkScaled = check->scaled(15, 15,
                                                  Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
              QBrush check(checkScaled);
              painter->setRenderHint(QPainter::Antialiasing);

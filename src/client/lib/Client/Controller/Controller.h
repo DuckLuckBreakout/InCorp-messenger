@@ -12,6 +12,8 @@
 #include "UserOptions/BaseUserOptions.h"
 #include "UserOptions/GuestOptions.h"
 #include "RoleController/RoleController.h"
+#include <ChatObjects/ChatRoom.h>
+
 
 class Controller: public std::enable_shared_from_this<Controller> {
 public:
@@ -35,6 +37,23 @@ public:
 
     void chatUpdate(const ChatUpdates& chatUpdates, int globalId,
                     const std::shared_ptr<BaseCallback>& callback);
+
+    void getListChats(const ListChats& listChats, int globalId,
+                      const std::shared_ptr<BaseCallback>& callback);
+
+    void getChatRoom(const ChatRoom& chatRoom, int globalId,
+                     const std::shared_ptr<BaseCallback>& callback);
+
+    void getChatMessages(const ChatUpdates& chatUpdates, int globalId,
+                        const std::shared_ptr<BaseCallback>& callback);
+
+    void getLastMessage(const Message& message, int globalId,
+                        const std::shared_ptr<BaseCallback>& callback);
+
+    void getUser(const User& user, int globalId,
+                 const std::shared_ptr<BaseCallback>& callback);
+
+    void setChatObserver(int chatId, const std::shared_ptr<BaseCallback>& callback);
 
     void readMessageHandler(const std::string& str);
 

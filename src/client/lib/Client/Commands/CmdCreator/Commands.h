@@ -3,9 +3,16 @@
 
 
 enum Commands {
+    ChatObserver = -2,
     ChatUpdate = -1,
-    LogIn,
-    SendMessage,
+    LogIn = 0,
+    SendMessage = 1,
+    GetListOfChats = 20,
+    GetSelectChatRoom = 21,
+    GetMessagesInChat = 22,
+    GetLastMessageInChat = 23,
+    GetUserData = 24,
+
 };
 
 

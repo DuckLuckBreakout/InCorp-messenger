@@ -18,13 +18,13 @@ public:
 public:
     int userId;
     std::string role;
-    std::vector<int> chatsId;
     std::string firstName;
     std::string lastName;
     std::string login;
     std::string password;
     std::string ip;
     std::string port;
+    std::string company;
 };
 
 

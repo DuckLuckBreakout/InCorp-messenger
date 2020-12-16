@@ -21,6 +21,8 @@ public:
     int userId;
     std::string role;
     std::vector<int> chatsId;
+    std::string company;
+    int currentChatId;
 };
 
 

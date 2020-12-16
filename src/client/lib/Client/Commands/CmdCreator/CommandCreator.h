@@ -8,6 +8,12 @@
 #include "Commands.h"
 #include "Commands/AuthorizationCmd.h"
 #include "Commands/ChatUpdateCmd.h"
+#include "Commands/GetListChats.h"
+#include "Commands/GetChatRoom.h"
+#include "Commands/GetChatMessages.h"
+#include "Commands/GetLastMessageCmd.h"
+#include "Commands/GetUserCmd.h"
+#include "Commands/ChatObserverCmd.h"
 
 
 class CommandCreator {

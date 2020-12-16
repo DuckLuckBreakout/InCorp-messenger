@@ -12,8 +12,8 @@ class SendMessageCmd : public BaseCmd {
 public:
     ~SendMessageCmd() override = default;
 
-    SendMessageCmd(int numRequest, std::optional<std::string> error,
-                   std::string  body);
+    SendMessageCmd(int numRequest, const std::optional<std::string>& error,
+                   const std::string&  body);
 
     void execute(std::shared_ptr<CallbacksHolder> holder) override;
 };

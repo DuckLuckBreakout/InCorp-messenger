@@ -22,14 +22,18 @@ set(VIEWS_HEADERS
         ui/Views/ChatView/chatview.h
         ui/Views/GroupListView/grouplistview.h
         ui/Views/Models/ChatModel/chatmodel.h
+        ui/Views/Models/GroupModel/groupmodel.h
         ui/Views/Delegates/ChatDelegate/chatdelegate.h
+        ui/Views/Delegates/GroupDelegate/groupdelegate.h
         )
 
 set(VIEWS_SOURCES
         ui/Views/ChatView/chatview.cpp
         ui/Views/GroupListView/grouplistview.cpp
         ui/Views/Models/ChatModel/chatmodel.cpp
+        ui/Views/Models/GroupModel/groupmodel.cpp
         ui/Views/Delegates/ChatDelegate/chatdelegate.cpp
+        ui/Views/Delegates/GroupDelegate/groupdelegate.cpp
         )
 
 # Delegates
@@ -48,16 +52,19 @@ set(DELEGATE_SOURCES
 set(WIDGET_HEADERS
         ui/LoginWidget/loginwidget.h
         ui/MainWidget/mainwidget.h
+
         )
 
 set(WIDGET_SOURCES
         ui/LoginWidget/loginwidget.cpp
         ui/MainWidget/mainwidget.cpp
+
         )
 
 set(FORMS_UI
         ui/MainWidget/mainwidget.ui
         ui/LoginWidget/loginwidget.ui
+
         )
 
 # Create lib AppClient with GUI

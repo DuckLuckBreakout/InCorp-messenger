@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <unordered_set>
 #include <QPixmap>
+#include <ui/Callbacks/Chat.h>
 
 ChatModel::ChatModel(QObject *parent)
     :QAbstractListModel(parent) {}
@@ -39,29 +40,30 @@ void ChatModel::createMessage(const Message& message) {
     emit updateItems();
 }
 
-void ChatModel::newMessages(const std::vector<Message>& messages) {
+void ChatModel::newMessage(const Message& message) {
     int row = this->rowCount();
-    auto uniqIds = getUniqueIds(messages);
-    beginInsertRows(QModelIndex(),row,row + messages.size());
+    beginInsertRows(QModelIndex(),row,row + 1);
     int myId = UserData::getInstance()->userId;
 
-    for (auto& object : messages) {
-        items.emplace_back(MessageView(object));
-        if(object.isChecked && (object.ownerId == myId)) {
-            items[items.size() - 1].type = MessageView::MessageType::READ_MESSAGE;
-        }
-        else if(object.ownerId == myId) {
-             items[items.size() - 1].type = MessageView::MessageType::SELF_MESSAGE_DONE;
-            }
-        else{
-            items[items.size() - 1].type = MessageView::MessageType::OTHER_MESSAGE;
-        }
+    items.emplace_back(MessageView(message));
+    if(message.isChecked && (message.ownerId == myId)) {
+        items[items.size() - 1].type = MessageView::MessageType::READ_MESSAGE;
     }
-    // TODO: Controller::getInstance()->getUser()
+    else if (message.ownerId == myId) {
+        items[items.size() - 1].type = MessageView::MessageType::SELF_MESSAGE_DONE;
+    }
+    else {
+        items[items.size() - 1].type = MessageView::MessageType::OTHER_MESSAGE;
+    }
+
+    User user(message.ownerId);
+    Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
+                                       std::make_shared<GetUserForChatCallback>(shared_from_this()));
 
     endInsertRows();
     emit updateItems();
 }
+
 
 void ChatModel::messagesChecked() {
     int id = UserData::getInstance()->userId;
@@ -82,7 +84,7 @@ void ChatModel::updateMessageStatus(unsigned int number, MessageView::MessageTyp
 void ChatModel::setData(std::vector<Message>& messages) {
     int row = this->rowCount();
     auto uniqIds = getUniqueIds(messages);
-    beginInsertRows(QModelIndex(),row,row + messages.size());
+    beginInsertRows(QModelIndex(),row,row + messages.size() - 1);
     int myId = UserData::getInstance()->userId;
     for (auto& object : messages) {
         items.emplace_back(Message(object));
@@ -97,7 +99,12 @@ void ChatModel::setData(std::vector<Message>& messages) {
         }
     }
 
-    // TODO: Controller::getInstance()->getUser();
+//  TODO:
+    for (auto& object : uniqIds) {
+        User user(object);
+        Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
+                                           std::make_shared<GetUserForChatCallback>(shared_from_this()));
+    }
 
     endInsertRows();
     emit updateItems();

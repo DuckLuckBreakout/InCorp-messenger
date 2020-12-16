@@ -70,7 +70,7 @@ namespace TestingParser{
         Parser parser;
         TEST(Parser, addArrayJsonStr) {
             parser.clear();
-            EXPECT_NO_THROW(parser.addJsonStr("{ \"body\": \"[{}, {}]\"} ", "body"));
+            EXPECT_NO_THROW(parser.addJsonStr("{ \"body\": \"[\\\"{}\\\", \\\"{}\\\"]\"} ", "body"));
         }
     }
 

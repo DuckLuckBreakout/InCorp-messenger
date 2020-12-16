@@ -10,8 +10,8 @@ class BaseCmd {
 public:
     virtual ~BaseCmd() = default;
 
-    BaseCmd(int numRequest, std::optional<std::string> error,
-            std::string  body);
+    BaseCmd(int numRequest, const std::optional<std::string>& error,
+            const std::string& body);
 
     virtual void execute(std::shared_ptr<CallbacksHolder> holder) = 0;
 

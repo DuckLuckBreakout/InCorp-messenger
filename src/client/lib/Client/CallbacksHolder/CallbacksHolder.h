@@ -20,24 +20,26 @@ public:
         return position;
     }
 
+    int addCallback(int command, int numRequest, const std::shared_ptr<BaseCallback> callback) {
+        auto position = numRequest;
+        callbacks.insert(std::pair<int, std::pair<int, const std::shared_ptr<BaseCallback>>>
+                                 (command, std::pair<int, const std::shared_ptr<BaseCallback>>(position, callback)));
+        return position;
+    }
+
     std::shared_ptr<BaseCallback> getCallback(int command, int position) {
         auto iterator1 = callbacks.equal_range(command);
 
-        // System callback
-        if (command < 0) {
-            return iterator1.first->second.second;
-        }
-        // User callback
-        else {
-            for (; iterator1.first != iterator1.second; iterator1.first++) {
-                auto iterator2 = iterator1.first;
-                if (iterator2->second.first == position) {
-                    auto func = iterator2->second.second;
+        for (; iterator1.first != iterator1.second; iterator1.first++) {
+            auto iterator2 = iterator1.first;
+            if (iterator2->second.first == position) {
+                auto func = iterator2->second.second;
+                if (command >= 0)
                     callbacks.erase(iterator2);
-                    return func;
-                }
+                return func;
             }
         }
+
         throw std::runtime_error("User callback function not found!");
     }
 

@@ -36,6 +36,7 @@ public:
     QString time;
     QString firstName;
     QString lastName;
+    QString role;
 };
 
 Q_DECLARE_METATYPE(MessageView);
@@ -61,15 +62,17 @@ private:
 
 public slots:
     void createMessage(const Message& message);
-    void newMessages(const std::vector<Message>& messages);
+//    void newMessages(const std::vector<Message>& messages);
+    void newMessage(const Message& message);
     void messagesChecked();
 signals:
     void messageCreateByUser(const MessageView& message);
     void updateItems();
     void setLastMessageInGroup(const MessageView& message);
 
-private:
+public:
     std::vector<MessageView> items;
+private:
     bool newMessageOnBottom;
     std::optional<std::string> errString;
 };

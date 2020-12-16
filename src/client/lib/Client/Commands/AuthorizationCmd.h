@@ -12,8 +12,8 @@ class AuthorizationCmd : public BaseCmd {
 public:
     ~AuthorizationCmd() override = default;
 
-    AuthorizationCmd(int numRequest, std::optional<std::string> error,
-                     std::string  body);
+    AuthorizationCmd(int numRequest, const std::optional<std::string>& error,
+                     const std::string& body);
 
     void execute(std::shared_ptr<CallbacksHolder> holder) override;
 };

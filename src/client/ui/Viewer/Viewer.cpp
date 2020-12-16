@@ -4,7 +4,7 @@ Viewer::Viewer() {
     loginWidget = std::make_shared<LoginWidget>();
     mainWidget = std::make_shared<MainWidget>();
     connect(loginWidget.get(), SIGNAL(openMainWidget()),
-            mainWidget.get(), SLOT(after_login()));
+            mainWidget.get(), SLOT(afterLogin()));
 }
 
 void Viewer::runApp() {

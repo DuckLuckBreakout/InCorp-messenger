@@ -9,7 +9,7 @@
 class ChatUpdates : public BaseObject {
 public:
     ChatUpdates();
-    ChatUpdates(int chatId, int lastMessageId,
+    ChatUpdates(int chatId, int lastMessageNum,
                 int maxNumMessages);
 
     std::string encode() const override;
@@ -17,7 +17,7 @@ public:
 
 public:
     int chatId;
-    int lastMessageId;
+    int lastMessageNum;
     int maxNumMessages;
     std::vector<Message> messages;
 };

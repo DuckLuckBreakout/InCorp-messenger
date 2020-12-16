@@ -17,6 +17,30 @@ std::shared_ptr<BaseCmd> CommandCreator::createCommand(int command, const std::o
             createdCommand = std::make_shared<ChatUpdateCmd>(numRequest, error, body);
             break;
         }
+        case Commands::GetListOfChats: {
+            createdCommand = std::make_shared<GetListChats>(numRequest, error, body);
+            break;
+        }
+        case Commands::GetSelectChatRoom: {
+            createdCommand = std::make_shared<GetChatRoom>(numRequest, error, body);
+            break;
+        }
+        case Commands::GetMessagesInChat: {
+            createdCommand = std::make_shared<GetChatMessages>(numRequest, error, body);
+            break;
+        }
+        case Commands::GetLastMessageInChat: {
+            createdCommand = std::make_shared<GetLastMessageCmd>(numRequest, error, body);
+            break;
+        }
+        case Commands::GetUserData: {
+            createdCommand = std::make_shared<GetUserCmd>(numRequest, error, body);
+            break;
+        }
+        case Commands::ChatObserver: {
+            createdCommand = std::make_shared<ChatObserverCmd>(numRequest, error, body);
+            break;
+        }
         default:
             break;
     }

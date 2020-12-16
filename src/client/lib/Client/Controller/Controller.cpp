@@ -41,6 +41,35 @@ void Controller::chatUpdate(const ChatUpdates &chatUpdates, int globalId,
     userOptions->chatUpdate(chatUpdates, globalId, callback, client, callbackHolder);
 }
 
+void Controller::getListChats(const ListChats &listChats, int globalId,
+                              const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getListChats(listChats, globalId, callback, client, callbackHolder);
+}
+
+void Controller::getChatRoom(const ChatRoom& chatRoom, int globalId,
+                             const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getChatRoom(chatRoom, globalId, callback, client, callbackHolder);
+}
+
+void Controller::getChatMessages(const ChatUpdates &chatUpdates, int globalId,
+                                 const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getChatMessages(chatUpdates, globalId, callback, client, callbackHolder);
+}
+
+void Controller::getLastMessage(const Message &message, int globalId,
+                                const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getLastMessage(message, globalId, callback, client, callbackHolder);
+}
+
+void Controller::getUser(const User &user, int globalId,
+                         const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getUser(user, globalId, callback, client, callbackHolder);
+}
+
+void Controller::setChatObserver(int chatId, const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->setChatObserver(chatId, callback, client, callbackHolder);
+}
+
 void Controller::readMessageHandler(const std::string& str) {
     Request query;
 
@@ -51,8 +80,9 @@ void Controller::readMessageHandler(const std::string& str) {
         throw std::runtime_error("Can't decode answer from server!");
     }
 
+    std::optional<std::string> error;
     if (!query.status)
-        throw std::runtime_error(query.error);
+        error = query.error;
 
     // Change user role and options
     if (query.command == Commands::LogIn) {
@@ -61,9 +91,19 @@ void Controller::readMessageHandler(const std::string& str) {
         RoleController::setRole(userOptions, account.role);
     }
 
-    std::shared_ptr<BaseCmd> command = CommandCreator::createCommand(query.command, query.error,
+    std::shared_ptr<BaseCmd> command = CommandCreator::createCommand(query.command, error,
                                                                      query.body, query.numRequest);
     command->execute(callbackHolder);
 }
+
+
+
+
+
+
+
+
+
+
 
 

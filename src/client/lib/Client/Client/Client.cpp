@@ -5,8 +5,10 @@ Client::Client() : BaseClient() {}
 // Add new message in queue and send messages from queue
 void Client::sendMessage(const std::string &message) {
     service.post([self = shared_from_this(), message]() -> void {
-        self->messages.push(message + "\r\n");
-        self->sendAllMessagesFromQueue();
+        bool isEmpty = self->messages.empty();
+        self->messages.push_back(message + "\r\n");
+        if (isEmpty)
+            self->sendAllMessagesFromQueue();
     });
 }
 
@@ -20,11 +22,14 @@ boost::asio::buffer(messages.front().data(),messages.front().size()),
         if (error)
             self->handleError(error);
         else {
-            self->messages.pop();
+            std::cerr << "was send: \n" << self->messages.front() << std::endl;
 
+            self->messages.pop_front();
             // Loop for send messages in queue
-            if (!self->messages.empty())
+            if (!self->messages.empty()) {
+
                 self->sendAllMessagesFromQueue();
+            }
         }
     });
 }
@@ -47,6 +52,29 @@ void Client::handleConnect(const boost::system::error_code &error) {
         loop();
 }
 
+// void Client::loop() {
+//     boost::asio::async_read_until(socket, readBuffer, "\r\n",
+//         [self = shared_from_this()](boost::system::error_code error,
+//               size_t length) -> void {
+//             if (error)
+//                 self->handleError(error);
+//             else {
+//                 std::ostringstream out;
+//                 out << &(self->readBuffer);
+
+//                 std::string msg = out.str();
+//                 std::cerr << "was read: \n" << msg << std::endl;
+//                 if (self->messageHandler) {
+//                     self->messageHandler.value()(msg);
+//                 } else {
+//                     self->endClient();
+//                     throw std::runtime_error(error.message());
+//                 }
+//                 self->loop();
+//             }
+//     });
+// }
+
 void Client::loop() {
     boost::asio::async_read_until(socket, readBuffer, "\r\n",
         [self = shared_from_this()](boost::system::error_code error,
@@ -54,15 +82,20 @@ void Client::loop() {
             if (error)
                 self->handleError(error);
             else {
-                std::ostringstream out;
-                out << &(self->readBuffer);
 
-                std::string msg = out.str();
-                if (self->messageHandler) {
-                    self->messageHandler.value()(msg);
-                } else {
-                    self->endClient();
-                    throw std::runtime_error(error.message());
+                std::cerr << "[ " + std::to_string(length) + " ] " << std::endl;
+                if (length > 0) {
+                    std::string str{buffers_begin(self->readBuffer.data()),
+                                    buffers_begin(self->readBuffer.data()) + length - 2};
+                    self->readBuffer.consume(length);
+                    std::cerr << "Read message: " << str << std::endl;
+                    if (self->messageHandler) {
+                        self->messageHandler.value()(str);
+                    } 
+                    else {
+                        self->endClient();
+                        throw std::runtime_error(error.message());
+                    }
                 }
                 self->loop();
             }

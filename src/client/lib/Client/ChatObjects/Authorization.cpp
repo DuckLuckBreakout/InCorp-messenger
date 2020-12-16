@@ -1,6 +1,7 @@
 #include "Authorization.h"
 
-Authorization::Authorization() {}
+Authorization::Authorization()
+        : userId(-1) {}
 
 Authorization::Authorization(const std::string& login,
                              const std::string& password)
@@ -19,9 +20,9 @@ void Authorization::decode(const std::string &jsonStr) {
 
     userId = parser->getValue<int>(KeyWords::userId);
     role = parser->getValue<std::string>(KeyWords::role);
-    chatsId = parser->getArray<int>(KeyWords::chatsId);
     firstName = parser->getValue<std::string>(KeyWords::firstName);
     lastName = parser->getValue<std::string>(KeyWords::lastName);
     ip = parser->getValue<std::string>(KeyWords::ip);
     port = parser->getValue<std::string>(KeyWords::port);
+    company = parser->getValue<std::string>(KeyWords::company);
 }
