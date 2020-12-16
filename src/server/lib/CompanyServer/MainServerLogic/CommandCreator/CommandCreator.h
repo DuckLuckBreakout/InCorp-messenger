@@ -11,6 +11,14 @@
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/DeleteChat.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/DeleteUser.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/CreateUser.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command1.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command2.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command3.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command4.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command5.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command6.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command7.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command8.h"
 
 enum Command {
     PING=-1,
@@ -20,7 +28,15 @@ enum Command {
     CREATE_CHAT,
     DELETE_CHAT,
     DELETE_USER,
-    CREATE_USER
+    CREATE_USER,
+    COMMAND1=20,
+    COMMAND2=21,
+    COMMAND3=22,
+    COMMAND4=23,
+    COMMAND5=24,
+    COMMAND6=25,
+    COMMAND7=26,
+    COMMAND8=27,
 };
 
 class CommandCreator {

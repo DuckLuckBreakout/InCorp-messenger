@@ -8,8 +8,8 @@
 // logoutUser() using concrete manager
 
 Controller::Controller() :
-                           chatManager(new ChatManager),
-                           authorizationManager(new AuthorizationManager) {
+        chatManager(new ChatManager),
+        authorizationManager(new AuthorizationManager) {
 
 }
 
@@ -43,4 +43,29 @@ boost::property_tree::ptree Controller::deleteUser(boost::property_tree::ptree &
 
 boost::property_tree::ptree Controller::createUser(boost::property_tree::ptree &params) {
     return authorizationManager->createUser(params);
+}
+
+boost::property_tree::ptree Controller::command1(boost::property_tree::ptree &params) {
+    return chatManager->command1(params);
+}
+boost::property_tree::ptree Controller::command2(boost::property_tree::ptree &params) {
+    return chatManager->command2(params);
+}
+boost::property_tree::ptree Controller::command3(boost::property_tree::ptree &params) {
+    return chatManager->command3(params);
+}
+boost::property_tree::ptree Controller::command4(boost::property_tree::ptree &params) {
+    return chatManager->command4(params);
+}
+boost::property_tree::ptree Controller::command5(boost::property_tree::ptree &params) {
+    return chatManager->command5(params);
+}
+boost::property_tree::ptree Controller::command6(boost::property_tree::ptree &params) {
+    return chatManager->command6(params);
+}
+boost::property_tree::ptree Controller::command7(boost::property_tree::ptree &params) {
+    return chatManager->command7(params);
+}
+boost::property_tree::ptree Controller::command8(boost::property_tree::ptree &params) {
+    return chatManager->command8(params);
 }

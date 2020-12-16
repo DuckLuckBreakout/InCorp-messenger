@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 add_library(ServerApp STATIC
-        Server/HttpServer.cpp
+        Server/Server.cpp
         Server/WorkerThread.cpp
         MainServerLogic/CommandHandler/CommandHandler.cpp
         MainServerLogic/CommandCreator/CommandCreator.cpp
@@ -17,6 +17,14 @@ add_library(ServerApp STATIC
         MainServerLogic/Commands/DeleteChat.cpp
         MainServerLogic/Commands/DeleteUser.cpp
         MainServerLogic/Commands/CreateUser.cpp
+        MainServerLogic/Commands/Command1.cpp
+        MainServerLogic/Commands/Command2.cpp
+        MainServerLogic/Commands/Command3.cpp
+        MainServerLogic/Commands/Command4.cpp
+        MainServerLogic/Commands/Command5.cpp
+        MainServerLogic/Commands/Command6.cpp
+        MainServerLogic/Commands/Command7.cpp
+        MainServerLogic/Commands/Command8.cpp
         MainServerLogic/MainLogic/MainLogic.cpp
         MainServerLogic/MainLogic/Controller/Controller.cpp
         MainServerLogic/MainLogic/Managers/AuthorizationManager.cpp

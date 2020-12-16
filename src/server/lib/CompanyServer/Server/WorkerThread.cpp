@@ -18,7 +18,7 @@ void worker_thread::run(std::shared_ptr<boost::asio::io_service> io_service) {
     io_service->run();
 
     {
-        std::lock_guard < std::mutex > lock(m);
+        std::lock_guard < std::mutex > unlock(m);
         std::cout << "[" << std::this_thread::get_id() << "] Thread ends" << std::endl;
     }
 }

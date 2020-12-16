@@ -10,17 +10,15 @@ using namespace boost::asio;
 
 using boost::asio::ip::tcp;
 
-class HttpServer: public std::enable_shared_from_this<HttpServer>  {
+class Server: public std::enable_shared_from_this<Server>  {
 public:
-    explicit HttpServer(boost::asio::io_service& io_service);
-    HttpServer(boost::asio::io_service& io_service,
-               boost::asio::io_service::strand& strand,
-               const tcp::endpoint& endpoint);
-    ~HttpServer() = default;
-    typedef std::shared_ptr<HttpServer> ptr;
+    explicit Server(boost::asio::io_service& io_service);
+    Server(boost::asio::io_service& io_service,
+           boost::asio::io_service::strand& strand,
+           const tcp::endpoint& endpoint);
+    ~Server() = default;
 
 private:
-
     void run();
     void on_accept(std::shared_ptr<HttpConnection> new_abstract_Connection, const boost::system::error_code& error);
 
