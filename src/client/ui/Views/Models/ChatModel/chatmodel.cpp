@@ -97,9 +97,10 @@ void ChatModel::setData(std::vector<Message>& messages) {
             Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                                std::make_shared<GetUserForChatCallback>(shared_from_this()));
         }
+        endInsertRows();
     }
 
-    endInsertRows();
+
     emit updateItems();
 }
 
