@@ -10,7 +10,8 @@ Server::Server(boost::asio::io_service& io_service,
                const tcp::endpoint& endpoint) :
         io_service(io_service),
         strand(strand),
-        acceptor(io_service, endpoint) {
+        acceptor(io_service, endpoint)
+         {
 
     run();
 }
@@ -26,6 +27,10 @@ void Server::run() {
 
 void Server::on_accept(std::shared_ptr<Connection> connection, const boost::system::error_code& error) {
     connection->read_handler(error, 0);
-
     run();
+}
+
+std::shared_ptr<Collection> Collection::getInstance() {
+    static std::shared_ptr<Collection> collection(new Collection);
+    return collection;
 }

@@ -6,6 +6,7 @@
 #include <boost/property_tree/ini_parser.hpp>
 #include "src/server/lib/CompanyServer/MainServerLogic/MainLogic/MainLogic.h"
 #include "src/server/lib/Connection/BaseConnection.h"
+#include "src/server/lib/Connection/Connection.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/CommandCreator/CommandCreator.h"
 
 class CommandHandler {
@@ -13,7 +14,7 @@ public:
     CommandHandler();
     ~CommandHandler() = default;
 
-    void runRequest(std::shared_ptr<BaseConnection> connection, std::string message);
+    void runRequest(std::shared_ptr<Connection> connection, std::string message);
 
 private:
     CommandCreator parser;

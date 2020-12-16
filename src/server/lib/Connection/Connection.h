@@ -2,6 +2,9 @@
 #define TP_PPROJECT_HTTPCONNECTION_H
 
 #include <boost/bind.hpp>
+#include <include/boost/asio/io_service.hpp>
+#include <include/boost/asio/ip/tcp.hpp>
+#include <boost/asio/streambuf.hpp>
 #include "BaseConnection.h"
 
 
@@ -17,7 +20,6 @@ public:
 public:
     boost::asio::ip::tcp::socket &socket();
     void on_message(std::string &msg);
-
 private:
     void write_handler(const boost::system::error_code& error);
 

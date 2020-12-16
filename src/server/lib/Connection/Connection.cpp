@@ -4,7 +4,6 @@
 #include "src/server/lib/CompanyServer/MainServerLogic/CommandHandler/CommandHandler.h"
 
 
-
 using boost::asio::ip::tcp;
 
 boost::asio::ip::tcp::socket &Connection::socket() {
@@ -23,7 +22,7 @@ void Connection::on_message(std::string &msg) {
 }
 
 
-void Connection::read_handler(const boost::system::error_code &error, size_t bytes_transferred) {
+void Connection::read_handler(const boost::system::error_code& error, size_t bytes_transferred) {
     if (!error) {
         if (!this) {
             return;
