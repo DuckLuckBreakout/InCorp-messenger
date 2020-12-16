@@ -4,8 +4,6 @@
 #include <lib/Client/Client/Client.h>
 #include <lib/Client/UserOptions/CompanyOptions.h>
 #include <lib/Client/UserOptions/BaseUserOptions.h>
-#include <ui/Callbacks/Chat.h>
-#include <ui/Callbacks/Login.h>
 
 using ::testing::AtLeast;
 using ::testing::DoAll;
