@@ -60,7 +60,7 @@ set(DEBUG_C_FLAGS "-std=c99 -pthread -g3")
 
 
 # -------- Build lib ---------
-add_subdirectory(src/server/lib/Server)
+add_subdirectory(Server)
 
 
 # ---------- Build target -----------
@@ -75,7 +75,7 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
             )
 
     target_link_libraries(${PROJECT_NAME}
-            ServerApp
+            Server
             ${LIBMONGOCXX_LIBRARIES}
             ${LIBBSONCXX_LIBRARIES}
             )
@@ -89,7 +89,7 @@ elseif (CMAKE_BUILD_TYPE MATCHES Test)
     endif()
 
 
-    include(src/src/scripts/gtest/DownloadProject.cmake)
+    include(src/scripts/gtest/DownloadProject.cmake)
     download_project(PROJ                googletest
             GIT_REPOSITORY      https://github.com/google/googletest.git
             GIT_TAG             master
@@ -111,15 +111,15 @@ elseif (CMAKE_BUILD_TYPE MATCHES Test)
 
 
     add_executable(${PROJECT_NAME}
-            src/server/lib/Server/Tests/gmockTests.cpp
-            src/server/Tests/test.cpp
+            Server/Tests/gmockTests.cpp
+            Tests/test.cpp
             )
 
     target_link_libraries(${PROJECT_NAME}
             gtest
             gmock_main
-#            gcov
-            src/server/lib/Server
+            #            gcov
+            Server
             ${LIBMONGOCXX_LIBRARIES}
             ${LIBBSONCXX_LIBRARIES}
             )
@@ -136,10 +136,10 @@ elseif (CMAKE_BUILD_TYPE MATCHES Release)
             )
 
     target_link_libraries(${PROJECT_NAME}
-            src/server/lib/Server
+            Server
             )
 
 endif ()
 
 
-target_include_directories(Application PUBLIC "${PROJECT_SOURCE_DIR}")
+target_include_directories(Application PUBLIC "../../../..")
