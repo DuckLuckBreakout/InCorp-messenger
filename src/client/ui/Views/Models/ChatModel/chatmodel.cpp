@@ -51,7 +51,7 @@ void ChatModel::newMessage(const Message& message) {
     else
         items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_SEND;
 
-    User user(message.ownerId);
+    User user(message.ownerId, message.chatId);
     Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                        std::make_shared<GetUserForChatCallback>(shared_from_this()));
 
@@ -79,6 +79,7 @@ void ChatModel::updateMessageStatus(unsigned int number, MessageView::MessageTyp
 void ChatModel::setData(std::vector<Message>& messages) {
     int row = this->rowCount();
     auto uniqIds = getUniqueIds(messages);
+    auto chatId = messages[0].chatId;
     beginInsertRows(QModelIndex(),row,row + messages.size() - 1);
     int myId = UserData::getInstance()->userId;
     for (auto& object : messages) {
@@ -90,7 +91,7 @@ void ChatModel::setData(std::vector<Message>& messages) {
     }
 
     for (auto& object : uniqIds) {
-        User user(object);
+        User user(object, chatId);
         Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                            std::make_shared<GetUserForChatCallback>(shared_from_this()));
     }

@@ -137,7 +137,7 @@ public:
         auto user = std::static_pointer_cast<User>(data);
 
         std::for_each(widget->items.begin(),widget->items.end(),[user](GroupView &group) {
-            if(group.lastMessage.ownerId == user->userId){
+            if (group.lastMessage.ownerId == user->userId){
                 group.lastMessage.firstName = QString::fromStdString(user->firstName);
                 group.lastMessage.lastName = QString::fromStdString(user->lastName);
                 group.lastMessage.role = QString::fromStdString(user->role);
@@ -165,7 +165,7 @@ public:
                 });
         MessageView newMessage(*message);
         it.base()->lastMessage = newMessage;
-        User user(newMessage.ownerId);
+        User user(newMessage.ownerId, message->chatId);
         Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                            std::make_shared<GetUserForGroupCallback>(window));
 
@@ -194,7 +194,7 @@ public:
 
         MessageView newMessage(*message);
         it.base()->lastMessage = newMessage;
-        User user(newMessage.ownerId);
+        User user(newMessage.ownerId, newMessage.chatId);
         Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                            std::make_shared<GetUserForGroupCallback>(widget));
         emit window->updateItems();
