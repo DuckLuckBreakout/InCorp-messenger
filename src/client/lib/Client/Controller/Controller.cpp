@@ -85,7 +85,7 @@ void Controller::readMessageHandler(const std::string& str) {
         error = query.error;
 
     // Change user role and options
-    if (query.command == Commands::LogIn) {
+    if ((query.command == Commands::LogIn) && (query.status)) {
         Authorization account;
         account.decode(query.body);
         RoleController::setRole(userOptions, account.role);

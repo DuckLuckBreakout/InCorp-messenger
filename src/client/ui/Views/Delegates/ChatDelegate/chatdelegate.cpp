@@ -38,25 +38,6 @@ QSize ChatDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelInd
          return QSize(option.widget->width(),height + 15);
 }
 
-bool ChatDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
-                               const QStyleOptionViewItem &option, const QModelIndex &index) {
-    MessageView item = index.model()->data(index).value<MessageView>();
-    QRect NameRect = option.rect;
-    NameRect.setHeight(baseTextHeight);
-    NameRect.setX(textOffset);
-    NameRect.setWidth(option.widget->width() - rightMessageOffset);
-
-    QRect MessageRect =option.rect;
-    MessageRect.setY(MessageRect.y() + mainMessageTopOffset);
-    MessageRect.setX(textOffset);
-    MessageRect.setWidth(option.widget->width() - rightMessageOffset);
-    QFontMetrics fMetrics(option.font);
-    QRect ButtonRect = option.rect;
-    ButtonRect.setWidth(45);
-
-    return  QAbstractItemDelegate::editorEvent(event,model,option,index);
-}
-
 void ChatDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
     MessageView item = index.model()->data(index).value<MessageView>();
     QStyleOptionViewItem myOpt = option;
@@ -149,29 +130,4 @@ void ChatDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         painter->drawPixmap(checkScaled.rect(),checkScaled);
     }
     painter->restore();
-}
-
-
-void ChatDelegate::setEditorData(QWidget* editor, const QModelIndex &index) const{
-    QStyledItemDelegate::setEditorData(editor,index);
-     QLabel* le= qobject_cast<QLabel*>(editor);
-    if(le){
-         QString text = "test";
-                le->setText(text);
-        }
-
-}
-
-QWidget *ChatDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-    QStyledItemDelegate::createEditor(parent,option,index);
-    QString text = QString::fromStdString(index.model()->data(index).value<MessageView>().text);
-    QLabel* editor = new QLabel(text,parent);
-    return editor;
-}
-
-void ChatDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-    QStyledItemDelegate::updateEditorGeometry(editor,option,index);
-    editor->setGeometry(option.rect);
 }
