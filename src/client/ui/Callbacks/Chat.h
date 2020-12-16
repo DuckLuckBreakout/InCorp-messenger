@@ -195,7 +195,7 @@ public:
                     const std::optional<std::string>& error) override {
         auto window = widget;
         auto message = std::static_pointer_cast<Message>(data);
-        window->chatModel->updateMessageStatus(message->number, MessageView::MessageType::MESSAGE_WAS_NOT_SEND);
+        window->chatModel->updateMessageStatus(message->number, MessageView::MessageType::MESSAGE_WAS_SEND);
         User user(message->ownerId, message->chatId);
         Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                            std::make_shared<GetUserForChatCallback>(window->chatModel));
