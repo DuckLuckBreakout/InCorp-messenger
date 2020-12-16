@@ -78,7 +78,7 @@ void GroupDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
                       item.lastMessage.time);
     }
     painter->setPen(palette.mid().color());
-    if(rect.y() != 0)
+    if (rect.y() != 0)
         painter->drawLine(GroupNameRect.x(),rect.y(),rect.width(),rect.y());
 
     painter->restore();

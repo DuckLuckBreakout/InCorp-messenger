@@ -46,15 +46,10 @@ void ChatModel::newMessage(const Message& message) {
     int myId = UserData::getInstance()->userId;
 
     items.emplace_back(MessageView(message));
-    if(message.isChecked && (message.ownerId == myId)) {
-        items[items.size() - 1].type = MessageView::MessageType::READ_MESSAGE;
-    }
-    else if (message.ownerId == myId) {
-        items[items.size() - 1].type = MessageView::MessageType::SELF_MESSAGE_DONE;
-    }
-    else {
-        items[items.size() - 1].type = MessageView::MessageType::OTHER_MESSAGE;
-    }
+    if (message.isChecked)
+        items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_READ;
+    else
+        items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_SEND;
 
     User user(message.ownerId);
     Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
@@ -69,7 +64,7 @@ void ChatModel::messagesChecked() {
     int id = UserData::getInstance()->userId;
     std::for_each(items.begin(),items.end(),[id](MessageView& message) {
             if(message.ownerId == id)
-                message.type = MessageView::MessageType::READ_MESSAGE;
+                message.type = MessageView::MessageType::MESSAGE_WAS_READ;
     });
 }
 
@@ -88,18 +83,12 @@ void ChatModel::setData(std::vector<Message>& messages) {
     int myId = UserData::getInstance()->userId;
     for (auto& object : messages) {
         items.emplace_back(Message(object));
-        if (object.isChecked && (object.ownerId == myId)) {
-            items[items.size() - 1].type = MessageView::MessageType::READ_MESSAGE;
-        }
-        else if (object.ownerId == myId) {
-             items[items.size() - 1].type = MessageView::MessageType::SELF_MESSAGE_DONE;
-        }
-        else {
-            items[items.size() - 1].type = MessageView::MessageType::OTHER_MESSAGE;
-        }
+        if (object.isChecked)
+            items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_READ;
+        else
+            items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_SEND;
     }
 
-//  TODO:
     for (auto& object : uniqIds) {
         User user(object);
         Controller::getInstance()->getUser(user, UserData::getInstance()->userId,

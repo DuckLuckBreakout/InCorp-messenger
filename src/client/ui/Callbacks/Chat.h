@@ -19,7 +19,7 @@ public:
                     const std::optional<std::string>& error) override {
 
         auto message = std::static_pointer_cast<Message>(data);
-        widget->chatModel->updateMessageStatus(message->number, MessageView::MessageType::SELF_MESSAGE_DONE);
+        widget->chatModel->updateMessageStatus(message->number, MessageView::MessageType::MESSAGE_WAS_NOT_SEND);
         emit widget->chatModel->updateItems();
     }
 

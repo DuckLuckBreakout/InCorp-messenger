@@ -41,17 +41,12 @@ void GroupModel::setData(std::vector<ChatItem>& chats) {
         items.emplace_back(obj);
 
     auto controller = Controller::getInstance();
-//     Message message(items[0].chatId, "", 0, 0, 1);
-//     Controller::getInstance()->getLastMessage(message, UserData::getInstance()->userId,
-//                                               std::make_shared<GetLastMessageCallback>(shared_from_this()));
-//     Controller::getInstance()->setChatObserver(items[0].chatId,
-//                                                std::make_shared<ChatObserverCallback>(shared_from_this()));
-// TODO: SERVER
-   for (size_t i = 0; i < items.size(); ++i) {
-       Message message(items[i].chatId, "", 0, 0, 1);
-       Controller::getInstance()->getLastMessage(message, UserData::getInstance()->userId,
+
+    for (size_t i = 0; i < items.size(); ++i) {
+        Message message(items[i].chatId, "", 0, 0, 1);
+        Controller::getInstance()->getLastMessage(message, UserData::getInstance()->userId,
                                                  std::make_shared<GetLastMessageCallback>(shared_from_this()));
-       Controller::getInstance()->setChatObserver(items[i].chatId, std::make_shared<ChatObserverCallback>(shared_from_this()));
+        Controller::getInstance()->setChatObserver(items[i].chatId, std::make_shared<ChatObserverCallback>(shared_from_this()));
     }
 
 

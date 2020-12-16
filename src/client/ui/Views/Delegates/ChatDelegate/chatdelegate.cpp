@@ -112,41 +112,41 @@ void ChatDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     painter->save();
 
 
-     if (item.type != MessageView::MessageType::OTHER_MESSAGE) {
-         if (item.type == MessageView::MessageType::SELF_MESSAGE_IN_PROGRESS) {
-              QPixmap checkScaled = unload->scaled(15, 15,
-                                                   Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-              QBrush check(checkScaled);
-              painter->setRenderHint(QPainter::Antialiasing);
-              painter->setBrush(check);
-              painter->translate(QPointF(rect.width()-30,rect.y() + 10));
-              painter->fillRect(checkScaled.rect(),Qt::transparent);
-              painter->drawPixmap(checkScaled.rect(),checkScaled);
-         }
-         if (item.type == MessageView::MessageType::SELF_MESSAGE_DONE) {
-              QPixmap checkScaled = uncheck->scaled(15, 15,
-                                                    Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-              QBrush check(checkScaled);
-              painter->setRenderHint(QPainter::Antialiasing);
-              painter->setBrush(check);
-              painter->translate(QPointF(rect.width()-30,rect.y() + 10));
-              painter->fillRect(checkScaled.rect(),Qt::transparent);
-              painter->drawPixmap(checkScaled.rect(),checkScaled);
-         }
-         if (item.type == MessageView::MessageType::READ_MESSAGE) {
+    if (item.type == MessageView::MessageType::MESSAGE_WAS_NOT_SEND) {
+        QPixmap checkScaled = unload->scaled(15, 15,
+                                           Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        QBrush check(checkScaled);
+        painter->setRenderHint(QPainter::Antialiasing);
+        painter->setBrush(check);
+        painter->translate(QPointF(rect.width()-30,rect.y() + 10));
+        painter->fillRect(checkScaled.rect(),Qt::transparent);
+        painter->translate(QPointF(-10,0));
+        painter->drawPixmap(checkScaled.rect(),checkScaled);
+    }
+    else if (item.type == MessageView::MessageType::MESSAGE_WAS_SEND) {
+        QPixmap checkScaled = uncheck->scaled(15, 15,
+                                            Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        QBrush check(checkScaled);
+        painter->setRenderHint(QPainter::Antialiasing);
+        painter->setBrush(check);
+        painter->translate(QPointF(rect.width()-30,rect.y() + 10));
+        painter->fillRect(checkScaled.rect(),Qt::transparent);
+        painter->translate(QPointF(-10,0));
+        painter->drawPixmap(checkScaled.rect(),checkScaled);
+    }
+    else if (item.type == MessageView::MessageType::MESSAGE_WAS_READ) {
 
-             QPixmap checkScaled = check->scaled(15, 15,
-                                                 Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-             QBrush check(checkScaled);
-             painter->setRenderHint(QPainter::Antialiasing);
-             painter->setBrush(check);
-             painter->translate(QPointF(rect.width()-30,rect.y() + 10));
-             painter->fillRect(checkScaled.rect(),Qt::transparent);
-             painter->drawPixmap(checkScaled.rect(),checkScaled);
+        QPixmap checkScaled = check->scaled(15, 15,
+                                         Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        QBrush check(checkScaled);
+        painter->setRenderHint(QPainter::Antialiasing);
+        painter->setBrush(check);
+        painter->translate(QPointF(rect.width()-30,rect.y() + 10));
+        painter->fillRect(checkScaled.rect(),Qt::transparent);
+        painter->drawPixmap(checkScaled.rect(),checkScaled);
 
-             painter->translate(QPointF(-10,0));
-             painter->drawPixmap(checkScaled.rect(),checkScaled);
-         }
+        painter->translate(QPointF(-10,0));
+        painter->drawPixmap(checkScaled.rect(),checkScaled);
     }
     painter->restore();
 }

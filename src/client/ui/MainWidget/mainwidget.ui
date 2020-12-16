@@ -686,6 +686,36 @@ QFrame[frameShape=&quot;4&quot;]
           </widget>
          </item>
          <item>
+          <widget class="Line" name="line_4">
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QFrame[frameShape=&quot;5&quot;]
+{
+    border: 0.5px;
+	max-width: 0.5px;
+    background: rgb(220,220,220);
+}
+QFrame[frameShape=&quot;4&quot;]
+{
+    border: 0.5px;
+	max-height: 0.5px;
+    background: rgb(220,220,220);
+}</string>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <property name="lineWidth">
+            <number>1</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <property name="spacing">
             <number>0</number>
@@ -745,36 +775,6 @@ QFrame[frameShape=&quot;4&quot;]
             </widget>
            </item>
           </layout>
-         </item>
-         <item>
-          <widget class="Line" name="line_4">
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QFrame[frameShape=&quot;5&quot;]
-{
-    border: 0.5px;
-	max-width: 0.5px;
-    background: rgb(220,220,220);
-}
-QFrame[frameShape=&quot;4&quot;]
-{
-    border: 0.5px;
-	max-height: 0.5px;
-    background: rgb(220,220,220);
-}</string>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Plain</enum>
-           </property>
-           <property name="lineWidth">
-            <number>1</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
          </item>
         </layout>
        </item>

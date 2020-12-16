@@ -57,9 +57,6 @@ void MainWidget::wheelEvent(QWheelEvent *event) {
 
 
 void MainWidget::afterLogin() {
-//    ChatUpdates chatUpdates(1, 0, 5);
-//    Controller::getInstance()->chatUpdate(chatUpdates, UserData::getInstance()->userId,
-//                                          std::make_shared<UpdateMessagesCallback>(shared_from_this()));
 
     ListChats listChats;
     Controller::getInstance()->getListChats(listChats, UserData::getInstance()->userId,
@@ -98,7 +95,7 @@ void MainWidget::setChatRoomInfo(const ChatRoom& chatRoom) {
 void MainWidget::on_groupList_clicked(const QModelIndex &index) {
     ui->label->setText(QString::fromStdString("<b>" + index.model()->data(index).value<GroupView>().chatName + "<b>"));
     GroupView chat = index.model()->data(index).value<GroupView>();
-//    if (UserData::getInstance()->currentChatId != chat.chatId) {
+    if (UserData::getInstance()->currentChatId != chat.chatId) {
         chatModel->Clear();
         Controller::getInstance()->getChatRoom(ChatRoom(chat.chatId), UserData::getInstance()->userId,
                                                std::make_shared<GetChatRoomCallback>(shared_from_this()));
@@ -106,9 +103,6 @@ void MainWidget::on_groupList_clicked(const QModelIndex &index) {
 
         ChatUpdates chatUpdates(1, 0, 5);
         Controller::getInstance()->getChatMessages(chatUpdates, UserData::getInstance()->userId,
-                                              std::make_shared<GetChatMessagesCallback>(shared_from_this()));
-
-//        Controller::getInstance()->getLastMessages(UserData::getInstance()->userId, )
-//        AppNet::shared()->getLastMsg(UserModel::instance()->getId(),chat.idChat,chatModel->getLastMsgAndGet());
-//    }
+                                                   std::make_shared<GetChatMessagesCallback>(shared_from_this()));
+    }
 }
