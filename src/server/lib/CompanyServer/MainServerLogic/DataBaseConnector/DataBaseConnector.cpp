@@ -41,7 +41,7 @@ void DataBaseConnector::addMessage(boost::property_tree::ptree &params) {
     params.put("body.chatId", params.get<int>("body.chatId"));
     mongocxx::collection coll = db[std::to_string(chatId)];
     boost::property_tree::ptree body = params.get_child("body");
-    makeMessagesInChatChecked(chatId);
+    makeMessagesInChatChecked(chatId, params.get<int>("globalId"));
 
     int messagesCount = getChatMessagesCount(chatId);
     body.add("number", messagesCount + 1);
@@ -204,15 +204,15 @@ void DataBaseConnector::getChatMessages(boost::property_tree::ptree &params) {
     boost::property_tree::read_json(is, pt);
     int lastMessageId = pt.get<int>("messages_count");
     int userLastMessageId = params.get<int>("body.lastMessageNum");
-    makeMessagesInChatChecked(chatId);
+    makeMessagesInChatChecked(chatId, params.get<int>("globalId"));
 
     params.put_child("body.messages", boost::property_tree::ptree());
     auto &array = params.get_child("body.messages");
 
     for (int i = userLastMessageId + 1; i <= lastMessageId; i++) {
         bsoncxx::stdx::optional<bsoncxx::document::value> doc1 = coll.find_one(document{} << "number" << std::to_string(i) << finalize);
-        coll.update_one(document{} << "number" << i << finalize,
-                        document{} << "$set" << open_document << "isChecked" << "true" << close_document << finalize);
+//        coll.update_one(document{} << "number" << i << finalize,
+//                        document{} << "$set" << open_document << "isChecked" << "true" << close_document << finalize);
 
         boost::property_tree::ptree pt1;
         std::string docStr1(bsoncxx::to_json(*doc1));
@@ -268,10 +268,10 @@ boost::property_tree::ptree DataBaseConnector::getChatMembers(int chatId) {
     return pt.get_child("members_id");
 }
 
-void DataBaseConnector::makeMessagesInChatChecked(int chatId) {
+void DataBaseConnector::makeMessagesInChatChecked(int chatId, int userId) {
     mongocxx::collection coll = db[std::to_string(chatId)];
     mongocxx::cursor cursor = coll.find(document{} << "isChecked" << "false" << finalize);
-    coll.update_many(document{} << "isChecked" << "false" << finalize,
+    coll.update_many(document{} << "isChecked" << "false" << "ownerId" << open_document  << "$ne" << std::to_string(userId) << close_document << finalize,
                     document{} << "$set" << open_document << "isChecked" << "true" << close_document << finalize);
 }
 

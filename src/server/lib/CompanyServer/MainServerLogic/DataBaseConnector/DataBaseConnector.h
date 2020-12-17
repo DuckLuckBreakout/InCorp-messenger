@@ -48,7 +48,7 @@ public:
     boost::property_tree::ptree getChatLastMessage(int chatId);
     void getUserChatsPreview(boost::property_tree::ptree &params);
     void getChatMessages(boost::property_tree::ptree &params);
-    void makeMessagesInChatChecked(int chatId);
+    void makeMessagesInChatChecked(int chatId, int userId);
 
 private:
     mongocxx::uri uri;
