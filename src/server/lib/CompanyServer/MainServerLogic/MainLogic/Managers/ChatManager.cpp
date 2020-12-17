@@ -79,6 +79,7 @@ boost::property_tree::ptree ChatManager::command7(boost::property_tree::ptree &p
     return params;
 }
 boost::property_tree::ptree ChatManager::command8(boost::property_tree::ptree &params) {
+    dbConnector.logRequest(params);
     return params;
 }
 

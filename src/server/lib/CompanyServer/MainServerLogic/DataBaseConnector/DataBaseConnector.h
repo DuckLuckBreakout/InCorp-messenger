@@ -39,9 +39,11 @@ public:
     void createUser(boost::property_tree::ptree &params);
     void getUserInfo(boost::property_tree::ptree &params);
     void getChatInfo(boost::property_tree::ptree &params);
+    void logRequest(boost::property_tree::ptree &params);
     std::vector<int> getUserChats(int userId);
     std::string getTeamName(int chatId);
     int getChatMessagesCount(int chatId);
+    boost::property_tree::ptree getChatMembers(int chatId);
     void getMessageAuthorInfo(boost::property_tree::ptree &params);
     boost::property_tree::ptree getChatLastMessage(int chatId);
     void getUserChatsPreview(boost::property_tree::ptree &params);

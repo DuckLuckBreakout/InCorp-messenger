@@ -4,6 +4,16 @@
 
 CommandHandler::CommandHandler() : parser(), mainLogic() {}
 
+template <typename T>
+std::vector<T> as_vector(boost::property_tree::ptree const& pt, boost::property_tree::ptree::key_type const& key)
+{
+    std::vector<T> r;
+    for (auto& item : pt.get_child(key))
+        r.push_back(item.second.get_value<T>());
+    return r;
+}
+
+
 void CommandHandler::runRequest(std::shared_ptr<Connection> connection, std::string message) {
     try {
 
@@ -40,6 +50,12 @@ void CommandHandler::runRequest(std::shared_ptr<Connection> connection, std::str
             for (auto connect : Collection::getInstance()->client_collection) {
                 if (connect.second == connection)
                     continue;
+
+                for (auto &userId : as_vector<int>(result,"chat_members")) {
+                    if ((connect.first) != userId)
+                        continue;
+                }
+
                 boost::property_tree::ptree pt;
                 pt.add("command", "23");
                 pt.add("body.chatId", result.get<std::string>("body.chatId"));
