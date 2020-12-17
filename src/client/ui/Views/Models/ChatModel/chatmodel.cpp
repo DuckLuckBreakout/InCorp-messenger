@@ -71,7 +71,7 @@ void ChatModel::checkMessages() {
 
 void ChatModel::updateMessageStatus(unsigned int number, MessageView::MessageType type) {
     std::for_each(items.begin(),items.end(),[number, type](MessageView& message) {
-        if(message.number == number)
+        if ((message.number == number) && (message.type < type))
             message.type = type;
     });
 }

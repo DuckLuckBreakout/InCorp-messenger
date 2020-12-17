@@ -26,8 +26,8 @@ public:
 
 public:
     enum MessageType{
-        MESSAGE_WAS_SEND,
         MESSAGE_WAS_NOT_SEND,
+        MESSAGE_WAS_SEND,
         MESSAGE_WAS_READ
     };
 
