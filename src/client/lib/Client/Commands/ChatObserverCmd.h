@@ -4,6 +4,8 @@
 #include "BaseCmd.h"
 #include "Commands/CmdCreator/Commands.h"
 #include "ChatObjects/ChatUpdates.h"
+#include "ChatObjects/Checked.h"
+#include "ChatObjects/ChatAction.h"
 
 
 class ChatObserverCmd : public BaseCmd {

@@ -14,8 +14,8 @@ public:
 
 public:
     int chatId;
-    Message message;
-    std::string chatAction;
+    int chatAction;
+    std::shared_ptr<BaseObject> data;
 };
 
 

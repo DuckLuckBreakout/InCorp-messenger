@@ -60,12 +60,13 @@ void ChatModel::newMessage(const Message& message) {
 }
 
 
-void ChatModel::messagesChecked() {
+void ChatModel::checkMessages() {
     int id = UserData::getInstance()->userId;
     std::for_each(items.begin(),items.end(),[id](MessageView& message) {
             if(message.ownerId == id)
                 message.type = MessageView::MessageType::MESSAGE_WAS_READ;
     });
+    emit updateItems();
 }
 
 void ChatModel::updateMessageStatus(unsigned int number, MessageView::MessageType type) {

@@ -44,6 +44,9 @@ MainWidget::MainWidget(QWidget *parent) :
             ui->groupList, &GroupListView::doItemsLayout);
     connect(chatModel.get(), &ChatModel::updateItems,
             ui->chatList, &ChatView::doItemsLayout);
+
+    connect(groupModel.get(), &GroupModel::messageChecked,
+            chatModel.get(), &ChatModel::checkMessages);
 }
 
 MainWidget::~MainWidget() {

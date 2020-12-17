@@ -17,6 +17,8 @@ set(CHAT_OBJECTS_HEADERS
         ChatObjects/ListChats.h
         ChatObjects/ChatRoom.h
         ChatObjects/User.h
+        ChatObjects/ChatAction.h
+        ChatObjects/Checked.h
         )
 
 set(CHAT_OBJECTS_SOURCES
@@ -29,6 +31,8 @@ set(CHAT_OBJECTS_SOURCES
         ChatObjects/ListChats.cpp
         ChatObjects/ChatRoom.cpp
         ChatObjects/User.cpp
+        ChatObjects/ChatAction.cpp
+        ChatObjects/Checked.cpp
         )
 
 # Callback holder

@@ -62,7 +62,7 @@ private:
 public slots:
     void createMessage(const Message& message);
     void newMessage(const Message& message);
-    void messagesChecked();
+    void checkMessages();
 signals:
     void messageCreateByUser(const MessageView& message);
     void updateItems();

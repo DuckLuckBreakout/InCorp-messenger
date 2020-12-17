@@ -166,20 +166,29 @@ public:
     void operator()(std::shared_ptr<BaseObject> data,
                     const std::optional<std::string>& error) override {
         auto window = widget;
-        auto message = std::static_pointer_cast<Message>(data);
-        if (message->chatId == UserData::getInstance()->currentChatId) {
-            emit window->addNewMessage(*message);
+        auto action = std::static_pointer_cast<ChatAction>(data);
+        if (action->chatAction == 1) {
+            auto message = std::static_pointer_cast<Message>(action->data);
+            if (message->chatId == UserData::getInstance()->currentChatId) {
+                emit window->addNewMessage(*message);
+            }
+            auto it = std::find_if(widget->items.begin(), widget->items.end(), [message](GroupView &chat) {
+                return chat.chatId == message->chatId;
+            });
+
+            MessageView newMessage(*message);
+
+            it.base()->lastMessage = newMessage;
+            User user(newMessage.ownerId, newMessage.chatId);
+            Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
+                                               std::make_shared<GetUserForGroupCallback>(widget));
         }
-        auto it = std::find_if(widget->items.begin(),widget->items.end(),[message](GroupView &chat){
-            return chat.chatId == message->chatId;
-        });
-
-        MessageView newMessage(*message);
-
-        it.base()->lastMessage = newMessage;
-        User user(newMessage.ownerId, newMessage.chatId);
-        Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
-                                           std::make_shared<GetUserForGroupCallback>(widget));
+        else if (action->chatAction == 2) {
+            auto checked = std::static_pointer_cast<Checked>(action->data);
+            if (UserData::getInstance()->currentChatId == checked->chatId) {
+                emit window->messageChecked();
+            }
+        }
         emit window->updateItems();
     }
 

@@ -14,6 +14,5 @@ std::string ChatAction::encode() const {
 void ChatAction::decode(const std::string &jsonStr) {
     parser->setJson(jsonStr);
 
-    chatAction = parser->getValue<std::string>(KeyWords::chatAction);
-    message = parser->getValue<Message>(KeyWords::message);
+    chatAction = parser->getValue<int>(KeyWords::chatAction);
 }
