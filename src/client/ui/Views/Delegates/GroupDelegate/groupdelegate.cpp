@@ -49,7 +49,7 @@ void GroupDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
     painter->drawText(GroupNameRect, Qt::TextSingleLine,
                       font.elidedText(QString::fromStdString(item.chatName),Qt::ElideRight,width - textRigthOffset));
     int nameWidth = 0;
-    if(item.lastMessage.text != ""){
+    if (item.lastMessage.text != "") {
         QFontMetrics metr(f);
         nameWidth = metr.horizontalAdvance(item.lastMessage.firstName + item.lastMessage.lastName + 1);
         nameWidth += 5;
@@ -70,7 +70,7 @@ void GroupDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
     painter->drawText(LastMessageRect, Qt::TextSingleLine,
                       font.elidedText(QString::fromStdString(item.lastMessage.text),Qt::ElideRight,width - textRigthOffset));
 
-    if(sizeHint(option,index).width() > timeMessageMaxOffset){
+    if ((item.lastMessage.text != "") && (sizeHint(option,index).width() > timeMessageMaxOffset)) {
         QRect TimeMessageRect = QRect(width - groupIconSize.width() - timeRigthOffset ,GroupNameRect.y(),timeMessageWidth,baseTextHeigth);
         painter->setFont(f);
         painter->setPen(palette.text().color());
