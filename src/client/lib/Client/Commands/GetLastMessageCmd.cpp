@@ -5,7 +5,7 @@ GetLastMessageCmd::GetLastMessageCmd(int numRequest, const std::optional<std::st
         : BaseCmd(numRequest, error, body) {}
 
 void GetLastMessageCmd::execute(std::shared_ptr<CallbacksHolder> holder) {
-    if (!body.empty()) {
+    if ((!body.empty()) && (body != "{\n}\n")) {
         std::shared_ptr<BaseObject> message = std::make_shared<Message>();
         message->decode(body);
 
