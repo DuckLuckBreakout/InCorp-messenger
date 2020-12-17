@@ -41,6 +41,7 @@ void DataBaseConnector::addMessage(boost::property_tree::ptree &params) {
     params.put("body.chatId", params.get<int>("body.chatId"));
     mongocxx::collection coll = db[std::to_string(chatId)];
     boost::property_tree::ptree body = params.get_child("body");
+    makeMessagesInChatChecked(chatId);
 
     int messagesCount = getChatMessagesCount(chatId);
     body.add("number", messagesCount + 1);
@@ -203,6 +204,7 @@ void DataBaseConnector::getChatMessages(boost::property_tree::ptree &params) {
     boost::property_tree::read_json(is, pt);
     int lastMessageId = pt.get<int>("messages_count");
     int userLastMessageId = params.get<int>("body.lastMessageNum");
+    makeMessagesInChatChecked(chatId);
 
     params.put_child("body.messages", boost::property_tree::ptree());
     auto &array = params.get_child("body.messages");
@@ -219,6 +221,7 @@ void DataBaseConnector::getChatMessages(boost::property_tree::ptree &params) {
 
         array.push_back(std::make_pair("", pt1));
     }
+    params.put_child("chat_members", getChatMembers(chatId));
 
 }
 
@@ -263,5 +266,12 @@ boost::property_tree::ptree DataBaseConnector::getChatMembers(int chatId) {
     std::istringstream is((docStr));
     boost::property_tree::read_json(is, pt);
     return pt.get_child("members_id");
+}
+
+void DataBaseConnector::makeMessagesInChatChecked(int chatId) {
+    mongocxx::collection coll = db[std::to_string(chatId)];
+    mongocxx::cursor cursor = coll.find(document{} << "isChecked" << "false" << finalize);
+    coll.update_many(document{} << "isChecked" << "false" << finalize,
+                    document{} << "$set" << open_document << "isChecked" << "true" << close_document << finalize);
 }
 

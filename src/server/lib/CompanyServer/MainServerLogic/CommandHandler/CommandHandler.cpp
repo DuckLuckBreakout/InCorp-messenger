@@ -47,6 +47,7 @@ void CommandHandler::runRequest(std::shared_ptr<Connection> connection, std::str
             boost::property_tree::json_parser::write_json(response, result);
             std::string response_str = response.str() + "\r\n";
             connection->on_message(response_str);
+            bool isChecked = false;
             for (auto connect : Collection::getInstance()->client_collection) {
                 if (connect.second == connection)
                     continue;
@@ -54,24 +55,87 @@ void CommandHandler::runRequest(std::shared_ptr<Connection> connection, std::str
                 for (auto &userId : as_vector<int>(result,"chat_members")) {
                     if ((connect.first) != userId)
                         continue;
+
+
+                    boost::property_tree::ptree pt;
+                    pt.add("command", "23");
+                    pt.add("body.chatId", result.get<std::string>("body.chatId"));
+
+                    std::stringstream buf;
+                    boost::property_tree::json_parser::write_json(buf, pt);
+                    std::string sendNewMessageMessage = buf.str() + "\r\n";
+
+                    std::shared_ptr<BaseCommand> sendNewMessage = parser.createCommand(sendNewMessageMessage);
+                    boost::property_tree::ptree result1 = mainLogic.executeCommand(sendNewMessage);
+                    result1.put("numRequest", result1.get<int>("body.chatId"));
+                    result1.put("command", "-2");
+                    result1.add("body.chatAction", "1");
+                    if (connect.second->currentChatId == result1.get<int>("body.chatId")) {
+                        result1.put("body.isChecked", "true");
+                        isChecked = true;
+                    }
+                    std::stringstream response2;
+                    boost::property_tree::json_parser::write_json(response2, result1);
+                    std::string response_str2 = response2.str() + "\r\n";
+                    connect.second->on_message(response_str2);
                 }
-
-                boost::property_tree::ptree pt;
-                pt.add("command", "23");
-                pt.add("body.chatId", result.get<std::string>("body.chatId"));
-
-                std::stringstream buf;
-                boost::property_tree::json_parser::write_json(buf, pt);
-                std::string sendNewMessageMessage = buf.str() + "\r\n";
-
-                std::shared_ptr<BaseCommand> sendNewMessage = parser.createCommand(sendNewMessageMessage);
-                boost::property_tree::ptree result1 = mainLogic.executeCommand(sendNewMessage);
-                result1.put("numRequest", result1.get<int>("body.chatId"));
-                result1.put("command", "-2");
+            }
+            if (isChecked) {
+                result.put("numRequest", result.get<int>("body.chatId"));
+                result.put("command", "-2");
+                result.add("body.chatAction", "2");
                 std::stringstream response2;
-                boost::property_tree::json_parser::write_json(response2, result1);
+                boost::property_tree::json_parser::write_json(response2, result);
                 std::string response_str2 = response2.str() + "\r\n";
-                connect.second->on_message(response_str2);
+
+                connection->on_message(response_str2);
+            }
+        } else if (commandNumber == 22) {
+            std::stringstream response;
+            boost::property_tree::json_parser::write_json(response, result);
+            std::string response_str = response.str() + "\r\n";
+            connection->on_message(response_str);
+            connection->currentChatId = result.get<int>("body.chatId");
+            bool isChecked = false;
+            for (auto connect : Collection::getInstance()->client_collection) {
+                if (connect.second == connection)
+                    continue;
+
+                for (auto &userId : as_vector<int>(result,"chat_members")) {
+                    if ((connect.first) != userId)
+                        continue;
+
+
+                    boost::property_tree::ptree pt;
+                    pt.add("command", "23");
+                    pt.add("body.chatId", result.get<std::string>("body.chatId"));
+
+                    std::stringstream buf;
+                    boost::property_tree::json_parser::write_json(buf, pt);
+                    std::string sendNewMessageMessage = buf.str() + "\r\n";
+
+                    std::shared_ptr<BaseCommand> sendNewMessage = parser.createCommand(sendNewMessageMessage);
+                    boost::property_tree::ptree result1 = mainLogic.executeCommand(sendNewMessage);
+                    result1.put("numRequest", result1.get<int>("body.chatId"));
+                    result1.put("command", "-2");
+                    result1.add("body.chatAction", "2");
+                    std::stringstream response2;
+                    boost::property_tree::json_parser::write_json(response2, result1);
+                    std::string response_str2 = response2.str() + "\r\n";
+
+                    connect.second->on_message(response_str2);
+                    isChecked = true;
+                }
+            }
+            if (isChecked) {
+                result.put("numRequest", result.get<int>("body.chatId"));
+                result.put("command", "-2");
+                result.add("body.chatAction", "2");
+                std::stringstream response2;
+                boost::property_tree::json_parser::write_json(response2, result);
+                std::string response_str2 = response2.str() + "\r\n";
+
+                connection->on_message(response_str2);
             }
         } else {
             std::stringstream response;

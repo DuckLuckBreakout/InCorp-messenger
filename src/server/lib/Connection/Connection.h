@@ -17,6 +17,7 @@ public:
             strand(strand) {}
     void read_handler(const boost::system::error_code& error, size_t bytes_transferred);
 
+    int currentChatId = -1;
 public:
     boost::asio::ip::tcp::socket &socket();
     void on_message(std::string &msg);
