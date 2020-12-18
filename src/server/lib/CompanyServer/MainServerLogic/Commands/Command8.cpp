@@ -8,6 +8,6 @@ boost::property_tree::ptree Command8::execute(std::shared_ptr<Controller> contro
     return controller->command8(commandParams);
 }
 
-Command8::Command8(boost::property_tree::ptree &params) {
+Command8::Command8(boost::property_tree::ptree &params) : BaseCommand("") {
     commandParams = params;
 }

@@ -20,6 +20,13 @@ void CommandHandler::runRequest(std::shared_ptr<Connection> connection, std::str
 
         std::shared_ptr<BaseCommand> command = parser.createCommand(message);
 
+        DataBaseConnector dbConnector("test_company");
+        boost::property_tree::ptree logPTree = command->commandParams;
+        logPTree.put("text", message);
+        logPTree.add("timeSend", std::time(nullptr));
+        logPTree.add("operation", command->name);
+        dbConnector.logRequest(logPTree);
+
         boost::property_tree::ptree result = mainLogic.executeCommand(command);
 
         if ((result.get<int>("globalId") > 0) && (Collection::getInstance()->client_collection.find(result.get<int>("globalId")) ==  Collection::getInstance()->client_collection.end())) {
@@ -27,7 +34,9 @@ void CommandHandler::runRequest(std::shared_ptr<Connection> connection, std::str
         }
 
 
-            int commandNumber = result.get<int>("command");
+
+
+        int commandNumber = result.get<int>("command");
 
         if (commandNumber == LOGIN) {
             std::string resultStatus = result.get<std::string>("status");

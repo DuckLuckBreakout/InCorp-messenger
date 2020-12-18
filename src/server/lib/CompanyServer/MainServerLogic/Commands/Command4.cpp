@@ -4,6 +4,6 @@ boost::property_tree::ptree Command4::execute(std::shared_ptr<Controller> contro
     return controller->command4(commandParams);
 }
 
-Command4::Command4(boost::property_tree::ptree &params) {
+Command4::Command4(boost::property_tree::ptree &params) : BaseCommand("GetLastMessageInChat") {
     commandParams = params;
 }

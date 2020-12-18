@@ -275,3 +275,32 @@ void DataBaseConnector::makeMessagesInChatChecked(int chatId, int userId) {
                     document{} << "$set" << open_document << "isChecked" << "true" << close_document << finalize);
 }
 
+void DataBaseConnector::getServerLogs(boost::property_tree::ptree &params) {
+    mongocxx::collection coll = db["0"];
+    bsoncxx::stdx::optional<bsoncxx::document::value> doc = coll.find_one(document{} << "type" << "chat_data" << finalize);
+    boost::property_tree::ptree pt;
+    std::string docStr(bsoncxx::to_json(*doc));
+    std::istringstream is((docStr));
+    boost::property_tree::read_json(is, pt);
+    int lastMessageId = pt.get<int>("messages_count");
+    int userLastMessageId = params.get<int>("body.lastMessageNum");
+    if (userLastMessageId == -1)
+        userLastMessageId = 0;
+    params.put_child("body.logs", boost::property_tree::ptree());
+    auto &array = params.get_child("body.logs");
+
+    for (int i = userLastMessageId + 1; i <= lastMessageId; i++) {
+        bsoncxx::stdx::optional<bsoncxx::document::value> doc1 = coll.find_one(document{} << "number" << std::to_string(i) << finalize);
+
+        boost::property_tree::ptree pt1;
+        std::string docStr1(bsoncxx::to_json(*doc1));
+        std::istringstream is1((docStr1));
+        boost::property_tree::read_json(is1, pt1);
+
+        array.push_back(std::make_pair("", pt1));
+    }
+//    params.put_child("chat_members", getChatMembers(chatId));
+
+
+}
+

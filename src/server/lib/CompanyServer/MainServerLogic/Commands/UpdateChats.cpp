@@ -4,6 +4,6 @@ boost::property_tree::ptree UpdateChats::execute(std::shared_ptr<Controller> con
     return controller->updateChats(commandParams);
 }
 
-UpdateChats::UpdateChats(boost::property_tree::ptree &params) {
+UpdateChats::UpdateChats(boost::property_tree::ptree &params) : BaseCommand("UpdateChats") {
     commandParams = params;
 }

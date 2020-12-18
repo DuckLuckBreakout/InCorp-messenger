@@ -4,6 +4,6 @@ boost::property_tree::ptree Command3::execute(std::shared_ptr<Controller> contro
     return controller->command3(commandParams);
 }
 
-Command3::Command3(boost::property_tree::ptree &params) {
+Command3::Command3(boost::property_tree::ptree &params) : BaseCommand("GetMessagesInChat") {
     commandParams = params;
 }

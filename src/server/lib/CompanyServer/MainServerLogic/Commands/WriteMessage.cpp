@@ -4,6 +4,6 @@ boost::property_tree::ptree WriteMessage::execute(std::shared_ptr<Controller> co
     return controller->sendMessage(commandParams);
 }
 
-WriteMessage::WriteMessage(boost::property_tree::ptree &params) {
+WriteMessage::WriteMessage(boost::property_tree::ptree &params) : BaseCommand("WriteMessage") {
     commandParams = params;
 }

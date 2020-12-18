@@ -4,6 +4,6 @@ boost::property_tree::ptree CreateUser::execute(std::shared_ptr<Controller> cont
     return controller->createUser(commandParams);
 }
 
-CreateUser::CreateUser(boost::property_tree::ptree &params) {
+CreateUser::CreateUser(boost::property_tree::ptree &params) : BaseCommand("CreateChat") {
     commandParams = params;
 }

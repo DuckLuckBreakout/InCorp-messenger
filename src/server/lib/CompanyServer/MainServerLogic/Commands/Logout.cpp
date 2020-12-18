@@ -5,7 +5,7 @@ boost::property_tree::ptree Logout::execute(std::shared_ptr<Controller> controll
     return controller->logoutUser(commandParams);
 }
 
-Logout::Logout(boost::property_tree::ptree &params) {
+Logout::Logout(boost::property_tree::ptree &params) : BaseCommand("Logout") {
     commandParams = params;
 }
 

@@ -4,6 +4,6 @@ boost::property_tree::ptree Command5::execute(std::shared_ptr<Controller> contro
     return controller->command5(commandParams);
 }
 
-Command5::Command5(boost::property_tree::ptree &params) {
+Command5::Command5(boost::property_tree::ptree &params) : BaseCommand("GetUserData") {
     commandParams = params;
 }

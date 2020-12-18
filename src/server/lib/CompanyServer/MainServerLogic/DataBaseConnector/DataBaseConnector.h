@@ -40,6 +40,7 @@ public:
     void getUserInfo(boost::property_tree::ptree &params);
     void getChatInfo(boost::property_tree::ptree &params);
     void logRequest(boost::property_tree::ptree &params);
+    void getServerLogs(boost::property_tree::ptree &params);
     std::vector<int> getUserChats(int userId);
     std::string getTeamName(int chatId);
     int getChatMessagesCount(int chatId);
