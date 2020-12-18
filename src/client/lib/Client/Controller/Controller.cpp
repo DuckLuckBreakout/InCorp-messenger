@@ -70,6 +70,11 @@ void Controller::setChatObserver(int chatId, const std::shared_ptr<BaseCallback>
     userOptions->setChatObserver(chatId, callback, client, callbackHolder);
 }
 
+void Controller::getLog(const LogUpdates& logUpdates, int globalId,
+                        const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getLog(logUpdates, globalId, callback, client, callbackHolder);
+}
+
 void Controller::readMessageHandler(const std::string& str) {
     Request query;
 
@@ -95,6 +100,8 @@ void Controller::readMessageHandler(const std::string& str) {
                                                                      query.body, query.numRequest);
     command->execute(callbackHolder);
 }
+
+
 
 
 

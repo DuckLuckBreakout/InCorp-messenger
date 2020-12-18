@@ -19,6 +19,8 @@ set(CHAT_OBJECTS_HEADERS
         ChatObjects/User.h
         ChatObjects/ChatAction.h
         ChatObjects/Checked.h
+        ChatObjects/Log.h
+        ChatObjects/LogUpdates.h
         )
 
 set(CHAT_OBJECTS_SOURCES
@@ -33,6 +35,8 @@ set(CHAT_OBJECTS_SOURCES
         ChatObjects/User.cpp
         ChatObjects/ChatAction.cpp
         ChatObjects/Checked.cpp
+        ChatObjects/Log.cpp
+        ChatObjects/LogUpdates.cpp
         )
 
 # Callback holder
@@ -68,6 +72,7 @@ set(COMMANDS_HEADERS
         Commands/GetChatMessages.h
         Commands/GetUserCmd.h
         Commands/ChatObserverCmd.h
+        Commands/GetLogCmd.h
         )
 
 set(COMMANDS_SOURCES
@@ -82,6 +87,7 @@ set(COMMANDS_SOURCES
         Commands/GetChatMessages.cpp
         Commands/GetUserCmd.cpp
         Commands/ChatObserverCmd.cpp
+        Commands/GetLogCmd.cpp
         )
 
 # Parser

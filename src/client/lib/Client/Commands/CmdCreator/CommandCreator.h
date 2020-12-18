@@ -14,6 +14,7 @@
 #include "Commands/GetLastMessageCmd.h"
 #include "Commands/GetUserCmd.h"
 #include "Commands/ChatObserverCmd.h"
+#include "Commands/GetLogCmd.h"
 
 
 class CommandCreator {

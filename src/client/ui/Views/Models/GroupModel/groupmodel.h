@@ -30,7 +30,6 @@ public:
     void addItem(GroupView &item);
     void setData(std::vector<ChatItem> &);
     void addCallbacks();
-//    void setRoomInfo(int chatId);
 
     std::vector<GroupView> getItems();
     MessageView getLastMsg(int id) const;

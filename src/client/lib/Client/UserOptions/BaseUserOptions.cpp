@@ -64,3 +64,10 @@ void BaseUserOptions::setChatObserver(int chatId, const std::shared_ptr<BaseCall
                                       std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder) {
     callbackHolder->addCallback(Commands::ChatObserver, chatId, callback);
 }
+
+void BaseUserOptions::getLog(const LogUpdates &logUpdates, int globalId, const std::shared_ptr<BaseCallback> callback,
+                             std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder) {
+    int numRequest = callbackHolder->addCallback(Commands::GetLog, callback);
+    Request query(Commands::GetLog, logUpdates.encode(), globalId, numRequest);
+    client->sendMessage(query.encode());
+}

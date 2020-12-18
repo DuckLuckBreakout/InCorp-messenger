@@ -11,10 +11,14 @@ MainWidget::MainWidget(QWidget *parent) :
     qRegisterMetaType<Message>("Message");
 
     ui->setupUi(this);
+
     this->resize(810, 550);
     this->setMinimumSize(810, 550);
     this->setMaximumSize(810, 550);
     this->setWindowTitle("InCorp  - messenger");
+
+    this->setFocusPolicy(Qt::WheelFocus);
+    menuWidget = new MenuWidget(this);
 
     ui->chatList->setWindowFlag(Qt::FramelessWindowHint);
     ui->chatList->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -121,4 +125,11 @@ void MainWidget::on_groupList_clicked(const QModelIndex &index) {
         Controller::getInstance()->getChatMessages(chatUpdates, UserData::getInstance()->userId,
                                                    std::make_shared<GetChatMessagesCallback>(shared_from_this()));
     }
+}
+
+void MainWidget::on_menuButton_clicked() {
+    menuWidget->move(QPoint(geometry().x() + 10,geometry().y() + 60));
+    menuWidget->show();
+    menuWidget->setFocus();
+    menuWidget->raise();
 }

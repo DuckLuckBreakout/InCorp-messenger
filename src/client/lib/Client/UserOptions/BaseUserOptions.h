@@ -13,6 +13,7 @@
 #include <ChatObjects/ListChats.h>
 #include <ChatObjects/ChatRoom.h>
 #include <ChatObjects/User.h>
+#include <ChatObjects/LogUpdates.h>
 
 
 class BaseUserOptions {
@@ -53,6 +54,11 @@ public:
 
     virtual void setChatObserver(int chatId, const std::shared_ptr<BaseCallback> callback,
                                  std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder);
+
+    virtual void getLog(const LogUpdates& logUpdates, int globalId,
+                        const std::shared_ptr<BaseCallback> callback,
+                        std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder);
+
 };
 
 

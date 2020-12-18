@@ -14,6 +14,7 @@
 #include <Controller/Controller.h>
 #include "ui/Views/Models/GroupModel/groupmodel.h"
 #include "ui/Views/Delegates/GroupDelegate/groupdelegate.h"
+#include "ui/MenuWidget/menuwidget.h"
 
 #include "ui/Views/Models/ChatModel/chatmodel.h"
 #include "ui/Views/Models/GroupModel/groupmodel.h"
@@ -37,6 +38,7 @@ public slots:
     void afterLogin();
     void setChatRoomInfo(const ChatRoom& chatRoom);
     void on_sendMessageButton_clicked();
+    void on_menuButton_clicked();
     void on_groupList_clicked(const QModelIndex& index);
 
 
@@ -47,6 +49,7 @@ protected:
     Ui::MainWidget *ui;
     ChatDelegate *chatDelegate;
     GroupDelegate *groupDelegate;
+    MenuWidget *menuWidget;
 };
 
 

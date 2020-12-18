@@ -47,6 +47,9 @@ public:
     void getChatMessages(const ChatUpdates& chatUpdates, int globalId,
                         const std::shared_ptr<BaseCallback>& callback);
 
+    void getLog(const LogUpdates& logUpdates, int globalId,
+                const std::shared_ptr<BaseCallback>& callback);
+
     void getLastMessage(const Message& message, int globalId,
                         const std::shared_ptr<BaseCallback>& callback);
 
@@ -64,6 +67,8 @@ private:
     std::shared_ptr<Client> client;
     std::shared_ptr<CallbacksHolder> callbackHolder;
     std::shared_ptr<BaseUserOptions> userOptions;
+
+    void getLog(const ChatUpdates &chatUpdates, int globalId, const std::shared_ptr<BaseCallback> &callback);
 };
 
 

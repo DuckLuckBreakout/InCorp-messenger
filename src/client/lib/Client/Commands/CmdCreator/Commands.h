@@ -12,7 +12,7 @@ enum Commands {
     GetMessagesInChat = 22,
     GetLastMessageInChat = 23,
     GetUserData = 24,
-
+    GetLog = 25,
 };
 
 

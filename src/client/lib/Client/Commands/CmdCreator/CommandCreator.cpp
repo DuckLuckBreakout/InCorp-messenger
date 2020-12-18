@@ -41,6 +41,10 @@ std::shared_ptr<BaseCmd> CommandCreator::createCommand(int command, const std::o
             createdCommand = std::make_shared<ChatObserverCmd>(numRequest, error, body);
             break;
         }
+        case Commands::GetLog: {
+            createdCommand = std::make_shared<GetLogCmd>(numRequest, error, body);
+            break;
+        }
         default:
             break;
     }
