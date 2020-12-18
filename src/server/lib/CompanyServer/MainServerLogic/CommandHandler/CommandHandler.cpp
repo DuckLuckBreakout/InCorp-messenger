@@ -1,6 +1,7 @@
 #include <src/server/lib/Connection/Connection.h>
 #include "CommandHandler.h"
 #include "src/server/lib/CompanyServer/Server/Server.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/DataBaseConnector/DataBaseConnector.h"
 
 CommandHandler::CommandHandler() : parser(), mainLogic() {}
 

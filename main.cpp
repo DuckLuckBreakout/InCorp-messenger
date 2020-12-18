@@ -23,7 +23,7 @@ int main() {
         std::cout << "[" << std::this_thread::get_id() << "]" << "Server starts" << std::endl;
 
 
-        tcp::endpoint endpoint(tcp::v4(), 5555);
+        tcp::endpoint endpoint(tcp::v4(), 5556);
         Server server = Server(*io_service, *strand, endpoint);
 
         boost::thread_group workers;
