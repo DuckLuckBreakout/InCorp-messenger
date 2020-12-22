@@ -53,6 +53,24 @@ void GroupModel::setData(std::vector<ChatItem>& chats) {
     endInsertRows();
 }
 
+void GroupModel::newChat(ChatItem& chat) {
+    int row = this->rowCount();
+    beginInsertRows(QModelIndex(), row, row + 1);
+
+    items.emplace_back(chat);
+
+    auto controller = Controller::getInstance();
+
+    int index = items.size() - 1;
+    Message message(items[index].chatId, "", 0, 0, 1);
+    Controller::getInstance()->getLastMessage(message, UserData::getInstance()->userId,
+                                              std::make_shared<GetLastMessageCallback>(shared_from_this()));
+    Controller::getInstance()->setChatObserver(items[index].chatId, std::make_shared<ChatObserverCallback>(shared_from_this()));
+
+
+    endInsertRows();
+}
+
 std::vector<GroupView> GroupModel::getItems() {
     return items;
 }

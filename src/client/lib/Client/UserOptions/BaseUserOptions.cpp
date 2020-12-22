@@ -19,7 +19,7 @@ void BaseUserOptions::authorization(const Authorization &authInfo, int globalId,
 void BaseUserOptions::chatUpdate(const ChatUpdates &chatUpdates, int globalId,
                                  const std::shared_ptr<BaseCallback> callback,
                                  std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder) {
-    callbackHolder->addCallback(Commands::ChatUpdate, callback);
+    callbackHolder->addCallback(Commands::SystemUpdate, callback);
 }
 
 void BaseUserOptions::getListChats(const ListChats& listChats, int globalId,

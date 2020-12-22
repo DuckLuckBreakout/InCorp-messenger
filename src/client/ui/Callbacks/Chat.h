@@ -216,5 +216,24 @@ private:
     std::shared_ptr<MainWidget> widget;
 };
 
+class SystemUpdateCallback : public BaseCallback {
+public:
+    SystemUpdateCallback(std::shared_ptr<MainWidget> widget) : widget(widget) {};
+
+public:
+    void operator()(std::shared_ptr<BaseObject> data,
+                    const std::optional<std::string>& error) override {
+        auto window = widget;
+        auto action = std::static_pointer_cast<ChatAction>(data);
+        if (action->chatAction == 1) {
+            auto chat = std::static_pointer_cast<ChatItem>(action->data);
+            emit window->groupModel->newChat(*chat);
+        }
+        emit window->groupModel->updateItems();
+    }
+
+private:
+    std::shared_ptr<MainWidget> widget;
+};
 
 #endif //APPLICATION_CHAT_H

@@ -4,7 +4,7 @@
 
 enum Commands {
     ChatObserver = -2,
-    ChatUpdate = -1,
+    SystemUpdate = -1,
     LogIn = 0,
     SendMessage = 1,
     GetListOfChats = 20,

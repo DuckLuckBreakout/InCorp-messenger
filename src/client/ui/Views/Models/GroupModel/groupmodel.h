@@ -29,6 +29,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     void addItem(GroupView &item);
     void setData(std::vector<ChatItem> &);
+    void newChat(ChatItem& chat);
     void addCallbacks();
 
     std::vector<GroupView> getItems();

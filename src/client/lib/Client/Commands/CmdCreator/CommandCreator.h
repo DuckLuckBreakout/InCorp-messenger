@@ -15,6 +15,7 @@
 #include "Commands/GetUserCmd.h"
 #include "Commands/ChatObserverCmd.h"
 #include "Commands/GetLogCmd.h"
+#include "Commands/SystemUpdateCmd.h"
 
 
 class CommandCreator {

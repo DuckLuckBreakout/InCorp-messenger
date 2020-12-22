@@ -86,8 +86,10 @@ void MainWidget::afterLogin() {
                                                     + UserData::getInstance()->lastName + "<b>"));
     ui->userRole->setText(QString::fromStdString("Role in company: <b>" + UserData::getInstance()->role + "<b>"));
     this->setWindowTitle(QString::fromStdString("Messenger: " + UserData::getInstance()->company));
-
     this->show();
+
+    Controller::getInstance()->chatUpdate(ChatUpdates(), UserData::getInstance()->userId,
+                                          std::make_shared<SystemUpdateCallback>(shared_from_this()));
 }
 
 void MainWidget::on_sendMessageButton_clicked() {

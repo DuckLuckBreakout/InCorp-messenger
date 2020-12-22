@@ -8,6 +8,6 @@ void ChatUpdateCmd::execute(std::shared_ptr<CallbacksHolder> holder) {
     std::shared_ptr<BaseObject> chatUpdates = std::make_shared<ChatUpdates>();
     chatUpdates->decode(body);
 
-    auto func = holder->getCallback(Commands::ChatUpdate, numRequest).get();
+    auto func = holder->getCallback(Commands::SystemUpdate, numRequest).get();
     (*func)(chatUpdates, error);
 }

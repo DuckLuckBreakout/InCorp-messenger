@@ -13,8 +13,8 @@ std::shared_ptr<BaseCmd> CommandCreator::createCommand(int command, const std::o
             createdCommand = std::make_shared<SendMessageCmd>(numRequest, error, body);
             break;
         }
-        case Commands::ChatUpdate: {
-            createdCommand = std::make_shared<ChatUpdateCmd>(numRequest, error, body);
+        case Commands::SystemUpdate: {
+            createdCommand = std::make_shared<SystemUpdateCmd>(numRequest, error, body);
             break;
         }
         case Commands::GetListOfChats: {
