@@ -59,6 +59,8 @@ public:
                         const std::shared_ptr<BaseCallback> callback,
                         std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder);
 
+    virtual void sendChatCommand(const Message& message, int globalId,
+                                 std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder);
 };
 
 

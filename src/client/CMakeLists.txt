@@ -21,6 +21,7 @@ find_package(Qt5Widgets REQUIRED)
 set(VIEWS_HEADERS
         ui/Views/ChatView/chatview.h
         ui/Views/GroupListView/grouplistview.h
+        ui/Views/TextView/textview.h
         ui/Views/Models/ChatModel/chatmodel.h
         ui/Views/Models/GroupModel/groupmodel.h
         ui/Views/Models/LogModel/logmodel.h
@@ -33,6 +34,7 @@ set(VIEWS_SOURCES
         ui/Views/ChatView/chatview.cpp
         ui/Views/LogView/logview.cpp
         ui/Views/GroupListView/grouplistview.cpp
+        ui/Views/TextView/textview.cpp
         ui/Views/Models/ChatModel/chatmodel.cpp
         ui/Views/Models/LogModel/logmodel.cpp
         ui/Views/Models/GroupModel/groupmodel.cpp

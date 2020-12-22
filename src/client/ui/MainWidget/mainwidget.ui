@@ -767,7 +767,7 @@ QFrame[frameShape=&quot;4&quot;]
             <number>0</number>
            </property>
            <item>
-            <widget class="QTextEdit" name="messageInput">
+            <widget class="TextView" name="messageInput">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -835,6 +835,11 @@ QFrame[frameShape=&quot;4&quot;]
    <class>GroupListView</class>
    <extends>QListView</extends>
    <header>../../ui/Views/GroupListView/grouplistview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TextView</class>
+   <extends>QTextEdit</extends>
+   <header>../../ui/Views/TextView/textview.h</header>
   </customwidget>
   <customwidget>
    <class>ChatView</class>

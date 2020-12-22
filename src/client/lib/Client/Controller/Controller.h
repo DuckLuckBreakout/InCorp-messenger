@@ -60,6 +60,8 @@ public:
 
     void readMessageHandler(const std::string& str);
 
+    void sendChatCommand(const Message& message, int globalId);
+
 private:
     Controller();
 

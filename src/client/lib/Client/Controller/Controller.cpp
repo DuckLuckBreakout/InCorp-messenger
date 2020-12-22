@@ -75,6 +75,11 @@ void Controller::getLog(const LogUpdates& logUpdates, int globalId,
     userOptions->getLog(logUpdates, globalId, callback, client, callbackHolder);
 }
 
+void Controller::sendChatCommand(const Message &message, int globalId) {
+    userOptions->sendChatCommand(message, globalId, client, callbackHolder);
+}
+
+
 void Controller::readMessageHandler(const std::string& str) {
     Request query;
 
@@ -100,6 +105,7 @@ void Controller::readMessageHandler(const std::string& str) {
                                                                      query.body, query.numRequest);
     command->execute(callbackHolder);
 }
+
 
 
 

@@ -9,10 +9,14 @@
 #include <QGraphicsView>
 #include <QDebug>
 #include <QtWidgets/QAbstractItemView>
+#include <QCompleter>
+#include <QStringListModel>
+
 
 #include <ChatObjects/Message.h>
 #include <Controller/Controller.h>
 #include "ui/Views/Models/GroupModel/groupmodel.h"
+#include "ui/Views/TextView/textview.h"
 #include "ui/Views/Delegates/GroupDelegate/groupdelegate.h"
 #include "ui/MenuWidget/menuwidget.h"
 
@@ -33,6 +37,8 @@ public:
     ~MainWidget();
 
     void wheelEvent(QWheelEvent *event) override;
+    virtual void keyPressEvent(QKeyEvent *event);
+    bool eventFilter(QObject *object, QEvent *event);
 
 public slots:
     void afterLogin();
@@ -50,6 +56,18 @@ protected:
     ChatDelegate *chatDelegate;
     GroupDelegate *groupDelegate;
     MenuWidget *menuWidget;
+    TextView *textView;
+    QStringListModel *listModel;
+    QCompleter *completer = nullptr;
+
+private:
+    enum {
+        InputMessage,
+        InputCommand,
+    };
+    int textMode;
+    QString text;
+    int cursor = 1;
 };
 
 

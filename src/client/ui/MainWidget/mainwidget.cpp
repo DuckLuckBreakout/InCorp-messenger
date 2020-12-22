@@ -39,6 +39,16 @@ MainWidget::MainWidget(QWidget *parent) :
     groupDelegate = new GroupDelegate(this);
     ui->groupList->setItemDelegate(groupDelegate);
 
+    listModel = new QStringListModel(this);
+
+    textView = new TextView();
+    QCompleter* completer = new QCompleter(this);
+
+    completer->setCaseSensitivity(Qt::CaseInsensitive);
+    ui->messageInput->setCompleter(completer);
+    completer->setModel(listModel);
+
+
     connect(groupModel.get(), &GroupModel::chatRoomInfo,
             this, &MainWidget::setChatRoomInfo);
     connect(groupModel.get(), &GroupModel::addNewMessage,
@@ -51,6 +61,9 @@ MainWidget::MainWidget(QWidget *parent) :
 
     connect(groupModel.get(), &GroupModel::messageChecked,
             chatModel.get(), &ChatModel::checkMessages);
+
+    ui->messageInput->installEventFilter(this);
+    textMode = InputMessage;
 }
 
 MainWidget::~MainWidget() {
@@ -79,7 +92,7 @@ void MainWidget::afterLogin() {
 
 void MainWidget::on_sendMessageButton_clicked() {
     QString text = ui->messageInput->toPlainText().trimmed();
-    if(text == "")
+    if (text == "")
         return;
 
     long int currentTime;
@@ -90,20 +103,26 @@ void MainWidget::on_sendMessageButton_clicked() {
                     userData->userId, currentTime, chatModel->rowCount() + 1);
 
     ui->messageInput->clear();
-    chatModel->createMessage(message);
-    Controller::getInstance()->sendMessage(message, userData->userId,
-                                    std::make_shared<SendMessageCallback>(shared_from_this()));
 
-    auto it = std::find_if(groupModel->items.begin(),groupModel->items.end(), [message](GroupView &chat){
-        return chat.chatId == message.chatId;
-    });
+    if (textMode == InputMessage) {
+        chatModel->createMessage(message);
+        Controller::getInstance()->sendMessage(message, userData->userId,
+                                               std::make_shared<SendMessageCallback>(shared_from_this()));
 
-    MessageView newMessage(message);
+        auto it = std::find_if(groupModel->items.begin(), groupModel->items.end(), [message](GroupView &chat) {
+            return chat.chatId == message.chatId;
+        });
 
-    it.base()->lastMessage = newMessage;
-    User user(newMessage.ownerId, newMessage.chatId);
-    Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
-                                       std::make_shared<GetUserForGroupCallback>(groupModel));
+        MessageView newMessage(message);
+
+        it.base()->lastMessage = newMessage;
+        User user(newMessage.ownerId, newMessage.chatId);
+        Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
+                                           std::make_shared<GetUserForGroupCallback>(groupModel));
+    }
+    else if (textMode == InputCommand) {
+        Controller::getInstance()->sendChatCommand(message, userData->userId);
+    }
 }
 
 void MainWidget::setChatRoomInfo(const ChatRoom& chatRoom) {
@@ -132,4 +151,62 @@ void MainWidget::on_menuButton_clicked() {
     menuWidget->show();
     menuWidget->setFocus();
     menuWidget->raise();
+}
+
+void MainWidget::keyPressEvent(QKeyEvent *event) {
+
+    int key=event->key();
+    if (key==Qt::Key_F1) {
+        QString buff = this->ui->messageInput->toPlainText().trimmed();
+        this->ui->messageInput->clear();
+        if (textMode == InputMessage) {
+            textMode = InputCommand;
+
+            QStringList list;
+            for (const auto& item : textView->commands)
+                list << QString::fromStdString(item.first);
+            listModel->setStringList(list);
+            this->ui->messageInput->setPlaceholderText("Command");
+            this->ui->messageInput->setStyleSheet("background-color: rgb(201, 213, 240);");
+        }
+        else {
+            textMode = InputMessage;
+            listModel->setStringList(QStringList());
+            this->ui->messageInput->setPlaceholderText("Text");
+            this->ui->messageInput->setStyleSheet("background-color: white;");
+        }
+        this->ui->messageInput->setText(text);
+        text = buff;
+    }
+}
+
+bool MainWidget::eventFilter(QObject *object, QEvent *event)
+{
+    if (object == this->ui->messageInput && event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        if (keyEvent->key() == Qt::Key_F1) {
+            QString buff = this->ui->messageInput->toPlainText().trimmed();
+            this->ui->messageInput->clear();
+            if (textMode == InputMessage) {
+                textMode = InputCommand;
+
+                QStringList list;
+                for (const auto& item : textView->commands)
+                    list << QString::fromStdString(item.first);
+                listModel->setStringList(list);
+                this->ui->messageInput->setPlaceholderText("Command");
+                this->ui->messageInput->setStyleSheet("background-color: rgb(201, 213, 240);");
+            }
+            else {
+                textMode = InputMessage;
+                listModel->setStringList(QStringList());
+                this->ui->messageInput->setPlaceholderText("Text");
+                this->ui->messageInput->setStyleSheet("background-color: white;");
+            }
+            this->ui->messageInput->setText(text);
+            text = buff;
+            return true;
+        }
+    }
+    return false;
 }

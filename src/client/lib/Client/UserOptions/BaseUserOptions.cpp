@@ -71,3 +71,9 @@ void BaseUserOptions::getLog(const LogUpdates &logUpdates, int globalId, const s
     Request query(Commands::GetLog, logUpdates.encode(), globalId, numRequest);
     client->sendMessage(query.encode());
 }
+
+void BaseUserOptions::sendChatCommand(const Message &message, int globalId, std::shared_ptr<BaseClient> client,
+                                      std::shared_ptr<CallbacksHolder> callbackHolder) {
+    Request query(Commands::SendChatCommand, message.encode(), globalId, -1);
+    client->sendMessage(query.encode());
+}
