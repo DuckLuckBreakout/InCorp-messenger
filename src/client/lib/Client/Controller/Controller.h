@@ -62,6 +62,9 @@ public:
 
     void sendChatCommand(const Message& message, int globalId);
 
+    void registration(const Authorization& authInfo, int globalId,
+                      const std::shared_ptr<BaseCallback>& callback);
+
 private:
     Controller();
 
@@ -69,8 +72,6 @@ private:
     std::shared_ptr<Client> client;
     std::shared_ptr<CallbacksHolder> callbackHolder;
     std::shared_ptr<BaseUserOptions> userOptions;
-
-    void getLog(const ChatUpdates &chatUpdates, int globalId, const std::shared_ptr<BaseCallback> &callback);
 };
 
 

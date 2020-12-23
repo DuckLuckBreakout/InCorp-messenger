@@ -12,6 +12,12 @@ std::string Authorization::encode() const {
 
     parser->addValue(login, KeyWords::login);
     parser->addValue(password, KeyWords::password);
+
+    if (firstName != "") {
+        parser->addValue(firstName, KeyWords::firstName);
+        parser->addValue(lastName, KeyWords::lastName);
+        parser->addValue(role, KeyWords::role);
+    }
     return parser->getJson();
 }
 

@@ -77,3 +77,11 @@ void BaseUserOptions::sendChatCommand(const Message &message, int globalId, std:
     Request query(Commands::SendChatCommand, message.encode(), globalId, -1);
     client->sendMessage(query.encode());
 }
+
+void BaseUserOptions::registration(const Authorization &authInfo, int globalId,
+                                   const std::shared_ptr<BaseCallback> callback, std::shared_ptr<BaseClient> client,
+                                   std::shared_ptr<CallbacksHolder> callbackHolder) {
+    int numRequest = callbackHolder->addCallback(Commands::RegistrationUser, callback);
+    Request query(Commands::RegistrationUser, authInfo.encode(), globalId, numRequest);
+    client->sendMessage(query.encode());
+}

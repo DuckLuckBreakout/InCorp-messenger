@@ -79,6 +79,11 @@ void Controller::sendChatCommand(const Message &message, int globalId) {
     userOptions->sendChatCommand(message, globalId, client, callbackHolder);
 }
 
+void Controller::registration(const Authorization& authInfo, int globalId,
+                              const std::shared_ptr<BaseCallback>& callback) {
+    userOptions->registration(authInfo, globalId, callback, client, callbackHolder);
+}
+
 
 void Controller::readMessageHandler(const std::string& str) {
     Request query;

@@ -8,6 +8,7 @@
 #include <Controller/Controller.h>
 #include "ui/LoginWidget/loginwidget.h"
 #include "ui/MainWidget/mainwidget.h"
+
 #include "ui/UserData/UserData.h"
 
 
@@ -38,6 +39,7 @@ public:
 private:
     std::shared_ptr<LoginWidget> widget;
 };
+
 
 
 #endif //APPLICATION_LOGIN_H

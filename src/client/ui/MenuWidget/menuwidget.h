@@ -5,6 +5,7 @@
 #include <QFrame>
 
 #include "ui/LogWidget/logwidget.h"
+#include "ui/RegistrateWidget/registratewidget.h"
 
 
 namespace Ui {
@@ -19,11 +20,14 @@ public:
     ~MenuWidget();
 
     LogWidget *logWidget;
+    RegistrateWidget *registrateWidget;
 protected:
     Ui::MenuWidget *ui;
 
 public slots:
     void on_getLogButton_clicked();
+    void on_addUserButton_clicked();
+//    void on_createChatButton_clicked();
 };
 
 #endif // MENUWIDGET_H

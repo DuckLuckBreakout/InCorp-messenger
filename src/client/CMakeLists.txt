@@ -47,8 +47,10 @@ set(VIEWS_SOURCES
 set(DELEGATE_HEADERS
         ui/Viewer/Viewer.h
         ui/Callbacks/Login.h
+
         ui/Callbacks/Log.h
         ui/Callbacks/Chat.h
+        ui/Callbacks/Registrate.h
         ui/UserData/UserData.h
         )
 
@@ -62,7 +64,7 @@ set(WIDGET_HEADERS
         ui/LogWidget/logwidget.h
         ui/MenuWidget/menuwidget.h
         ui/MainWidget/mainwidget.h
-
+        ui/RegistrateWidget/registratewidget.h
         )
 
 set(WIDGET_SOURCES
@@ -70,7 +72,7 @@ set(WIDGET_SOURCES
         ui/LogWidget/logwidget.cpp
         ui/MenuWidget/menuwidget.cpp
         ui/MainWidget/mainwidget.cpp
-
+        ui/RegistrateWidget/registratewidget.cpp
         )
 
 set(FORMS_UI
@@ -78,6 +80,7 @@ set(FORMS_UI
         ui/LogWidget/logwidget.ui
         ui/MenuWidget/menuwidget.ui
         ui/LoginWidget/loginwidget.ui
+        ui/RegistrateWidget/registratewidget.ui
         )
 
 # Create lib AppClient with GUI

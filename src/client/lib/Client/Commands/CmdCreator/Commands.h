@@ -14,6 +14,7 @@ enum Commands {
     GetUserData = 24,
     GetLog = 25,
     SendChatCommand = 26,
+    RegistrationUser = 27,
 };
 
 

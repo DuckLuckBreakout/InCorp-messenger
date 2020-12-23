@@ -74,6 +74,7 @@ set(COMMANDS_HEADERS
         Commands/ChatObserverCmd.h
         Commands/GetLogCmd.h
         Commands/SystemUpdateCmd.h
+        Commands/RegistrationCmd.h
         )
 
 set(COMMANDS_SOURCES
@@ -90,6 +91,7 @@ set(COMMANDS_SOURCES
         Commands/ChatObserverCmd.cpp
         Commands/GetLogCmd.cpp
         Commands/SystemUpdateCmd.cpp
+        Commands/RegistrationCmd.cpp
         )
 
 # Parser

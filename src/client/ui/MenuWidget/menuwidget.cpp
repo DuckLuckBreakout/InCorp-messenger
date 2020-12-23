@@ -18,6 +18,7 @@ MenuWidget::MenuWidget(QWidget *parent)
 
     this->setFocusPolicy(Qt::WheelFocus);
     logWidget = new LogWidget(this);
+    registrateWidget = new RegistrateWidget(this);
 
 }
 
@@ -37,3 +38,11 @@ void MenuWidget::on_getLogButton_clicked() {
                                       std::make_shared<GetLogCallback>(logWidget));
 }
 
+void MenuWidget::on_addUserButton_clicked() {
+    registrateWidget->move(QPoint(geometry().x() + 400,geometry().y() - 60));
+    registrateWidget->show();
+    registrateWidget->setFocus();
+    registrateWidget->raise();
+    registrateWidget->clearStatus();
+}
+// void MenuWidget::on_createChatButton_clicked() {}
