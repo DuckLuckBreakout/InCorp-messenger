@@ -68,7 +68,7 @@ void GroupDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
     painter->setFont(f);
     painter->setPen(palette.text().color());
     painter->drawText(LastMessageRect, Qt::TextSingleLine,
-                      font.elidedText(QString::fromStdString(item.lastMessage.text),Qt::ElideRight,width - textRigthOffset));
+                      font.elidedText(QString::fromStdString(item.lastMessage.text),Qt::ElideRight,width - textRigthOffset - 30));
 
     if ((item.lastMessage.text != "") && (sizeHint(option,index).width() > timeMessageMaxOffset)) {
         QRect TimeMessageRect = QRect(width - groupIconSize.width() - timeRigthOffset ,GroupNameRect.y(),timeMessageWidth,baseTextHeigth);
