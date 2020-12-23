@@ -71,7 +71,7 @@ void LogDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
 
     QRect TimeRect = myOpt.rect;
     TimeRect.setHeight(baseTextHeight);
-    TimeRect.setX(myOpt.widget->width() - 120);
+    TimeRect.setX(myOpt.widget->width() - 160);
     TimeRect.setWidth(width - rightMessageOffset);
     painter->drawText(TimeRect, Qt::TextSingleLine,
                       item.time);
