@@ -27,6 +27,9 @@ MainWidget::MainWidget(QWidget *parent) :
     ui->chatList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->chatList->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
+    ui->groupList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->groupList->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+
     chatModel = std::make_shared<ChatModel>();
     ui->chatList->setModel(chatModel.get());
 
