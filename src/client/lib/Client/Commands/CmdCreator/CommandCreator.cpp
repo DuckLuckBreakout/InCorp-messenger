@@ -46,7 +46,7 @@ std::shared_ptr<BaseCmd> CommandCreator::createCommand(int command, const std::o
             break;
         }
         case Commands::RegistrationUser: {
-
+            createdCommand = std::make_shared<RegistrationCmd>(numRequest, error, body);
             break;
         }
         default:

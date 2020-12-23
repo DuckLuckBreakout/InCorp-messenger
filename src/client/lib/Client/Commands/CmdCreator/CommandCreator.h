@@ -16,6 +16,7 @@
 #include "Commands/ChatObserverCmd.h"
 #include "Commands/GetLogCmd.h"
 #include "Commands/SystemUpdateCmd.h"
+#include "Commands/RegistrationCmd.h"
 
 
 class CommandCreator {
