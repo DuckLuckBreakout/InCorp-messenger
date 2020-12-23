@@ -19,6 +19,8 @@ public:
     explicit MenuWidget(QWidget *parent = nullptr);
     ~MenuWidget();
 
+    void setRoleFunctions(const std::string& role);
+
     LogWidget *logWidget;
     RegistrateWidget *registrateWidget;
 protected:

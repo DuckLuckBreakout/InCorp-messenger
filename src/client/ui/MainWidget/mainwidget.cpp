@@ -128,7 +128,11 @@ void MainWidget::on_sendMessageButton_clicked() {
 }
 
 void MainWidget::setChatRoomInfo(const ChatRoom& chatRoom) {
-    ui->label_2->setText(QString::fromStdString(std::to_string(chatRoom.usersId.size()) + " members"));
+    int countUsers = 0;
+    for (const auto& id : chatRoom.usersId)
+        if (id > 0) countUsers++;
+
+    ui->label_2->setText(QString::fromStdString(std::to_string(countUsers) + " members"));
 }
 
 void MainWidget::on_groupList_clicked(const QModelIndex &index) {
@@ -153,6 +157,7 @@ void MainWidget::on_menuButton_clicked() {
     menuWidget->show();
     menuWidget->setFocus();
     menuWidget->raise();
+    menuWidget->setRoleFunctions(UserData::getInstance()->role);
 }
 
 void MainWidget::keyPressEvent(QKeyEvent *event) {

@@ -19,11 +19,27 @@ MenuWidget::MenuWidget(QWidget *parent)
     this->setFocusPolicy(Qt::WheelFocus);
     logWidget = new LogWidget(this);
     registrateWidget = new RegistrateWidget(this);
-
 }
 
 MenuWidget::~MenuWidget() {
     delete ui;
+}
+
+void MenuWidget::setRoleFunctions(const std::string& role) {
+
+    if (UserData::getInstance()->role == "company") {
+//        ui->createCommandButton->hide();
+    }
+    else if (UserData::getInstance()->role == "manager") {
+//        ui->createCommandButton->hide();
+        ui->getLogButton->hide();
+    }
+    else if (UserData::getInstance()->role == "employee") {
+        ui->createCommandButton->hide();
+        ui->getLogButton->hide();
+        ui->addUserButton->hide();
+    }
+
 }
 
 void MenuWidget::on_getLogButton_clicked() {

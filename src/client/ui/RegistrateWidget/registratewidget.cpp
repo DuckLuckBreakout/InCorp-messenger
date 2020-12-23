@@ -32,8 +32,8 @@ void RegistrateWidget::on_signupButton_clicked() {
     if ((regInfo.firstName != "") && (regInfo.lastName != "") &&
         (regInfo.role != "") && (regInfo.login != "") && (regInfo.password != "")) {
 
-        Controller::getInstance()->authorization(regInfo, UserData::getInstance()->userId,
-                                                 std::make_shared<RegistrationCallback>(this));
+        Controller::getInstance()->registration(regInfo, UserData::getInstance()->userId,
+                                                std::make_shared<RegistrationCallback>(this));
 
 //        std::make_shared<RegistrationCallback>(shared_from_this())
         ui->firstName->clear();
