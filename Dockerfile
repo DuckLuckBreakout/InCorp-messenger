@@ -83,19 +83,20 @@ RUN curl -OL https://github.com/mongodb/mongo-cxx-driver/releases/download/r3.6.
 
 COPY . .
 #CMD /bin/bash
-RUN apt install gnupg -y
-RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
-RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
-RUN echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-RUN apt update
-RUN apt install -y mongodb-org
-RUN mongo
+# RUN apt install gnupg -y
+# RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
+# RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
+# RUN echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+# RUN apt update
+# RUN apt install -y mongodb-org
+# RUN mongo
 
 RUN cmake -DCMAKE_BUILD_TYPE=Test ./
 
-RUN make
-CMD ./Application
-
+RUN make || make
+# RUN make
+CMD ./test_mongocxx
+# CMD /bin/bash
 
 #RUN apt-get -y install firefox
 #

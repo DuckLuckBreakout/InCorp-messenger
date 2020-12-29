@@ -2,8 +2,8 @@
 #define TP_PPROJECT_HTTPCONNECTION_H
 
 #include <boost/bind.hpp>
-#include <include/boost/asio/io_service.hpp>
-#include <include/boost/asio/ip/tcp.hpp>
+#include <boost/asio/io_service.hpp>
+#include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/streambuf.hpp>
 #include "BaseConnection.h"
 

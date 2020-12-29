@@ -11,14 +11,14 @@
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/DeleteChat.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/DeleteUser.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/CreateUser.h"
-#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command1.h"
-#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command2.h"
-#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command3.h"
-#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command4.h"
-#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command5.h"
-#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command6.h"
-#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command7.h"
-#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command8.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/GetUserChatsPreview.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/GetChatInfo.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/GetChatMessages.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/GetChatLastMessage.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/GetMessageAuthorInfo.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/GetServerLogs.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/RegisterUser.h"
 
 enum Command {
     PING=-1,

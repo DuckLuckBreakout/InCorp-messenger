@@ -5,10 +5,10 @@
 
 class BaseManager {
 public:
-    explicit BaseManager(std::string companyName="test_company") : dbConnector(companyName) {};
+    explicit BaseManager(std::string companyName="tp") : dbConnector(companyName) {};
     virtual ~BaseManager() = default;
 
-public:
+protected:
     DataBaseConnector dbConnector;
 };
 

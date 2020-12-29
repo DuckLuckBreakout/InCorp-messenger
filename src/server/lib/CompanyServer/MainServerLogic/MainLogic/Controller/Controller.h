@@ -4,6 +4,10 @@
 #include <iostream>
 #include "src/server/lib/CompanyServer/MainServerLogic/MainLogic/Managers/ChatManager.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/MainLogic/Managers/AuthorizationManager.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/MainLogic/Managers/RegistrationManager.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/MainLogic/Managers/CommandsManager.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/MainLogic/Managers/LogsManager.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/MainLogic/Managers/InfoManager.h"
 
 class Controller {
 public:
@@ -17,18 +21,21 @@ public:
     boost::property_tree::ptree deleteChat(boost::property_tree::ptree &params);
     boost::property_tree::ptree createChat(boost::property_tree::ptree &params);
     boost::property_tree::ptree deleteUser(boost::property_tree::ptree &params);
-    boost::property_tree::ptree createUser(boost::property_tree::ptree &params);
-    boost::property_tree::ptree command1(boost::property_tree::ptree &params);
-    boost::property_tree::ptree command2(boost::property_tree::ptree &params);
-    boost::property_tree::ptree command3(boost::property_tree::ptree &params);
-    boost::property_tree::ptree command4(boost::property_tree::ptree &params);
-    boost::property_tree::ptree command5(boost::property_tree::ptree &params);
-    boost::property_tree::ptree command6(boost::property_tree::ptree &params);
-    boost::property_tree::ptree command7(boost::property_tree::ptree &params);
-    boost::property_tree::ptree command8(boost::property_tree::ptree &params);
+    boost::property_tree::ptree getUserChatsPreview(boost::property_tree::ptree &params);
+    boost::property_tree::ptree getChatInfo(boost::property_tree::ptree &params);
+    boost::property_tree::ptree getChatMessages(boost::property_tree::ptree &params);
+    boost::property_tree::ptree getChatLastMessage(boost::property_tree::ptree &params);
+    boost::property_tree::ptree getMessageAuthorInfo(boost::property_tree::ptree &params);
+    boost::property_tree::ptree getServerLogs(boost::property_tree::ptree &params);
+    boost::property_tree::ptree command(boost::property_tree::ptree &params);
+    boost::property_tree::ptree registerUser(boost::property_tree::ptree &params);
 private:
     std::shared_ptr<ChatManager> chatManager;
     std::shared_ptr<AuthorizationManager> authorizationManager;
+    std::shared_ptr<RegistrationManager> registrationManager;
+    std::shared_ptr<CommandsManager> commandsManager;
+    std::shared_ptr<LogsManager> logsManager;
+    std::shared_ptr<InfoManager> infoManager;
 };
 
 

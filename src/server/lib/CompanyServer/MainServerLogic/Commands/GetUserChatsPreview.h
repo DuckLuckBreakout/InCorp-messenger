@@ -3,11 +3,11 @@
 #define APPLICATION_COMMAN1_H
 #include "BaseCommand.h"
 
-class Command1: public BaseCommand {
+class GetUserChatsPreview: public BaseCommand {
 public:
-    explicit Command1(boost::property_tree::ptree& params);
+    explicit GetUserChatsPreview(boost::property_tree::ptree& params);
 
-    ~Command1() override = default;
+    ~GetUserChatsPreview() override = default;
 
     boost::property_tree::ptree execute(std::shared_ptr<Controller> controller) override;
 };

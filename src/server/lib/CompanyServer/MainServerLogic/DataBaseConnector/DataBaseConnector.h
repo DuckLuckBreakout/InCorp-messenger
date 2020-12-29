@@ -27,11 +27,11 @@ using bsoncxx::builder::basic::kvp;
 
 class DataBaseConnector {
 public:
-    explicit DataBaseConnector(std::string companyName);
-    bool userIsRegistered(std::string token);
-    bool userIsAuthorized(std::string token);
-    void authorizeUser(std::string token);
-    void logoutUser(std::string token);
+    explicit DataBaseConnector(std::string &companyName);
+    bool userIsRegistered(std::string &token);
+    bool userIsAuthorized(std::string &token);
+    void authorizeUser(std::string &token);
+    void logoutUser(std::string &token);
     void addMessage(boost::property_tree::ptree &params);
     void createChat(boost::property_tree::ptree &params);
     void deleteChat(boost::property_tree::ptree &params);

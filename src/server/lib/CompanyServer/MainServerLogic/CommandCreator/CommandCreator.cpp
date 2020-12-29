@@ -42,35 +42,35 @@ std::shared_ptr<BaseCommand> CommandCreator::createCommand(std::string message) 
         return createUser;
     }  else if (requestCommand == COMMAND1) {
         std::cout << "command 1" << std::endl;
-        std::shared_ptr<Command1> command1(new Command1(pt));
+        std::shared_ptr<GetUserChatsPreview> command1(new GetUserChatsPreview(pt));
         return command1;
     }  else if (requestCommand == COMMAND2) {
         std::cout << "command 2" << std::endl;
-        std::shared_ptr<Command2> command2(new Command2(pt));
+        std::shared_ptr<GetChatInfo> command2(new GetChatInfo(pt));
         return command2;
     }  else if (requestCommand == COMMAND3) {
         std::cout << "command 3" << std::endl;
-        std::shared_ptr<Command3> command3(new Command3(pt));
+        std::shared_ptr<GetChatMessages> command3(new GetChatMessages(pt));
         return command3;
     }  else if (requestCommand == COMMAND4) {
         std::cout << "command 4" << std::endl;
-        std::shared_ptr<Command4> command4(new Command4(pt));
+        std::shared_ptr<GetChatLastMessage> command4(new GetChatLastMessage(pt));
         return command4;
     }  else if (requestCommand == COMMAND5) {
         std::cout << "command 5" << std::endl;
-        std::shared_ptr<Command5> command5(new Command5(pt));
+        std::shared_ptr<GetMessageAuthorInfo> command5(new GetMessageAuthorInfo(pt));
         return command5;
     }  else if (requestCommand == COMMAND6) {
         std::cout << "command 6" << std::endl;
-        std::shared_ptr<Command6> command6(new Command6(pt));
+        std::shared_ptr<GetServerLogs> command6(new GetServerLogs(pt));
         return command6;
     }  else if (requestCommand == COMMAND7) {
         std::cout << "command 7" << std::endl;
-        std::shared_ptr<Command7> command7(new Command7(pt));
+        std::shared_ptr<Command> command7(new Command(pt));
         return command7;
     }   else if (requestCommand == COMMAND8) {
         std::cout << "command 8" << std::endl;
-        std::shared_ptr<Command8> command8(new Command8(pt));
+        std::shared_ptr<RegisterUser> command8(new RegisterUser(pt));
         return command8;
     } else
         std::cout << "unknown command" << std::endl;

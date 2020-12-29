@@ -1,16 +1,14 @@
 #include <boost/property_tree/ptree.hpp>
 #include "Controller.h"
 
-// TODO: create all functions of server
-// send() using concrete manager
-// write() using concrete manager
-// loginUser() using concrete manager
-// logoutUser() using concrete manager
 
 Controller::Controller() :
         chatManager(new ChatManager),
-        authorizationManager(new AuthorizationManager) {
-
+        authorizationManager(new AuthorizationManager),
+        registrationManager(new RegistrationManager),
+        commandsManager(new CommandsManager),
+        logsManager(new LogsManager),
+        infoManager(new InfoManager) {
 }
 
 boost::property_tree::ptree Controller::loginUser(boost::property_tree::ptree &params) {
@@ -38,34 +36,30 @@ boost::property_tree::ptree Controller::sendMessage(boost::property_tree::ptree 
 }
 
 boost::property_tree::ptree Controller::deleteUser(boost::property_tree::ptree &params) {
-    return authorizationManager->deleteUser(params);
+    return registrationManager->deleteUser(params);
 }
 
-boost::property_tree::ptree Controller::createUser(boost::property_tree::ptree &params) {
-    return authorizationManager->createUser(params);
+boost::property_tree::ptree Controller::getUserChatsPreview(boost::property_tree::ptree &params) {
+    return infoManager->getUserChatsPreview(params);
 }
-
-boost::property_tree::ptree Controller::command1(boost::property_tree::ptree &params) {
-    return chatManager->command1(params);
+boost::property_tree::ptree Controller::getChatInfo(boost::property_tree::ptree &params) {
+    return infoManager->getChatInfo(params);
 }
-boost::property_tree::ptree Controller::command2(boost::property_tree::ptree &params) {
-    return chatManager->command2(params);
+boost::property_tree::ptree Controller::getChatMessages(boost::property_tree::ptree &params) {
+    return chatManager->getChatMessages(params);
 }
-boost::property_tree::ptree Controller::command3(boost::property_tree::ptree &params) {
-    return chatManager->command3(params);
+boost::property_tree::ptree Controller::getChatLastMessage(boost::property_tree::ptree &params) {
+    return chatManager->getChatLastMessage(params);
 }
-boost::property_tree::ptree Controller::command4(boost::property_tree::ptree &params) {
-    return chatManager->command4(params);
+boost::property_tree::ptree Controller::getMessageAuthorInfo(boost::property_tree::ptree &params) {
+    return infoManager->getMessageAuthorInfo(params);
 }
-boost::property_tree::ptree Controller::command5(boost::property_tree::ptree &params) {
-    return chatManager->command5(params);
+boost::property_tree::ptree Controller::getServerLogs(boost::property_tree::ptree &params) {
+    return logsManager->getServerLogs(params);
 }
-boost::property_tree::ptree Controller::command6(boost::property_tree::ptree &params) {
-    return chatManager->command6(params);
+boost::property_tree::ptree Controller::command(boost::property_tree::ptree &params) {
+    return commandsManager->command(params);
 }
-boost::property_tree::ptree Controller::command7(boost::property_tree::ptree &params) {
-    return chatManager->command7(params);
-}
-boost::property_tree::ptree Controller::command8(boost::property_tree::ptree &params) {
-    return chatManager->command8(params);
+boost::property_tree::ptree Controller::registerUser(boost::property_tree::ptree &params) {
+    return registrationManager->registerUser(params);
 }

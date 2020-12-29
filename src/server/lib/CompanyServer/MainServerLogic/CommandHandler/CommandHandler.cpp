@@ -20,7 +20,8 @@ void CommandHandler::runRequest(std::shared_ptr<Connection> connection, std::str
 
         std::shared_ptr<BaseCommand> command = parser.createCommand(message);
 
-        DataBaseConnector dbConnector("test_company");
+        std::string companyName;
+        DataBaseConnector dbConnector(companyName);
         boost::property_tree::ptree logPTree = command->commandParams;
         logPTree.put("text", message);
         logPTree.add("timeSend", std::time(nullptr));
@@ -28,15 +29,13 @@ void CommandHandler::runRequest(std::shared_ptr<Connection> connection, std::str
         dbConnector.logRequest(logPTree);
 
         boost::property_tree::ptree result = mainLogic.executeCommand(command);
+        int commandNumber = result.get<int>("command");
 
-        if ((result.get<int>("globalId") > 0) && (Collection::getInstance()->client_collection.find(result.get<int>("globalId")) ==  Collection::getInstance()->client_collection.end())) {
+        if ((commandNumber != LOGIN) && (Collection::getInstance()->client_collection.find(result.get<int>("globalId")) ==  Collection::getInstance()->client_collection.end())) {
             Collection::getInstance()->client_collection.insert(std::make_pair(result.get<int>("globalId"), connection));
         }
 
 
-
-
-        int commandNumber = result.get<int>("command");
 
         if (commandNumber == LOGIN) {
             std::string resultStatus = result.get<std::string>("status");
@@ -149,6 +148,26 @@ void CommandHandler::runRequest(std::shared_ptr<Connection> connection, std::str
 
                 connection->on_message(response_str2);
             }
+        } else if (commandNumber == -1) {
+            std::stringstream response;
+            boost::property_tree::json_parser::write_json(response, result);
+            std::string response_str = response.str() + "\r\n";
+
+            std::vector<int> newChatMembers = as_vector<int>(result, "body.members_list");
+
+            for (auto connect : Collection::getInstance()->client_collection) {
+                continue;
+
+                for (auto &userId : newChatMembers) {
+                    if ((connect.first) != userId)
+                        continue;
+                    connect.second->on_message(response_str);
+
+                }
+            }
+
+        } else if (commandNumber == -10) {
+
         } else {
             std::stringstream response;
             boost::property_tree::json_parser::write_json(response, result);

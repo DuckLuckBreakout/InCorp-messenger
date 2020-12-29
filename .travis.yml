@@ -20,7 +20,7 @@ script:
   - docker run -it server:1.0
 #   - cmake -DCMAKE_BUILD_TYPE=Test ./
 #   - make
-#   - valgrind --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no ./Application
+#   - valgrind --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no ./notice_maker
 
 # after_success:
 #   - cd CMakeFiles/Aplication.dir
