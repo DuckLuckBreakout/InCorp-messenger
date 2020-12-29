@@ -23,7 +23,7 @@ add_library(ServerApp STATIC
         MainServerLogic/Commands/GetChatLastMessage.cpp
         MainServerLogic/Commands/GetMessageAuthorInfo.cpp
         MainServerLogic/Commands/GetServerLogs.cpp
-        MainServerLogic/Commands/Command.cpp
+        MainServerLogic/Commands/CompanyCommand.cpp
         MainServerLogic/Commands/RegisterUser.cpp
         MainServerLogic/MainLogic/MainLogic.cpp
         MainServerLogic/MainLogic/Controller/Controller.cpp

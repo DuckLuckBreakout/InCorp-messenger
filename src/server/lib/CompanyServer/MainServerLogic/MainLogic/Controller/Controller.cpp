@@ -19,10 +19,6 @@ boost::property_tree::ptree Controller::logoutUser(boost::property_tree::ptree &
     return authorizationManager->logoutUser(params);
 }
 
-boost::property_tree::ptree Controller::updateChats(boost::property_tree::ptree &params) {
-    return chatManager->updateChats(params);
-}
-
 boost::property_tree::ptree Controller::deleteChat(boost::property_tree::ptree &params) {
     return chatManager->deleteChat(params);
 }

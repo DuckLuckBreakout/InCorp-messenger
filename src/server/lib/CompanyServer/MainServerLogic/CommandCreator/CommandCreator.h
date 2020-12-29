@@ -17,7 +17,7 @@
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/GetChatLastMessage.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/GetMessageAuthorInfo.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/GetServerLogs.h"
-#include "src/server/lib/CompanyServer/MainServerLogic/Commands/Command.h"
+#include "src/server/lib/CompanyServer/MainServerLogic/Commands/CompanyCommand.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/RegisterUser.h"
 
 enum Command {

@@ -257,29 +257,44 @@ TEST(WriteMessage, execute_good_id) {
 
 
 TEST(DataBaseConnector, userIsRegistered) {
-    DataBaseConnector dbConnector("test_company");
-    EXPECT_EQ(true == dbConnector.userIsRegistered("newUser"), true);
-    EXPECT_EQ(false == dbConnector.userIsRegistered("newUser124124"), true);
+    std::string company("test_company");
+    DataBaseConnector dbConnector(company);
+    std::string user("newUser");
+    EXPECT_EQ(true == dbConnector.userIsRegistered(user), true);
+    user = "newUser124124";
+    EXPECT_EQ(false == dbConnector.userIsRegistered(user), true);
 }
 
 TEST(DataBaseConnector, authorizeUser) {
-    DataBaseConnector dbConnector("test_company");
-    dbConnector.authorizeUser("test_user");
+    std::string company("test_company");
+    DataBaseConnector dbConnector(company);
+    std::string user("test_user");
+    dbConnector.authorizeUser(user);
 }
 
 TEST(DataBaseConnector, logoutUser) {
-    DataBaseConnector dbConnector("test_company");
-    dbConnector.logoutUser("41244214");
+    std::string company("test_company");
+
+    DataBaseConnector dbConnector(company);
+    std::string user("test_user");
+    dbConnector.logoutUser(user);
 }
 
 TEST(DataBaseConnector, userIsAuthorized) {
-    DataBaseConnector dbConnector("test_company");
-    EXPECT_EQ(true == dbConnector.userIsAuthorized("test_user"), true);
-    EXPECT_EQ(false == dbConnector.userIsAuthorized("newUser124124"), true);
+    std::string company("test_company");
+
+    DataBaseConnector dbConnector(company);
+
+    std::string user("newUser");
+    EXPECT_EQ(true == dbConnector.userIsAuthorized(user), true);
+    user = "newUser124124";
+    EXPECT_EQ(false == dbConnector.userIsAuthorized(user), true);
 }
 
 TEST(DataBaseConnector, addMessage) {
-    DataBaseConnector dbConnector("test_company");
+    std::string company("test_company");
+
+    DataBaseConnector dbConnector(company);
     boost::property_tree::ptree params;
     params.add("body.chatId", "0");
     params.add("body.text", "lalala");
@@ -287,35 +302,45 @@ TEST(DataBaseConnector, addMessage) {
 }
 
 TEST(DataBaseConnector, createChat) {
-    DataBaseConnector dbConnector("test_company");
+    std::string company("test_company");
+
+    DataBaseConnector dbConnector(company);
     boost::property_tree::ptree params;
     params.add("body.chatId", "0");
     dbConnector.createChat(params);
 }
 
 TEST(DataBaseConnector, deleteChat) {
-    DataBaseConnector dbConnector("test_company");
+    std::string company("test_company");
+
+    DataBaseConnector dbConnector(company);
     boost::property_tree::ptree params;
     params.add("body.chatId", "124");
     dbConnector.deleteChat(params);
 }
 
 TEST(DataBaseConnector, deleteUser) {
-    DataBaseConnector dbConnector("test_company");
+    std::string company("test_company");
+
+    DataBaseConnector dbConnector(company);
     boost::property_tree::ptree params;
     params.add("body.login", "124fasf");
     dbConnector.deleteUser(params);
 }
 
 TEST(DataBaseConnector, createUser) {
-    DataBaseConnector dbConnector("test_company");
+    std::string company("test_company");
+
+    DataBaseConnector dbConnector(company);
     boost::property_tree::ptree params;
     params.add("body.login", "124fasf");
     dbConnector.createUser(params);
 }
 
 TEST(DataBaseConnector, getUserInfo) {
-    DataBaseConnector dbConnector("test_company");
+    std::string company("test_company");
+
+    DataBaseConnector dbConnector(company);
 
     boost::property_tree::ptree params;
     params.add("body.login", "newUser");

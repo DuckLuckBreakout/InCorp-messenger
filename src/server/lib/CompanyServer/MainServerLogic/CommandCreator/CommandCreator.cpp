@@ -66,7 +66,7 @@ std::shared_ptr<BaseCommand> CommandCreator::createCommand(std::string message) 
         return command6;
     }  else if (requestCommand == COMMAND7) {
         std::cout << "command 7" << std::endl;
-        std::shared_ptr<Command> command7(new Command(pt));
+        std::shared_ptr<CompanyCommand> command7(new CompanyCommand(pt));
         return command7;
     }   else if (requestCommand == COMMAND8) {
         std::cout << "command 8" << std::endl;
