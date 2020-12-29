@@ -55,31 +55,31 @@ RUN apt-get install -y \
 #    && cd ~ \
 #    && rm r3.6.2.tar.gz \
 #    && rm -rf mongo-cxx-driver-r3.6.2
-RUN apt install libmongoc-1.0-0 -y
-RUN apt install libbson-1.0-0 -y
-
-RUN wget https://github.com/mongodb/mongo-c-driver/releases/download/1.17.3/mongo-c-driver-1.17.3.tar.gz \
-    && tar xzf mongo-c-driver-1.17.3.tar.gz \
-    && cd mongo-c-driver-1.17.3 \
-    && mkdir cmake-build \
-    && cd cmake-build \
-    && cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF .. \
-    && cmake --build . \
-    && cmake --build . --target install
-
-
-RUN curl -OL https://github.com/mongodb/mongo-cxx-driver/releases/download/r3.6.2/mongo-cxx-driver-r3.6.2.tar.gz \
-    && tar -xzf mongo-cxx-driver-r3.6.2.tar.gz \
-    && cd mongo-cxx-driver-r3.6.2/build \
-    && cmake ..                                \
-           -DCMAKE_BUILD_TYPE=Release          \
-           -DCMAKE_INSTALL_PREFIX=/usr/local \
-    && cmake ..                                            \
-           -DCMAKE_BUILD_TYPE=Release                      \
-           -DCMAKE_PREFIX_PATH=/opt/mongo-c-driver         \
-           -DCMAKE_INSTALL_PREFIX=/opt/mongo-cxx-driver \
-    && cmake --build . \
-    && cmake --build . --target install
+# RUN apt install libmongoc-1.0-0 -y
+# RUN apt install libbson-1.0-0 -y
+#
+# RUN wget https://github.com/mongodb/mongo-c-driver/releases/download/1.17.3/mongo-c-driver-1.17.3.tar.gz \
+#     && tar xzf mongo-c-driver-1.17.3.tar.gz \
+#     && cd mongo-c-driver-1.17.3 \
+#     && mkdir cmake-build \
+#     && cd cmake-build \
+#     && cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF .. \
+#     && cmake --build . \
+#     && cmake --build . --target install
+#
+#
+# RUN curl -OL https://github.com/mongodb/mongo-cxx-driver/releases/download/r3.6.2/mongo-cxx-driver-r3.6.2.tar.gz \
+#     && tar -xzf mongo-cxx-driver-r3.6.2.tar.gz \
+#     && cd mongo-cxx-driver-r3.6.2/build \
+#     && cmake ..                                \
+#            -DCMAKE_BUILD_TYPE=Release          \
+#            -DCMAKE_INSTALL_PREFIX=/usr/local \
+#     && cmake ..                                            \
+#            -DCMAKE_BUILD_TYPE=Release                      \
+#            -DCMAKE_PREFIX_PATH=/opt/mongo-c-driver         \
+#            -DCMAKE_INSTALL_PREFIX=/opt/mongo-cxx-driver \
+#     && cmake --build . \
+#     && cmake --build . --target install
 
 COPY . .
 #CMD /bin/bash
