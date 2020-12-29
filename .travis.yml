@@ -17,21 +17,7 @@ before_install:
 
 
 script:
-  - docker network create test-network
-#  - docker run --network test-network --name some-mongo -d mongo
-#  - docker run -it --network test-network --rm mongo mongo --host some-mongo test
-#  - use test_company
-#  - db.createCollection("users")
-#  - exit
-  - docker run -it --network test-network server:1.0
-
-#   - cmake -DCMAKE_BUILD_TYPE=Test ./
-#   - make
-#   - valgrind --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no ./notice_maker
   - docker run -it server:1.0
-#   - cmake -DCMAKE_BUILD_TYPE=Test ./
-#   - make
-#   - valgrind --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no ./Application
 
 # after_success:
 #   - cd CMakeFiles/Aplication.dir
