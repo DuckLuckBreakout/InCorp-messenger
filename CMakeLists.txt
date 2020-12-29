@@ -1,3 +1,4 @@
+
 #cmake_minimum_required(VERSION 3.2)
 #set(PROJECT_NAME Application)
 #
@@ -286,6 +287,26 @@ set(DEBUG_CXX_FLAGS "-std=c++17 -pthread -lpthread -lboost_thread -g3 ")
 set(DEBUG_C_FLAGS "-std=c99 -pthread -g3")
 
 
+cmake_minimum_required(VERSION 3.16)
+set(PROJECT_NAME Application)
+project(${PROJECT_NAME})
+set(CMAKE_CXX_STANDARD 20)
+
+
+# ---------- Compiling flags ----------
+# Release flags
+set(RELEASE_CXX_FLAGS "-std=c++17 -Wall -Werror -pedantic")
+set(RELEASE_C_FLAGS "-std=c99 -Wall -Werror -pedantic")
+# Debug flags
+set(DEBUG_CXX_FLAGS "-std=c++17 -pthread -g3")
+set(DEBUG_C_FLAGS "-std=c99 -pthread -g3")
+
+
+# -------- Build lib ---------
+add_subdirectory(src/client)
+
+
+# ---------- Build target -----------
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     # Set flags
@@ -300,6 +321,12 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
             ServerApp
             ${LIBMONGOCXX_LIBRARIES}
             #            ${LIBBSONCXX_LIBRARIES}
+            src/client/main.cpp
+            )
+
+    target_link_libraries(${PROJECT_NAME}
+            AppClient
+
             )
 
 elseif (CMAKE_BUILD_TYPE MATCHES Test)
@@ -351,6 +378,18 @@ elseif (CMAKE_BUILD_TYPE MATCHES Test)
             ${PROJECT_SOURCE_DIR})
 
     target_compile_definitions(test_mongocxx PUBLIC ${LIBMONGOCXX_DEFINITIONS})
+    add_executable(${PROJECT_NAME}
+            src/client/test/gmock.cpp
+            src/client/test/gtest.cpp
+            src/client/test/test.cpp
+            )
+
+    target_link_libraries(${PROJECT_NAME}
+            gtest
+            gmock_main
+            gcov
+            AppClient
+            )
 
     add_test(run_tests run_tests)
 
@@ -369,3 +408,12 @@ elseif (CMAKE_BUILD_TYPE MATCHES Release)
 
 endif ()
 
+            src/client/main.cpp
+            )
+
+    target_link_libraries(${PROJECT_NAME}
+            AppClient
+            )
+endif ()
+
+target_include_directories(Application PUBLIC "${PROJECT_SOURCE_DIR}")

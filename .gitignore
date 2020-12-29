@@ -1,3 +1,4 @@
+
 .DS_Store
 .idea/
 cmake-*
@@ -14,6 +15,21 @@ sites
 *.ilk
 *.map
 *.exp
+# Project
+.idea/
+.DS_Store
+.cmake-build-debug/
+.cmake-build-release/
+.cmake-build-test/
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
 
 # Precompiled Headers
 *.gch
@@ -30,6 +46,20 @@ sites
 *.so
 *.so.*
 *.dylib
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
 
 # Executables
 *.exe
