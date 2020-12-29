@@ -4,6 +4,7 @@
 boost::property_tree::ptree AuthorizationManager::loginUser(boost::property_tree::ptree &params) {
     auto login = params.get<std::string>("body.login");
     if (dbConnector.userIsRegistered(login)) {
+        std::cout << "TUT";
         dbConnector.authorizeUser(login);
         dbConnector.getUserInfo(params);
         params.add("status", "true");

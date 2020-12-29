@@ -29,7 +29,7 @@ using bsoncxx::builder::basic::kvp;
 
 class DataBaseConnector {
 public:
-    explicit DataBaseConnector(std::string &companyName);
+    explicit DataBaseConnector(std::string companyName = std::string("test_company"));
     bool userIsRegistered(std::string &token);
     bool userIsAuthorized(std::string &token);
     void authorizeUser(std::string &token);
