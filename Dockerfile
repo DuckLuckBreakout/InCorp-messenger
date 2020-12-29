@@ -68,3 +68,5 @@ RUN cd CMakeFiles/Application.dir && \
     lcov --directory . --capture --output-file coverage.info && \
     lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' --output-file coverage.info && \
     lcov --list coverage.info
+    
+CMD echo "end"
