@@ -10,12 +10,13 @@ public:
     Message();
     Message(int chatId, const std::string& text,
             int idOwner, time_t timeSend, unsigned int number);
+    Message(int chatId);
+    ~Message() override = default;
 
     std::string encode() const override;
     void decode(const std::string& jsonStr) override;
 
 public:
-
     int chatId;
     std::string text;
     int ownerId;

@@ -8,9 +8,10 @@
 
 
 class BaseObject {
-public:;
+public:
     BaseObject() : parser(std::make_shared<Parser>()) {};
     virtual ~BaseObject() = default;
+
     virtual std::string encode() const = 0;
     virtual void decode(const std::string& jsonStr) = 0;
 

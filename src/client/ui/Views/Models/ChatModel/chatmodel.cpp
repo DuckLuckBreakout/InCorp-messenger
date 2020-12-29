@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <unordered_set>
 #include <QPixmap>
+#include <ui/Callbacks/Chat.h>
 
 ChatModel::ChatModel(QObject *parent)
     :QAbstractListModel(parent) {}
@@ -39,67 +40,68 @@ void ChatModel::createMessage(const Message& message) {
     emit updateItems();
 }
 
-void ChatModel::newMessages(const std::vector<Message>& messages) {
+void ChatModel::newMessage(const Message& message) {
     int row = this->rowCount();
-    auto uniqIds = getUniqueIds(messages);
-    beginInsertRows(QModelIndex(),row,row + messages.size());
+    beginInsertRows(QModelIndex(),row,row + 1);
     int myId = UserData::getInstance()->userId;
 
-    for (auto& object : messages) {
-        items.emplace_back(MessageView(object));
-        if(object.isChecked && (object.ownerId == myId)) {
-            items[items.size() - 1].type = MessageView::MessageType::READ_MESSAGE;
-        }
-        else if(object.ownerId == myId) {
-             items[items.size() - 1].type = MessageView::MessageType::SELF_MESSAGE_DONE;
-            }
-        else{
-            items[items.size() - 1].type = MessageView::MessageType::OTHER_MESSAGE;
-        }
-    }
-    // TODO: Controller::getInstance()->getUser()
+    items.emplace_back(MessageView(message));
+    if (message.isChecked)
+        items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_READ;
+    else
+        items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_SEND;
+
+    UserPreview user(message.ownerId, message.chatId);
+    Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
+                                       std::make_shared<GetUserForChatCallback>(shared_from_this()));
 
     endInsertRows();
     emit updateItems();
 }
 
-void ChatModel::messagesChecked() {
+
+void ChatModel::checkMessages() {
     int id = UserData::getInstance()->userId;
     std::for_each(items.begin(),items.end(),[id](MessageView& message) {
             if(message.ownerId == id)
-                message.type = MessageView::MessageType::READ_MESSAGE;
+                message.type = MessageView::MessageType::MESSAGE_WAS_READ;
     });
+    emit updateItems();
 }
 
 void ChatModel::updateMessageStatus(unsigned int number, MessageView::MessageType type) {
     std::for_each(items.begin(),items.end(),[number, type](MessageView& message) {
-        if(message.number == number)
+        if ((message.number == number) && (message.type < type))
             message.type = type;
     });
 }
 
 
 void ChatModel::setData(std::vector<Message>& messages) {
-    int row = this->rowCount();
-    auto uniqIds = getUniqueIds(messages);
-    beginInsertRows(QModelIndex(),row,row + messages.size());
-    int myId = UserData::getInstance()->userId;
-    for (auto& object : messages) {
-        items.emplace_back(Message(object));
-        if (object.isChecked && (object.ownerId == myId)) {
-            items[items.size() - 1].type = MessageView::MessageType::READ_MESSAGE;
+    if (!messages.empty()) {
+        int row = this->rowCount();
+        auto uniqIds = getUniqueIds(messages);
+        auto chatId = messages[0].chatId;
+
+        beginInsertRows(QModelIndex(), row, row + messages.size() - 1);
+        int myId = UserData::getInstance()->userId;
+        for (auto &object : messages) {
+            items.emplace_back(Message(object));
+            if (object.isChecked)
+                items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_READ;
+            else
+                items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_SEND;
         }
-        else if (object.ownerId == myId) {
-             items[items.size() - 1].type = MessageView::MessageType::SELF_MESSAGE_DONE;
+
+        for (auto &object : uniqIds) {
+            UserPreview user(object, chatId);
+            Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
+                                               std::make_shared<GetUserForChatCallback>(shared_from_this()));
         }
-        else {
-            items[items.size() - 1].type = MessageView::MessageType::OTHER_MESSAGE;
-        }
+        endInsertRows();
     }
 
-    // TODO: Controller::getInstance()->getUser();
 
-    endInsertRows();
     emit updateItems();
 }
 

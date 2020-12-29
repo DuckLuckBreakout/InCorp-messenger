@@ -3,14 +3,15 @@
 
 #include <iostream>
 
-#include "ChatObjects/Authorization.h"
+#include "ChatObjects/UserInfo.h"
 #include "ChatObjects/BaseObject.h"
 
 
 class BaseCallback {
 public:
     BaseCallback() {};
-    virtual void operator()(std::shared_ptr<BaseObject> test) {};
+    virtual void operator()(std::shared_ptr<BaseObject> callback,
+                            const std::optional<std::string>& error) {};
 };
 
 

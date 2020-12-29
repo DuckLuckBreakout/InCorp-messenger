@@ -11,7 +11,7 @@
 #include <iostream>
 #include <memory>
 
-#include <ChatObjects/Authorization.h>
+#include <ChatObjects/UserInfo.h>
 #include <Controller/Controller.h>
 #include <CallbacksHolder/Callback/BaseCallback.h>
 

@@ -8,9 +8,9 @@ LoginWidget::LoginWidget(QWidget *parent) :
     QStackedWidget(parent),
     ui(new Ui::LoginWidget) {
     ui->setupUi(this);
-    this->resize(800,550);
-    this->setMinimumSize(800,550);
-    this->setMaximumSize(800,550);
+    this->resize(810, 550);
+    this->setMinimumSize(810, 550);
+    this->setMaximumSize(810, 550);
     this->setWindowTitle("InCorp  - messenger");
 }
 
@@ -23,17 +23,21 @@ void LoginWidget::on_loginButton_clicked() {
 }
 
 void LoginWidget::login(const QString &login, const QString &password) {
-    qDebug() <<"log";
+    const std::string log = login.toStdString();
+    const std::string pass = password.toStdString();
+    if ((log != "") && (pass != "")) {
+        auto authInfo = UserInfo(log, pass);
+        auto client = Controller::getInstance();
+        auto callback = std::make_shared<LoginCallback>(shared_from_this());
 
-    auto authInfo = Authorization(login.toStdString(),password.toStdString());
-    auto client = Controller::getInstance();
-    auto callback = std::make_shared<LoginCallback>(shared_from_this());
+        auto userData = UserData::getInstance();
+        client->authorization(authInfo, userData->userId, callback);
 
-    auto userData = UserData::getInstance();
-    client->authorization(authInfo, userData->userId, callback);
 
-    ui->loginInput->clear();
-    ui->passwordInput->clear();
+        ui->loginInput->clear();
+        ui->passwordInput->clear();
+        ui->SignInLabel->clear();
+    }
 }
 
 void LoginWidget::showMainWidget() {

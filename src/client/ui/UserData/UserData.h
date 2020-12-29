@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <map>
 
 
 class UserData {
@@ -18,9 +19,11 @@ private:
 public:
     std::string firstName;
     std::string lastName;
-    int userId;
+    int userId = -1;
     std::string role;
     std::vector<int> chatsId;
+    std::string company;
+    int currentChatId = -1;
 };
 
 

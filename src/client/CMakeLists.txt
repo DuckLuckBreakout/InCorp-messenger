@@ -21,22 +21,36 @@ find_package(Qt5Widgets REQUIRED)
 set(VIEWS_HEADERS
         ui/Views/ChatView/chatview.h
         ui/Views/GroupListView/grouplistview.h
+        ui/Views/TextView/textview.h
         ui/Views/Models/ChatModel/chatmodel.h
+        ui/Views/Models/GroupModel/groupmodel.h
+        ui/Views/Models/LogModel/logmodel.h
         ui/Views/Delegates/ChatDelegate/chatdelegate.h
+        ui/Views/Delegates/GroupDelegate/groupdelegate.h
+        ui/Views/LogView/logview.h
         )
 
 set(VIEWS_SOURCES
         ui/Views/ChatView/chatview.cpp
+        ui/Views/LogView/logview.cpp
         ui/Views/GroupListView/grouplistview.cpp
+        ui/Views/TextView/textview.cpp
         ui/Views/Models/ChatModel/chatmodel.cpp
+        ui/Views/Models/LogModel/logmodel.cpp
+        ui/Views/Models/GroupModel/groupmodel.cpp
         ui/Views/Delegates/ChatDelegate/chatdelegate.cpp
+        ui/Views/Delegates/LogDelegate/logdelegate.cpp
+        ui/Views/Delegates/GroupDelegate/groupdelegate.cpp
         )
 
 # Delegates
 set(DELEGATE_HEADERS
         ui/Viewer/Viewer.h
         ui/Callbacks/Login.h
+
+        ui/Callbacks/Log.h
         ui/Callbacks/Chat.h
+        ui/Callbacks/Registrate.h
         ui/UserData/UserData.h
         )
 
@@ -47,17 +61,26 @@ set(DELEGATE_SOURCES
 #Widgets
 set(WIDGET_HEADERS
         ui/LoginWidget/loginwidget.h
+        ui/LogWidget/logwidget.h
+        ui/MenuWidget/menuwidget.h
         ui/MainWidget/mainwidget.h
+        ui/RegistrateWidget/registratewidget.h
         )
 
 set(WIDGET_SOURCES
         ui/LoginWidget/loginwidget.cpp
+        ui/LogWidget/logwidget.cpp
+        ui/MenuWidget/menuwidget.cpp
         ui/MainWidget/mainwidget.cpp
+        ui/RegistrateWidget/registratewidget.cpp
         )
 
 set(FORMS_UI
         ui/MainWidget/mainwidget.ui
+        ui/LogWidget/logwidget.ui
+        ui/MenuWidget/menuwidget.ui
         ui/LoginWidget/loginwidget.ui
+        ui/RegistrateWidget/registratewidget.ui
         )
 
 # Create lib AppClient with GUI

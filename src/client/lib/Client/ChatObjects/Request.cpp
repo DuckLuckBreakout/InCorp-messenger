@@ -1,5 +1,6 @@
 #include "Request.h"
-Request::Request() {}
+Request::Request()
+        : command(-100), globalId(-1), numRequest(-1) {}
 
 Request::Request(int command, std::string body,
                  int globalId, int numRequest)

@@ -4,8 +4,6 @@
 #include <lib/Client/Client/Client.h>
 #include <lib/Client/UserOptions/CompanyOptions.h>
 #include <lib/Client/UserOptions/BaseUserOptions.h>
-#include <ui/Callbacks/Chat.h>
-#include <ui/Callbacks/Login.h>
 
 using ::testing::AtLeast;
 using ::testing::DoAll;
@@ -56,9 +54,9 @@ namespace TestingUserOptionsGmock {
                                           const std::shared_ptr<BaseCallback> callback,
                                           std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
 
-            MOCK_METHOD5(authorization, void(const Authorization& authInfo, int globalId,
-                                        const std::shared_ptr<BaseCallback> callback,
-                                        std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
+//            MOCK_METHOD5(authorization, void(const Authorization& authInfo, int globalId,
+//                                        const std::shared_ptr<BaseCallback> callback,
+//                                        std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
 
             MOCK_METHOD5(chatUpdate, void(const ChatUpdates& chatUpdates, int globalId,
                                      const std::shared_ptr<BaseCallback> callback,
@@ -73,13 +71,13 @@ namespace TestingUserOptionsGmock {
             EXPECT_CALL(userOptions, sendMessage).Times(AtLeast(1));
             userOptions.sendMessage(Message(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
         }
-        TEST(EmployeeOptions, authorization) {
-            MockEmployeeOptions userOptions;
-            std::shared_ptr<BaseClient> client = std::make_shared<Client>();
-            std::shared_ptr<CallbacksHolder> callbackHolder = std::make_shared<CallbacksHolder>();
-            EXPECT_CALL(userOptions, authorization).Times(AtLeast(1));
-            userOptions.authorization(Authorization(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
-        }
+//        TEST(EmployeeOptions, authorization) {
+//            MockEmployeeOptions userOptions;
+//            std::shared_ptr<BaseClient> client = std::make_shared<Client>();
+//            std::shared_ptr<CallbacksHolder> callbackHolder = std::make_shared<CallbacksHolder>();
+//            EXPECT_CALL(userOptions, authorization).Times(AtLeast(1));
+//            userOptions.authorization(Authorization(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
+//        }
         TEST(EmployeeOptions, chatUpdate) {
             MockEmployeeOptions userOptions;
             std::shared_ptr<BaseClient> client = std::make_shared<Client>();
@@ -96,9 +94,9 @@ namespace TestingUserOptionsGmock {
                     const std::shared_ptr<BaseCallback> callback,
                     std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
 
-            MOCK_METHOD5(authorization, void(const Authorization& authInfo, int globalId,
-                    const std::shared_ptr<BaseCallback> callback,
-                    std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
+//            MOCK_METHOD5(authorization, void(const Authorization& authInfo, int globalId,
+//                    const std::shared_ptr<BaseCallback> callback,
+//                    std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
 
             MOCK_METHOD5(chatUpdate, void(const ChatUpdates& chatUpdates, int globalId,
                     const std::shared_ptr<BaseCallback> callback,
@@ -113,13 +111,13 @@ namespace TestingUserOptionsGmock {
             EXPECT_CALL(userOptions, sendMessage).Times(AtLeast(1));
             userOptions.sendMessage(Message(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
         }
-        TEST(MockManagerOptions, authorization) {
-            MockManagerOptions userOptions;
-            std::shared_ptr<BaseClient> client = std::make_shared<Client>();
-            std::shared_ptr<CallbacksHolder> callbackHolder = std::make_shared<CallbacksHolder>();
-            EXPECT_CALL(userOptions, authorization).Times(AtLeast(1));
-            userOptions.authorization(Authorization(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
-        }
+//        TEST(MockManagerOptions, authorization) {
+//            MockManagerOptions userOptions;
+//            std::shared_ptr<BaseClient> client = std::make_shared<Client>();
+//            std::shared_ptr<CallbacksHolder> callbackHolder = std::make_shared<CallbacksHolder>();
+//            EXPECT_CALL(userOptions, authorization).Times(AtLeast(1));
+//            userOptions.authorization(Authorization(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
+//        }
         TEST(MockManagerOptions, chatUpdate) {
             MockManagerOptions userOptions;
             std::shared_ptr<BaseClient> client = std::make_shared<Client>();
@@ -138,9 +136,9 @@ namespace TestingUserOptionsGmock {
                     const std::shared_ptr<BaseCallback> callback,
                     std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
 
-            MOCK_METHOD5(authorization, void(const Authorization& authInfo, int globalId,
-                    const std::shared_ptr<BaseCallback> callback,
-                    std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
+//            MOCK_METHOD5(authorization, void(const Authorization& authInfo, int globalId,
+//                    const std::shared_ptr<BaseCallback> callback,
+//                    std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
 
             MOCK_METHOD5(chatUpdate, void(const ChatUpdates& chatUpdates, int globalId,
                     const std::shared_ptr<BaseCallback> callback,
@@ -155,13 +153,13 @@ namespace TestingUserOptionsGmock {
             EXPECT_CALL(userOptions, sendMessage).Times(AtLeast(1));
             userOptions.sendMessage(Message(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
         }
-        TEST(MockGuestOptions, authorization) {
-            MockGuestOptions userOptions;
-            std::shared_ptr<BaseClient> client = std::make_shared<Client>();
-            std::shared_ptr<CallbacksHolder> callbackHolder = std::make_shared<CallbacksHolder>();
-            EXPECT_CALL(userOptions, authorization).Times(AtLeast(1));
-            userOptions.authorization(Authorization(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
-        }
+//        TEST(MockGuestOptions, authorization) {
+//            MockGuestOptions userOptions;
+//            std::shared_ptr<BaseClient> client = std::make_shared<Client>();
+//            std::shared_ptr<CallbacksHolder> callbackHolder = std::make_shared<CallbacksHolder>();
+//            EXPECT_CALL(userOptions, authorization).Times(AtLeast(1));
+//            userOptions.authorization(Authorization(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
+//        }
         TEST(MockGuestOptions, chatUpdate) {
             MockGuestOptions userOptions;
             std::shared_ptr<BaseClient> client = std::make_shared<Client>();
@@ -180,9 +178,9 @@ namespace TestingUserOptionsGmock {
                     const std::shared_ptr<BaseCallback> callback,
                     std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
 
-            MOCK_METHOD5(authorization, void(const Authorization& authInfo, int globalId,
-                    const std::shared_ptr<BaseCallback> callback,
-                    std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
+//            MOCK_METHOD5(authorization, void(const Authorization& authInfo, int globalId,
+//                    const std::shared_ptr<BaseCallback> callback,
+//                    std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder));
 
             MOCK_METHOD5(chatUpdate, void(const ChatUpdates& chatUpdates, int globalId,
                     const std::shared_ptr<BaseCallback> callback,
@@ -197,13 +195,13 @@ namespace TestingUserOptionsGmock {
             EXPECT_CALL(userOptions, sendMessage).Times(AtLeast(1));
             userOptions.sendMessage(Message(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
         }
-        TEST(MockCompanyOptions, authorization) {
-            MockCompanyOptions userOptions;
-            std::shared_ptr<BaseClient> client = std::make_shared<Client>();
-            std::shared_ptr<CallbacksHolder> callbackHolder = std::make_shared<CallbacksHolder>();
-            EXPECT_CALL(userOptions, authorization).Times(AtLeast(1));
-            userOptions.authorization(Authorization(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
-        }
+//        TEST(MockCompanyOptions, authorization) {
+//            MockCompanyOptions userOptions;
+//            std::shared_ptr<BaseClient> client = std::make_shared<Client>();
+//            std::shared_ptr<CallbacksHolder> callbackHolder = std::make_shared<CallbacksHolder>();
+//            EXPECT_CALL(userOptions, authorization).Times(AtLeast(1));
+//            userOptions.authorization(Authorization(), 1, std::make_shared<BaseCallback>(), client, callbackHolder);
+//        }
         TEST(MockCompanyOptions, chatUpdate) {
             MockCompanyOptions userOptions;
             std::shared_ptr<BaseClient> client = std::make_shared<Client>();

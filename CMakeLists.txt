@@ -90,7 +90,6 @@ elseif (CMAKE_BUILD_TYPE MATCHES Release)
     target_link_libraries(${PROJECT_NAME}
             AppClient
             )
-
 endif ()
 
 target_include_directories(Application PUBLIC "${PROJECT_SOURCE_DIR}")

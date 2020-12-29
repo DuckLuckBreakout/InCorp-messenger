@@ -2,9 +2,9 @@
 
 #include <utility>
 
-SendMessageCmd::SendMessageCmd(int numRequest, std::optional<std::string> error,
-                                       std::string body)
-        : BaseCmd(numRequest, std::move(error), std::move(body)) {}
+SendMessageCmd::SendMessageCmd(int numRequest, const std::optional<std::string>& error,
+                               const std::string& body)
+        : BaseCmd(numRequest, error, body) {}
 
 
 void SendMessageCmd::execute(std::shared_ptr<CallbacksHolder> holder) {
@@ -12,5 +12,5 @@ void SendMessageCmd::execute(std::shared_ptr<CallbacksHolder> holder) {
     message->decode(body);
 
     auto func = holder->getCallback(Commands::SendMessage, numRequest).get();
-    (*func)(message);
+    (*func)(message, error);
 }

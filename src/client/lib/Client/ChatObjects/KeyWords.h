@@ -21,7 +21,7 @@ namespace KeyWords {
     static const std::string numRequest = "numRequest";
     static const std::string error = "error";
     static const std::string status = "status";
-    static const std::string lastMessageId = "lastMessageId";
+    static const std::string lastMessageNum = "lastMessageNum";
     static const std::string maxNumMessages = "maxNumMessages";
     static const std::string messages = "messages";
     static const std::string login = "login";
@@ -30,6 +30,14 @@ namespace KeyWords {
     static const std::string ip = "ip";
     static const std::string port = "port";
     static const std::string number = "number";
+    static const std::string company = "company";
+    static const std::string chatName = "chatName";
+    static const std::string chats = "chats";
+    static const std::string usersId = "usersId";
+    static const std::string chatAction = "chatAction";
+    static const std::string message = "message";
+    static const std::string operation = "operation";
+    static const std::string logs = "logs";
 }
 
 

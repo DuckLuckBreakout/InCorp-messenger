@@ -1,18 +1,18 @@
 #include "Client.h"
 
+
 Client::Client() : BaseClient() {}
 
-// Add new message in queue and send messages from queue
 void Client::sendMessage(const std::string &message) {
     service.post([self = shared_from_this(), message]() -> void {
-        self->messages.push(message + "\r\n");
-        self->sendAllMessagesFromQueue();
+        bool isEmpty = self->messages.empty();
+        self->messages.push_back(message + "\r\n");
+        if (isEmpty)
+            self->sendAllMessagesFromQueue();
     });
 }
 
-// Send all messages from queue while not empty
 void Client::sendAllMessagesFromQueue() {
-    // Async write oldest message
     boost::asio::async_write(socket,
 boost::asio::buffer(messages.front().data(),messages.front().size()),
     [self = shared_from_this()](boost::system::error_code error,
@@ -20,26 +20,25 @@ boost::asio::buffer(messages.front().data(),messages.front().size()),
         if (error)
             self->handleError(error);
         else {
-            self->messages.pop();
+            std::cerr << "was send: \n" << self->messages.front() << std::endl;
 
-            // Loop for send messages in queue
-            if (!self->messages.empty())
+            self->messages.pop_front();
+            if (!self->messages.empty()) {
+
                 self->sendAllMessagesFromQueue();
+            }
         }
     });
 }
 
-// Set handler for message
 void Client::setMessageHandler(const std::function<void(const std::string &)>& handler) {
     messageHandler = handler;
 }
 
-// Set handler for error
 void Client::setErrorHandler(const std::function<void(int)>& handler) {
     errorHandler = handler;
 }
 
-// Main connection handle
 void Client::handleConnect(const boost::system::error_code &error) {
     if (error)
         handleError(error);
@@ -54,15 +53,20 @@ void Client::loop() {
             if (error)
                 self->handleError(error);
             else {
-                std::ostringstream out;
-                out << &(self->readBuffer);
 
-                std::string msg = out.str();
-                if (self->messageHandler) {
-                    self->messageHandler.value()(msg);
-                } else {
-                    self->endClient();
-                    throw std::runtime_error(error.message());
+                std::cerr << "[ " + std::to_string(length) + " ] " << std::endl;
+                if (length > 0) {
+                    std::string str{buffers_begin(self->readBuffer.data()),
+                                    buffers_begin(self->readBuffer.data()) + length - 2};
+                    self->readBuffer.consume(length);
+                    std::cerr << "Read message: " << str << std::endl;
+                    if (self->messageHandler) {
+                        self->messageHandler.value()(str);
+                    } 
+                    else {
+                        self->endClient();
+                        throw std::runtime_error(error.message());
+                    }
                 }
                 self->loop();
             }

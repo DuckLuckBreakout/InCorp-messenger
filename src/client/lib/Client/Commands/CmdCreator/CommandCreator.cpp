@@ -5,18 +5,50 @@ std::shared_ptr<BaseCmd> CommandCreator::createCommand(int command, const std::o
     std::shared_ptr<BaseCmd> createdCommand;
 
     switch (command) {
-        case Commands::LogIn: {
+        case Commands::LogIn:
             createdCommand = std::make_shared<AuthorizationCmd>(numRequest, error, body);
             break;
-        }
-        case Commands::SendMessage: {
+
+        case Commands::SendMessage:
             createdCommand = std::make_shared<SendMessageCmd>(numRequest, error, body);
             break;
-        }
-        case Commands::ChatUpdate: {
-            createdCommand = std::make_shared<ChatUpdateCmd>(numRequest, error, body);
+
+        case Commands::SystemUpdate:
+            createdCommand = std::make_shared<SystemUpdateCmd>(numRequest, error, body);
             break;
-        }
+
+        case Commands::GetListOfChats:
+            createdCommand = std::make_shared<GetListChatsCmd>(numRequest, error, body);
+            break;
+
+        case Commands::GetSelectChatRoom:
+            createdCommand = std::make_shared<GetChatRoomCmd>(numRequest, error, body);
+            break;
+
+        case Commands::GetMessagesInChat:
+            createdCommand = std::make_shared<GetChatMessagesCmd>(numRequest, error, body);
+            break;
+
+        case Commands::GetLastMessageInChat:
+            createdCommand = std::make_shared<GetLastMessageCmd>(numRequest, error, body);
+            break;
+
+        case Commands::GetUserData:
+            createdCommand = std::make_shared<GetUserCmd>(numRequest, error, body);
+            break;
+
+        case Commands::ChatObserver:
+            createdCommand = std::make_shared<ChatObserverCmd>(numRequest, error, body);
+            break;
+
+        case Commands::GetLog:
+            createdCommand = std::make_shared<GetLogCmd>(numRequest, error, body);
+            break;
+
+        case Commands::RegistrationUser:
+            createdCommand = std::make_shared<RegistrationCmd>(numRequest, error, body);
+            break;
+
         default:
             break;
     }

@@ -38,7 +38,7 @@ protected:
     std::optional<std::function<void(int)>> errorHandler;
     boost::asio::streambuf readBuffer;
     std::thread thread;
-    std::queue<std::string> messages;
+    std::deque<std::string> messages;
 };
 
 

@@ -31,7 +31,7 @@ void Controller::sendMessage(const Message& message,  int globalId,
     userOptions->sendMessage(message, globalId, callback, client, callbackHolder);
 }
 
-void Controller::authorization(const Authorization& authInfo, int globalId,
+void Controller::authorization(const UserInfo& authInfo, int globalId,
                                const std::shared_ptr<BaseCallback>& callback) {
     userOptions->authorization(authInfo, globalId, callback, client, callbackHolder);
 }
@@ -40,6 +40,50 @@ void Controller::chatUpdate(const ChatUpdates &chatUpdates, int globalId,
                             const std::shared_ptr<BaseCallback>& callback) {
     userOptions->chatUpdate(chatUpdates, globalId, callback, client, callbackHolder);
 }
+
+void Controller::getListChats(const ListChats &listChats, int globalId,
+                              const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getListChats(listChats, globalId, callback, client, callbackHolder);
+}
+
+void Controller::getChatRoom(const ChatRoom& chatRoom, int globalId,
+                             const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getChatRoom(chatRoom, globalId, callback, client, callbackHolder);
+}
+
+void Controller::getChatMessages(const ChatUpdates &chatUpdates, int globalId,
+                                 const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getChatMessages(chatUpdates, globalId, callback, client, callbackHolder);
+}
+
+void Controller::getLastMessage(const Message &message, int globalId,
+                                const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getLastMessage(message, globalId, callback, client, callbackHolder);
+}
+
+void Controller::getUser(const UserPreview &user, int globalId,
+                         const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getUser(user, globalId, callback, client, callbackHolder);
+}
+
+void Controller::setChatObserver(int chatId, const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->setChatObserver(chatId, callback, client, callbackHolder);
+}
+
+void Controller::getLog(const LogUpdates& logUpdates, int globalId,
+                        const std::shared_ptr<BaseCallback> &callback) {
+    userOptions->getLog(logUpdates, globalId, callback, client, callbackHolder);
+}
+
+void Controller::sendChatCommand(const Message &message, int globalId) {
+    userOptions->sendChatCommand(message, globalId, client, callbackHolder);
+}
+
+void Controller::registration(const UserInfo& authInfo, int globalId,
+                              const std::shared_ptr<BaseCallback>& callback) {
+    userOptions->registration(authInfo, globalId, callback, client, callbackHolder);
+}
+
 
 void Controller::readMessageHandler(const std::string& str) {
     Request query;
@@ -51,19 +95,32 @@ void Controller::readMessageHandler(const std::string& str) {
         throw std::runtime_error("Can't decode answer from server!");
     }
 
+    std::optional<std::string> error;
     if (!query.status)
-        throw std::runtime_error(query.error);
+        error = query.error;
 
-    // Change user role and options
-    if (query.command == Commands::LogIn) {
-        Authorization account;
+    if ((query.command == Commands::LogIn) && (query.status)) {
+        UserInfo account;
         account.decode(query.body);
         RoleController::setRole(userOptions, account.role);
     }
 
-    std::shared_ptr<BaseCmd> command = CommandCreator::createCommand(query.command, query.error,
+    std::shared_ptr<BaseCmd> command = CommandCreator::createCommand(query.command, error,
                                                                      query.body, query.numRequest);
     command->execute(callbackHolder);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -8,19 +8,35 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CHAT_OBJECTS_HEADERS
         ChatObjects/KeyWords.h
         ChatObjects/BaseObject.h
-        ChatObjects/Authorization.h
+        ChatObjects/UserInfo.h
         ChatObjects/ChatUpdates.h
         ChatObjects/Message.h
         ChatObjects/Request.h
         ChatObjects/ChatUpdates.h
+        ChatObjects/ChatItem.h
+        ChatObjects/ListChats.h
+        ChatObjects/ChatRoom.h
+        ChatObjects/UserPreview.h
+        ChatObjects/ChatAction.h
+        ChatObjects/MessageStatus.h
+        ChatObjects/Log.h
+        ChatObjects/LogUpdates.h
         )
 
 set(CHAT_OBJECTS_SOURCES
-        ChatObjects/Authorization.cpp
+        ChatObjects/UserInfo.cpp
         ChatObjects/ChatUpdates.cpp
         ChatObjects/Message.cpp
         ChatObjects/Request.cpp
         ChatObjects/ChatUpdates.cpp
+        ChatObjects/ChatItem.cpp
+        ChatObjects/ListChats.cpp
+        ChatObjects/ChatRoom.cpp
+        ChatObjects/UserPreview.cpp
+        ChatObjects/ChatAction.cpp
+        ChatObjects/MessageStatus.cpp
+        ChatObjects/Log.cpp
+        ChatObjects/LogUpdates.cpp
         )
 
 # Callback holder
@@ -50,6 +66,15 @@ set(COMMANDS_HEADERS
         Commands/BaseCmd.h
         Commands/SendMessageCmd.h
         Commands/ChatUpdateCmd.h
+        Commands/GetListChatsCmd.h
+        Commands/GetChatRoomCmd.h
+        Commands/GetLastMessageCmd.h
+        Commands/GetChatMessagesCmd.h
+        Commands/GetUserCmd.h
+        Commands/ChatObserverCmd.h
+        Commands/GetLogCmd.h
+        Commands/SystemUpdateCmd.h
+        Commands/RegistrationCmd.h
         )
 
 set(COMMANDS_SOURCES
@@ -58,6 +83,15 @@ set(COMMANDS_SOURCES
         Commands/BaseCmd.cpp
         Commands/SendMessageCmd.cpp
         Commands/ChatUpdateCmd.cpp
+        Commands/GetListChatsCmd.cpp
+        Commands/GetChatRoomCmd.cpp
+        Commands/GetLastMessageCmd.cpp
+        Commands/GetChatMessagesCmd.cpp
+        Commands/GetUserCmd.cpp
+        Commands/ChatObserverCmd.cpp
+        Commands/GetLogCmd.cpp
+        Commands/SystemUpdateCmd.cpp
+        Commands/RegistrationCmd.cpp
         )
 
 # Parser

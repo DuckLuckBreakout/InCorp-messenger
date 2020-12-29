@@ -13,12 +13,12 @@
 class MessageView : public Message {
 public:
     MessageView() {
-        type = MessageType::SELF_MESSAGE_IN_PROGRESS;
+        type = MessageType::MESSAGE_WAS_NOT_SEND;
     }
 
     explicit MessageView(const Message& item)
     : Message(item) {
-        type = MessageType::SELF_MESSAGE_IN_PROGRESS;
+        type = MessageType::MESSAGE_WAS_NOT_SEND;
         char buffer [100];
         strftime(buffer, 100,"%H:%M", localtime(&item.timeSend));
         time = QString::fromStdString(std::string(buffer));
@@ -26,16 +26,16 @@ public:
 
 public:
     enum MessageType{
-        SELF_MESSAGE_IN_PROGRESS,
-        SELF_MESSAGE_DONE,
-        OTHER_MESSAGE,
-        READ_MESSAGE
+        MESSAGE_WAS_NOT_SEND,
+        MESSAGE_WAS_SEND,
+        MESSAGE_WAS_READ
     };
 
     MessageType type;
     QString time;
     QString firstName;
     QString lastName;
+    QString role;
 };
 
 Q_DECLARE_METATYPE(MessageView);
@@ -61,16 +61,16 @@ private:
 
 public slots:
     void createMessage(const Message& message);
-    void newMessages(const std::vector<Message>& messages);
-    void messagesChecked();
+    void newMessage(const Message& message);
+    void checkMessages();
 signals:
     void messageCreateByUser(const MessageView& message);
     void updateItems();
     void setLastMessageInGroup(const MessageView& message);
 
-private:
+public:
     std::vector<MessageView> items;
-    bool newMessageOnBottom;
+private:
     std::optional<std::string> errString;
 };
 

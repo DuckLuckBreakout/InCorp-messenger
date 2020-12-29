@@ -12,6 +12,8 @@
 #include "UserOptions/BaseUserOptions.h"
 #include "UserOptions/GuestOptions.h"
 #include "RoleController/RoleController.h"
+#include <ChatObjects/ChatRoom.h>
+
 
 class Controller: public std::enable_shared_from_this<Controller> {
 public:
@@ -29,14 +31,39 @@ public:
     void sendMessage(const Message& message, int globalId,
                      const std::shared_ptr<BaseCallback>& callback);
 
-    void authorization(const Authorization& authInfo, int globalId,
+    void authorization(const UserInfo& authInfo, int globalId,
                        const std::shared_ptr<BaseCallback>& callback);
 
 
     void chatUpdate(const ChatUpdates& chatUpdates, int globalId,
                     const std::shared_ptr<BaseCallback>& callback);
 
+    void getListChats(const ListChats& listChats, int globalId,
+                      const std::shared_ptr<BaseCallback>& callback);
+
+    void getChatRoom(const ChatRoom& chatRoom, int globalId,
+                     const std::shared_ptr<BaseCallback>& callback);
+
+    void getChatMessages(const ChatUpdates& chatUpdates, int globalId,
+                        const std::shared_ptr<BaseCallback>& callback);
+
+    void getLog(const LogUpdates& logUpdates, int globalId,
+                const std::shared_ptr<BaseCallback>& callback);
+
+    void getLastMessage(const Message& message, int globalId,
+                        const std::shared_ptr<BaseCallback>& callback);
+
+    void getUser(const UserPreview& user, int globalId,
+                 const std::shared_ptr<BaseCallback>& callback);
+
+    void setChatObserver(int chatId, const std::shared_ptr<BaseCallback>& callback);
+
     void readMessageHandler(const std::string& str);
+
+    void sendChatCommand(const Message& message, int globalId);
+
+    void registration(const UserInfo& authInfo, int globalId,
+                      const std::shared_ptr<BaseCallback>& callback);
 
 private:
     Controller();
