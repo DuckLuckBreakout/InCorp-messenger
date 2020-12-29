@@ -1,5 +1,5 @@
-#ifndef APPLICATION_CHECKED_H
-#define APPLICATION_CHECKED_H
+#ifndef APPLICATION_MESSAGESTATUS_H
+#define APPLICATION_MESSAGESTATUS_H
 
 #include <string>
 
@@ -7,10 +7,11 @@
 #include "KeyWords.h"
 
 
-class Checked : public BaseObject {
+class MessageStatus : public BaseObject {
 public:
-    Checked();
-    Checked(int chatId);
+    MessageStatus();
+    MessageStatus(int chatId);
+    ~MessageStatus() override = default;
 
     std::string encode() const override;
     void decode(const std::string& jsonStr) override;
@@ -21,4 +22,4 @@ public:
 
 
 
-#endif //APPLICATION_CHECKED_H
+#endif //APPLICATION_MESSAGESTATUS_H

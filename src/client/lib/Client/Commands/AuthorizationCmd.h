@@ -5,7 +5,7 @@
 
 #include "BaseCmd.h"
 #include "Commands/CmdCreator/Commands.h"
-#include "ChatObjects/Authorization.h"
+#include "ChatObjects/UserInfo.h"
 
 
 class AuthorizationCmd : public BaseCmd {

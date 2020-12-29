@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "ChatObjects/Authorization.h"
+#include "ChatObjects/UserInfo.h"
 #include "ChatObjects/BaseObject.h"
 
 

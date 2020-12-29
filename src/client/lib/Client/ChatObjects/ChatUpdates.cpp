@@ -13,6 +13,7 @@ std::string ChatUpdates::encode() const {
 
     parser->addValue(chatId, KeyWords::chatId);
     parser->addValue(lastMessageNum, KeyWords::lastMessageNum);
+    parser->addValue(maxNumMessages, KeyWords::maxNumMessages);
 
     return parser->getJson();
 }

@@ -51,7 +51,7 @@ void ChatModel::newMessage(const Message& message) {
     else
         items[items.size() - 1].type = MessageView::MessageType::MESSAGE_WAS_SEND;
 
-    User user(message.ownerId, message.chatId);
+    UserPreview user(message.ownerId, message.chatId);
     Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                        std::make_shared<GetUserForChatCallback>(shared_from_this()));
 
@@ -94,7 +94,7 @@ void ChatModel::setData(std::vector<Message>& messages) {
         }
 
         for (auto &object : uniqIds) {
-            User user(object, chatId);
+            UserPreview user(object, chatId);
             Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                                std::make_shared<GetUserForChatCallback>(shared_from_this()));
         }

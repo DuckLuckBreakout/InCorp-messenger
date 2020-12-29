@@ -121,7 +121,7 @@ void MainWidget::on_sendMessageButton_clicked() {
         MessageView newMessage(message);
 
         it.base()->lastMessage = newMessage;
-        User user(newMessage.ownerId, newMessage.chatId);
+        UserPreview user(newMessage.ownerId, newMessage.chatId);
         Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                            std::make_shared<GetUserForGroupCallback>(groupModel));
     }

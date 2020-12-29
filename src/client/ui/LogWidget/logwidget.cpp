@@ -6,7 +6,6 @@ LogWidget::LogWidget(QWidget *parent)
     :QFrame(parent),
     ui(new Ui::LogWidget) {
     ui->setupUi(this);
-//    this->setLayout(ui->mainLayout);
     this->setFrameShadow(QFrame::Raised);
     this->setMinimumWidth(260);
     this->setWindowFlags(Qt::Popup);

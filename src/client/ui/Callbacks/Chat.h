@@ -92,7 +92,7 @@ public:
     void operator()(std::shared_ptr<BaseObject> data,
                     const std::optional<std::string>& error) override {
         auto window = widget;
-        auto user = std::static_pointer_cast<User>(data);
+        auto user = std::static_pointer_cast<UserPreview>(data);
         std::for_each(widget->items.begin(),widget->items.end(),[user](MessageView& message){
             if (message.ownerId == user->userId){
                 message.firstName = QString::fromStdString(user->firstName);
@@ -116,7 +116,7 @@ public:
     void operator()(std::shared_ptr<BaseObject> data,
                     const std::optional<std::string>& error) override {
         auto window = widget;
-        auto user = std::static_pointer_cast<User>(data);
+        auto user = std::static_pointer_cast<UserPreview>(data);
 
         std::for_each(widget->items.begin(),widget->items.end(),[user](GroupView &group) {
             if (group.lastMessage.ownerId == user->userId){
@@ -147,7 +147,7 @@ public:
                 });
         MessageView newMessage(*message);
         it.base()->lastMessage = newMessage;
-        User user(newMessage.ownerId, message->chatId);
+        UserPreview user(newMessage.ownerId, message->chatId);
         Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                            std::make_shared<GetUserForGroupCallback>(window));
 
@@ -179,12 +179,12 @@ public:
             MessageView newMessage(*message);
 
             it.base()->lastMessage = newMessage;
-            User user(newMessage.ownerId, newMessage.chatId);
+            UserPreview user(newMessage.ownerId, newMessage.chatId);
             Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                                std::make_shared<GetUserForGroupCallback>(widget));
         }
         else if (action->chatAction == 2) {
-            auto checked = std::static_pointer_cast<Checked>(action->data);
+            auto checked = std::static_pointer_cast<MessageStatus>(action->data);
             if (UserData::getInstance()->currentChatId == checked->chatId) {
                 emit window->messageChecked();
             }
@@ -206,7 +206,7 @@ public:
         auto window = widget;
         auto message = std::static_pointer_cast<Message>(data);
         window->chatModel->updateMessageStatus(message->number, MessageView::MessageType::MESSAGE_WAS_SEND);
-        User user(message->ownerId, message->chatId);
+        UserPreview user(message->ownerId, message->chatId);
         Controller::getInstance()->getUser(user, UserData::getInstance()->userId,
                                            std::make_shared<GetUserForChatCallback>(window->chatModel));
         emit window->chatModel->updateItems();

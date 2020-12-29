@@ -10,21 +10,19 @@
 
 class CallbacksHolder {
 public:
-    CallbacksHolder() = default;
-    ~CallbacksHolder() = default;
-
-    int addCallback(int command, const std::shared_ptr<BaseCallback> callback) {
-        auto position = callbacks.count(command) + 1;
+    
+    int addCallback(int command, const std::shared_ptr<BaseCallback>& callback) {
+        auto callbackId = callbacks.count(command) + 1;
         callbacks.insert(std::pair<int, std::pair<int, const std::shared_ptr<BaseCallback>>>
-                         (command, std::pair<int, const std::shared_ptr<BaseCallback>>(position, callback)));
-        return position;
+                         (command, std::pair<int, const std::shared_ptr<BaseCallback>>(callbackId, callback)));
+        return callbackId;
     }
 
-    int addCallback(int command, int numRequest, const std::shared_ptr<BaseCallback> callback) {
-        auto position = numRequest;
+    int addCallback(int command, int numRequest, const std::shared_ptr<BaseCallback>& callback) {
+        auto callbackId = numRequest;
         callbacks.insert(std::pair<int, std::pair<int, const std::shared_ptr<BaseCallback>>>
-                                 (command, std::pair<int, const std::shared_ptr<BaseCallback>>(position, callback)));
-        return position;
+                                 (command, std::pair<int, const std::shared_ptr<BaseCallback>>(callbackId, callback)));
+        return callbackId;
     }
 
     std::shared_ptr<BaseCallback> getCallback(int command, int position) {

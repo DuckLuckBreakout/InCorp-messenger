@@ -4,7 +4,7 @@
 #include "BaseCmd.h"
 #include "Commands/CmdCreator/Commands.h"
 #include "ChatObjects/ChatUpdates.h"
-#include "ChatObjects/Checked.h"
+#include "ChatObjects/MessageStatus.h"
 #include "ChatObjects/ChatAction.h"
 
 

@@ -18,7 +18,7 @@ void ChatObserverCmd::execute(std::shared_ptr<CallbacksHolder> holder) {
         action.data = data;
     }
     else if (action.chatAction == 2) {
-        data = std::make_shared<Checked>();
+        data = std::make_shared<MessageStatus>();
         data->decode(body);
         action.data = data;
     }

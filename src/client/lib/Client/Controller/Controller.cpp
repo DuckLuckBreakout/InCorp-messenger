@@ -31,7 +31,7 @@ void Controller::sendMessage(const Message& message,  int globalId,
     userOptions->sendMessage(message, globalId, callback, client, callbackHolder);
 }
 
-void Controller::authorization(const Authorization& authInfo, int globalId,
+void Controller::authorization(const UserInfo& authInfo, int globalId,
                                const std::shared_ptr<BaseCallback>& callback) {
     userOptions->authorization(authInfo, globalId, callback, client, callbackHolder);
 }
@@ -61,7 +61,7 @@ void Controller::getLastMessage(const Message &message, int globalId,
     userOptions->getLastMessage(message, globalId, callback, client, callbackHolder);
 }
 
-void Controller::getUser(const User &user, int globalId,
+void Controller::getUser(const UserPreview &user, int globalId,
                          const std::shared_ptr<BaseCallback> &callback) {
     userOptions->getUser(user, globalId, callback, client, callbackHolder);
 }
@@ -79,7 +79,7 @@ void Controller::sendChatCommand(const Message &message, int globalId) {
     userOptions->sendChatCommand(message, globalId, client, callbackHolder);
 }
 
-void Controller::registration(const Authorization& authInfo, int globalId,
+void Controller::registration(const UserInfo& authInfo, int globalId,
                               const std::shared_ptr<BaseCallback>& callback) {
     userOptions->registration(authInfo, globalId, callback, client, callbackHolder);
 }
@@ -99,9 +99,8 @@ void Controller::readMessageHandler(const std::string& str) {
     if (!query.status)
         error = query.error;
 
-    // Change user role and options
     if ((query.command == Commands::LogIn) && (query.status)) {
-        Authorization account;
+        UserInfo account;
         account.decode(query.body);
         RoleController::setRole(userOptions, account.role);
     }

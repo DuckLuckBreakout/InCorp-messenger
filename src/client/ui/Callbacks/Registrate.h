@@ -22,7 +22,7 @@ public:
             widget->setErrorStatus(QString::fromStdString("Sing up error: " + (*error)));
 
         else {
-            auto authInfo = std::static_pointer_cast<Authorization>(data);
+            auto authInfo = std::static_pointer_cast<UserInfo>(data);
             widget->setSuccessStatus(QString::fromStdString(authInfo->firstName +
                                                             " " + authInfo->lastName + " was registered"));
         }

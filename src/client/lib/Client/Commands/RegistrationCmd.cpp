@@ -5,7 +5,7 @@ RegistrationCmd::RegistrationCmd(int numRequest, const std::optional<std::string
         : BaseCmd(numRequest, error, body) {}
 
 void RegistrationCmd::execute(std::shared_ptr<CallbacksHolder> holder) {
-    std::shared_ptr<BaseObject> authInfo = std::make_shared<Authorization>();
+    std::shared_ptr<BaseObject> authInfo = std::make_shared<UserInfo>();
 
     if (!error)
         authInfo->decode(body);

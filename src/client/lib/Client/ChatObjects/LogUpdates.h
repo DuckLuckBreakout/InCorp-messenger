@@ -10,6 +10,7 @@ class LogUpdates : public BaseObject {
 public:
     LogUpdates();
     LogUpdates(int lastMessageNum, int maxNumMessages);
+    ~LogUpdates() override = default;
 
     std::string encode() const override;
     void decode(const std::string& jsonStr) override;

@@ -1,5 +1,5 @@
-#ifndef APPLICATION_AUTHORIZATION_H
-#define APPLICATION_AUTHORIZATION_H
+#ifndef APPLICATION_USERINFO_H
+#define APPLICATION_USERINFO_H
 
 #include <string>
 
@@ -7,10 +7,11 @@
 #include "KeyWords.h"
 
 
-class Authorization : public BaseObject {
+class UserInfo : public BaseObject {
 public:
-    Authorization();
-    Authorization(const std::string& login, const std::string& password);
+    UserInfo();
+    UserInfo(const std::string& login, const std::string& password);
+    ~UserInfo() override = default;
 
     std::string encode() const override;
     void decode(const std::string& jsonStr) override;
@@ -28,4 +29,4 @@ public:
 };
 
 
-#endif //APPLICATION_AUTHORIZATION_H
+#endif //APPLICATION_USERINFO_H

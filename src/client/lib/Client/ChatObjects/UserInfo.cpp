@@ -1,13 +1,13 @@
-#include "Authorization.h"
+#include "UserInfo.h"
 
-Authorization::Authorization()
+UserInfo::UserInfo()
         : userId(-1) {}
 
-Authorization::Authorization(const std::string& login,
-                             const std::string& password)
+UserInfo::UserInfo(const std::string& login,
+                   const std::string& password)
         : login(login), password(password), userId(-1) {}
 
-std::string Authorization::encode() const {
+std::string UserInfo::encode() const {
     parser->clear();
 
     parser->addValue(login, KeyWords::login);
@@ -21,7 +21,7 @@ std::string Authorization::encode() const {
     return parser->getJson();
 }
 
-void Authorization::decode(const std::string &jsonStr) {
+void UserInfo::decode(const std::string &jsonStr) {
     parser->setJson(jsonStr);
 
     userId = parser->getValue<int>(KeyWords::userId);

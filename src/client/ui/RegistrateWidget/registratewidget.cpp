@@ -7,7 +7,7 @@ RegistrateWidget::RegistrateWidget(QWidget *parent)
         :QFrame(parent),
          ui(new Ui::RegistrateWidget) {
     ui->setupUi(this);
-//    this->setLayout(ui->mainLayout);
+
     this->setFrameShadow(QFrame::Raised);
     this->setMinimumWidth(260);
     this->setWindowFlags(Qt::Popup);
@@ -21,7 +21,7 @@ RegistrateWidget::~RegistrateWidget() {
 }
 
 void RegistrateWidget::on_signupButton_clicked() {
-    Authorization regInfo;
+    UserInfo regInfo;
 
     regInfo.firstName = ui->firstName->text().toStdString();
     regInfo.lastName = ui->lastName->text().toStdString();
@@ -35,7 +35,6 @@ void RegistrateWidget::on_signupButton_clicked() {
         Controller::getInstance()->registration(regInfo, UserData::getInstance()->userId,
                                                 std::make_shared<RegistrationCallback>(this));
 
-//        std::make_shared<RegistrationCallback>(shared_from_this())
         ui->firstName->clear();
         ui->lastName->clear();
         ui->role->clear();

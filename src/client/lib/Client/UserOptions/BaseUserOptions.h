@@ -5,14 +5,14 @@
 
 #include "ChatObjects/Request.h"
 #include "ChatObjects/Message.h"
-#include "ChatObjects/Authorization.h"
+#include "ChatObjects/UserInfo.h"
 #include "Commands/CmdCreator/Commands.h"
 #include "Client/BaseClient.h"
 #include "CallbacksHolder/CallbacksHolder.h"
 #include <ChatObjects/ChatUpdates.h>
 #include <ChatObjects/ListChats.h>
 #include <ChatObjects/ChatRoom.h>
-#include <ChatObjects/User.h>
+#include <ChatObjects/UserPreview.h>
 #include <ChatObjects/LogUpdates.h>
 
 
@@ -24,7 +24,7 @@ public:
                              const std::shared_ptr<BaseCallback> callback,
                              std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder);
 
-    virtual void authorization(const Authorization& authInfo, int globalId,
+    virtual void authorization(const UserInfo& authInfo, int globalId,
                                const std::shared_ptr<BaseCallback> callback,
                                std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder);
 
@@ -48,7 +48,7 @@ public:
                                 const std::shared_ptr<BaseCallback> callback,
                                 std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder);
 
-    virtual void getUser(const User& user, int globalId,
+    virtual void getUser(const UserPreview& user, int globalId,
                          const std::shared_ptr<BaseCallback> callback,
                          std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder);
 
@@ -62,7 +62,7 @@ public:
     virtual void sendChatCommand(const Message& message, int globalId,
                                  std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder);
 
-    virtual void registration(const Authorization& authInfo, int globalId,
+    virtual void registration(const UserInfo& authInfo, int globalId,
                               const std::shared_ptr<BaseCallback> callback,
                               std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder);
 };

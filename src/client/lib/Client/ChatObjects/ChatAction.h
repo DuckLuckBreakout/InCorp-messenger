@@ -8,6 +8,7 @@ class ChatAction : public BaseObject {
 public:
     ChatAction();
     ChatAction(int chatId);
+    ~ChatAction() override = default;
 
     std::string encode() const override;
     void decode(const std::string& jsonStr) override;

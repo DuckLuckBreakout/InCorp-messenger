@@ -8,6 +8,7 @@
 class Log : public BaseObject {
 public:
     Log();
+    ~Log() override = default;
 
     std::string encode() const override;
     void decode(const std::string& jsonStr) override;

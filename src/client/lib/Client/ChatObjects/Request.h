@@ -12,6 +12,7 @@ public:
     Request();
     Request(int command, std::string body,
             int globalId, int numRequest);
+    ~Request() override = default;
 
     std::string encode() const override;
     void decode(const std::string& jsonStr) override;

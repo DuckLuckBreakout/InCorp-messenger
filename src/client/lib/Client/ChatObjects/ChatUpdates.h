@@ -11,6 +11,7 @@ public:
     ChatUpdates();
     ChatUpdates(int chatId, int lastMessageNum,
                 int maxNumMessages);
+    ~ChatUpdates() override = default;
 
     std::string encode() const override;
     void decode(const std::string& jsonStr) override;

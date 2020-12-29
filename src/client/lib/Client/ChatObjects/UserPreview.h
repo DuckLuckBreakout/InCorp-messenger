@@ -9,6 +9,7 @@ class UserPreview : public BaseObject {
 public:
     UserPreview();
     UserPreview(int userId, int chatId);
+    ~UserPreview() override = default;
 
     std::string encode() const override;
     void decode(const std::string& jsonStr) override;

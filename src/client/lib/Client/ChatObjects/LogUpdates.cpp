@@ -10,6 +10,7 @@ std::string LogUpdates::encode() const {
     parser->clear();
 
     parser->addValue(lastMessageNum, KeyWords::lastMessageNum);
+    parser->addValue(maxNumMessages, KeyWords::maxNumMessages);
 
     return parser->getJson();
 }

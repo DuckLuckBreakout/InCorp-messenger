@@ -26,7 +26,7 @@ void LoginWidget::login(const QString &login, const QString &password) {
     const std::string log = login.toStdString();
     const std::string pass = password.toStdString();
     if ((log != "") && (pass != "")) {
-        auto authInfo = Authorization(log, pass);
+        auto authInfo = UserInfo(log, pass);
         auto client = Controller::getInstance();
         auto callback = std::make_shared<LoginCallback>(shared_from_this());
 

@@ -8,7 +8,7 @@ void BaseUserOptions::sendMessage(const Message& message, int globalId,
     client->sendMessage(query.encode());
 }
 
-void BaseUserOptions::authorization(const Authorization &authInfo, int globalId,
+void BaseUserOptions::authorization(const UserInfo &authInfo, int globalId,
                                     const std::shared_ptr<BaseCallback> callback,
                                     std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder) {
     int numRequest = callbackHolder->addCallback(Commands::LogIn, callback);
@@ -53,7 +53,7 @@ void BaseUserOptions::getLastMessage(const Message &message, int globalId, const
     client->sendMessage(query.encode());
 }
 
-void BaseUserOptions::getUser(const User &user, int globalId, const std::shared_ptr<BaseCallback> callback,
+void BaseUserOptions::getUser(const UserPreview &user, int globalId, const std::shared_ptr<BaseCallback> callback,
                               std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder) {
     int numRequest = callbackHolder->addCallback(Commands::GetUserData, callback);
     Request query(Commands::GetUserData, user.encode(), globalId, numRequest);
@@ -78,7 +78,7 @@ void BaseUserOptions::sendChatCommand(const Message &message, int globalId, std:
     client->sendMessage(query.encode());
 }
 
-void BaseUserOptions::registration(const Authorization &authInfo, int globalId,
+void BaseUserOptions::registration(const UserInfo &authInfo, int globalId,
                                    const std::shared_ptr<BaseCallback> callback, std::shared_ptr<BaseClient> client,
                                    std::shared_ptr<CallbacksHolder> callbackHolder) {
     int numRequest = callbackHolder->addCallback(Commands::RegistrationUser, callback);

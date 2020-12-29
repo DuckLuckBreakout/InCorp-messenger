@@ -5,7 +5,7 @@
 
 #include "BaseCmd.h"
 #include "Commands/CmdCreator/Commands.h"
-#include "ChatObjects/User.h"
+#include "ChatObjects/UserPreview.h"
 
 
 class GetUserCmd : public BaseCmd {

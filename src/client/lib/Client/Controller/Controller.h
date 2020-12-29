@@ -31,7 +31,7 @@ public:
     void sendMessage(const Message& message, int globalId,
                      const std::shared_ptr<BaseCallback>& callback);
 
-    void authorization(const Authorization& authInfo, int globalId,
+    void authorization(const UserInfo& authInfo, int globalId,
                        const std::shared_ptr<BaseCallback>& callback);
 
 
@@ -53,7 +53,7 @@ public:
     void getLastMessage(const Message& message, int globalId,
                         const std::shared_ptr<BaseCallback>& callback);
 
-    void getUser(const User& user, int globalId,
+    void getUser(const UserPreview& user, int globalId,
                  const std::shared_ptr<BaseCallback>& callback);
 
     void setChatObserver(int chatId, const std::shared_ptr<BaseCallback>& callback);
@@ -62,7 +62,7 @@ public:
 
     void sendChatCommand(const Message& message, int globalId);
 
-    void registration(const Authorization& authInfo, int globalId,
+    void registration(const UserInfo& authInfo, int globalId,
                       const std::shared_ptr<BaseCallback>& callback);
 
 private:

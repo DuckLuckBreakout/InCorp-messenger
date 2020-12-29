@@ -11,6 +11,7 @@ class ChatItem : public BaseObject {
 public:
     ChatItem();
     ChatItem(int id, const std::string& chatName);
+    ~ChatItem() override = default;
 
     std::string encode() const override;
     void decode(const std::string& jsonStr) override;

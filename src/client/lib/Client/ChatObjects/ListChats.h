@@ -11,6 +11,7 @@
 class ListChats : public BaseObject {
 public:
     ListChats();
+    ~ListChats() override = default;
 
     std::string encode() const override;
     void decode(const std::string& jsonStr) override;

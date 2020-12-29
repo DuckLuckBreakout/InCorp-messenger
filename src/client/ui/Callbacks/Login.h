@@ -22,7 +22,7 @@ public:
         if (error)
             widget->ui->SignInLabel->setText(QString::fromStdString("Sing in error: " + (*error)));
         else {
-            auto authInfo = std::static_pointer_cast<Authorization>(data);
+            auto authInfo = std::static_pointer_cast<UserInfo>(data);
             auto userData = UserData::getInstance();
             userData->company = authInfo->company;
             userData->userId = authInfo->userId;

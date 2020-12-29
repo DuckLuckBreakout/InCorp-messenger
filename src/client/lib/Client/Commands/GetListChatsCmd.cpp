@@ -1,10 +1,10 @@
-#include "GetListChats.h"
+#include "GetListChatsCmd.h"
 
-GetListChats::GetListChats(int numRequest, const std::optional<std::string>& error,
-                         const std::string& body)
+GetListChatsCmd::GetListChatsCmd(int numRequest, const std::optional<std::string>& error,
+                                 const std::string& body)
         : BaseCmd(numRequest, error, body) {}
 
-void GetListChats::execute(std::shared_ptr<CallbacksHolder> holder) {
+void GetListChatsCmd::execute(std::shared_ptr<CallbacksHolder> holder) {
     std::shared_ptr<BaseObject> listChats = std::make_shared<ListChats>();
     listChats->decode(body);
 
