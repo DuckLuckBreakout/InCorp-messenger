@@ -1,7 +1,3 @@
-//
-// Created by Иван Коваленко on 14.12.2020.
-//
-
 #ifndef APPLICATION_GETCHATMESSAGES_H
 #define APPLICATION_GETCHATMESSAGES_H
 #include "BaseCommand.h"

@@ -47,7 +47,7 @@ COPY . .
 RUN cmake -DCMAKE_BUILD_TYPE=TestServer ./
 
 RUN make || make
-RUN ./Application
+RUN ./Application || true
 
 RUN apt install qt5-default -y
 

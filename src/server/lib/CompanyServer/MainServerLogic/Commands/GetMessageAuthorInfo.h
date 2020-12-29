@@ -1,7 +1,3 @@
-//
-// Created by Иван Коваленко on 14.12.2020.
-//
-
 #ifndef APPLICATION_GETMESSAGEAUTHORINFO_H
 #define APPLICATION_GETMESSAGEAUTHORINFO_H
 #include "BaseCommand.h"

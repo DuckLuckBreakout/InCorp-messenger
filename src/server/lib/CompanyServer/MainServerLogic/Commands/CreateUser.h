@@ -1,7 +1,3 @@
-//
-// Created by Иван Коваленко on 10.12.2020.
-//
-
 #ifndef APPLICATION_CREATEUSER_H
 #define APPLICATION_CREATEUSER_H
 

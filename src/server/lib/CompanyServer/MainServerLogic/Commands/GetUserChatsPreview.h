@@ -1,4 +1,3 @@
-
 #ifndef APPLICATION_COMMAN1_H
 #define APPLICATION_COMMAN1_H
 #include "BaseCommand.h"
