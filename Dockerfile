@@ -62,7 +62,7 @@ RUN apt install qt5-default -y
 RUN cmake -DCMAKE_BUILD_TYPE=TestClient ./
 
 RUN make
-CMD ./Application
+RUN ./Application
 
 RUN cd CMakeFiles/Application.dir && \
     lcov --directory . --capture --output-file coverage.info && \
