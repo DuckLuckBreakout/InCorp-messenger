@@ -1,7 +1,7 @@
 #include "DataBaseConnector.h"
 
 DataBaseConnector::DataBaseConnector(std::string &companyName) :
-        uri("mongodb://some-mong:27017"),
+        uri("mongodb://some-mongo:27017"),
         client(uri) {
     db = client[companyName];
 }
