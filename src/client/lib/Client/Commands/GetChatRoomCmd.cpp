@@ -1,10 +1,10 @@
-#include "GetChatRoom.h"
+#include "GetChatRoomCmd.h"
 
-GetChatRoom::GetChatRoom(int numRequest, const std::optional<std::string>& error,
-                         const std::string& body)
+GetChatRoomCmd::GetChatRoomCmd(int numRequest, const std::optional<std::string>& error,
+                               const std::string& body)
         : BaseCmd(numRequest, error, body) {}
 
-void GetChatRoom::execute(std::shared_ptr<CallbacksHolder> holder) {
+void GetChatRoomCmd::execute(std::shared_ptr<CallbacksHolder> holder) {
     std::shared_ptr<BaseObject> chatRoom = std::make_shared<ChatRoom>();
     chatRoom->decode(body);
 

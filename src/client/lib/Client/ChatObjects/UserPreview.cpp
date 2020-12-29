@@ -1,11 +1,11 @@
-#include "User.h"
+#include "UserPreview.h"
 
-User::User() : userId(-1) {}
+UserPreview::UserPreview() : userId(-1) {}
 
-User::User(int userId, int chatId)
+UserPreview::UserPreview(int userId, int chatId)
         : userId(userId), chatId(chatId) {}
 
-std::string User::encode() const {
+std::string UserPreview::encode() const {
     parser->clear();
 
     parser->addValue(userId, KeyWords::userId);
@@ -13,7 +13,7 @@ std::string User::encode() const {
     return parser->getJson();
 }
 
-void User::decode(const std::string &jsonStr) {
+void UserPreview::decode(const std::string &jsonStr) {
     parser->setJson(jsonStr);
 
     userId = parser->getValue<int>(KeyWords::userId);
