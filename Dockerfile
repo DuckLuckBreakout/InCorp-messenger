@@ -53,7 +53,7 @@ RUN ./Application || true
 RUN cd CMakeFiles/Application.dir && \
     lcov --directory . --capture --output-file coverage.info && \
     lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' --output-file coverage.info && \
-    lcov --list coverage.info \ &&
+    lcov --list coverage.info && \
     bash "<(curl -s https://codecov.io/bash)" -f coverage.info && \
     cd .. && \
     cd ..
