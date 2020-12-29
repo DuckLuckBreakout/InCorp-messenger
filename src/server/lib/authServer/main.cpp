@@ -1,7 +1,7 @@
-#include "src/server/lib/authServer/Server/Server/HttpServer.h"
+#include "src/server/lib/authServer/Server/Server/Server.h"
 
 int main() {
-    HttpServer server = HttpServer();
+    Server server = Server();
     server.startServer(5555);
     return 0;
 }

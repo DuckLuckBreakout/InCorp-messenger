@@ -18,11 +18,8 @@ boost::property_tree::ptree InfoManager::getChatInfo(boost::property_tree::ptree
 }
 
 boost::property_tree::ptree InfoManager::getUserChatsPreview(boost::property_tree::ptree &params) {
-    if (1) {
-        dbConnector.getUserChatsPreview(params);
-        params.add("status", "true");
-        params.add("error", "");
-
-    }
+    dbConnector.getUserChatsPreview(params);
+    params.add("status", "true");
+    params.add("error", "");
     return params;
 }

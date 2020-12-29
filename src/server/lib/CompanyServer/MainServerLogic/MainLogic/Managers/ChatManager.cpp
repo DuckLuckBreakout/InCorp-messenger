@@ -17,17 +17,10 @@ boost::property_tree::ptree ChatManager::createChat(boost::property_tree::ptree 
 }
 
 boost::property_tree::ptree ChatManager::sendMessage(boost::property_tree::ptree &params) {
-    if (1) {
-        params.add("body.isChecked", "false");
-        dbConnector.addMessage(params);
-        params.add("status", "true");
-        params.add("error", "");
-    }
-    else {
-        params.add("status", "false");
-        params.add("error", "User not login");
-    }
-
+    params.add("body.isChecked", "false");
+    dbConnector.addMessage(params);
+    params.add("status", "true");
+    params.add("error", "");
     return params;
 }
 

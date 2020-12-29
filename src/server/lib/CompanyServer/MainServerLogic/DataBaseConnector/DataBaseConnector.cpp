@@ -1,13 +1,9 @@
 #include "DataBaseConnector.h"
 
-#include <utility>
-#include <boost/property_tree/json_parser.hpp>
-
 DataBaseConnector::DataBaseConnector(std::string &companyName) :
-        uri("mongodb://localhost:27017"),
+        uri("mongodb://some-mong:27017"),
         client(uri) {
-//    db = client[companyName];
-    db = client["test_company"];
+    db = client[companyName];
 }
 
 bool DataBaseConnector::userIsRegistered(std::string &login) {
@@ -41,44 +37,33 @@ void DataBaseConnector::addMessage(boost::property_tree::ptree &params) {
     params.put("body.ownerId", params.get<int>("body.ownerId"));
     params.put("body.chatId", params.get<int>("body.chatId"));
     mongocxx::collection coll = db[std::to_string(chatId)];
-    boost::property_tree::ptree body = params.get_child("body");
+    boost::property_tree::ptree messageBody = params.get_child("body");
     makeMessagesInChatChecked(chatId, params.get<int>("globalId"));
 
     int messagesCount = getChatMessagesCount(chatId);
-    body.add("number", messagesCount + 1);
+    messageBody.add("number", messagesCount + 1);
     coll.update_one(document{} << "type" << "chat_data" << finalize,
                     document{} << "$set" << open_document << "messages_count" << messagesCount + 1 << close_document << finalize);
     std::stringstream messageStream;
-    boost::property_tree::json_parser::write_json(messageStream, body);
+    boost::property_tree::json_parser::write_json(messageStream, messageBody);
     bsoncxx::document::value messageDoc = bsoncxx::from_json(messageStream.str());
     bsoncxx::stdx::optional<mongocxx::result::insert_one> result = coll.insert_one(messageDoc.view());
 
     params.put_child("chat_members", getChatMembers(chatId));
 }
 
-template <typename T>
-std::vector<T> as_vector(boost::property_tree::ptree const& pt, boost::property_tree::ptree::key_type const& key)
-{
-    std::vector<T> r;
-    for (auto& item : pt.get_child(key))
-        r.push_back(item.second.get_value<T>());
-    return r;
-}
-
-
 void DataBaseConnector::createChat(boost::property_tree::ptree &params) {
 
     params.put_child("body.members_list", boost::property_tree::ptree());
-    auto &array = params.get_child("body.members_list");
-
+    auto &membersList = params.get_child("body.members_list");
 
     mongocxx::collection coll = db["chats_info"];
-    bsoncxx::stdx::optional<bsoncxx::document::value> doc = coll.find_one(document{} << "type" << "chats_info" << finalize);
-    boost::property_tree::ptree pt;
-    std::string docStr(bsoncxx::to_json(*doc));
-    std::istringstream is((docStr));
-    boost::property_tree::read_json(is, pt);
-    int newChatId = pt.get<int>("chats_count") + 1;
+    bsoncxx::stdx::optional<bsoncxx::document::value> chatInfo = coll.find_one(document{} << "type" << "chats_info" << finalize);
+    boost::property_tree::ptree chatInfoPtree;
+    std::string chatInfoStr(bsoncxx::to_json(*chatInfo));
+    std::istringstream chatInfoIStream((chatInfoStr));
+    boost::property_tree::read_json(chatInfoIStream, chatInfoPtree);
+    int newChatId = chatInfoPtree.get<int>("chats_count") + 1;
     params.put("body.chatId", newChatId);
     coll.update_one(document{} << "type" << "chats_info" << finalize,
                     document{} << "$set" << open_document << "chats_count" << newChatId << close_document << finalize);
@@ -111,10 +96,8 @@ void DataBaseConnector::createChat(boost::property_tree::ptree &params) {
 
         boost::property_tree::ptree chat;
         chat.put("", memberId);
-        array.push_back(std::make_pair("", chat));
+        membersList.push_back(std::make_pair("", chat));
     }
-
-
 
     coll = db["users"];
     for (auto &member : members) {
@@ -124,18 +107,16 @@ void DataBaseConnector::createChat(boost::property_tree::ptree &params) {
                         document{} << "$set" << open_document << "team_roles." + std::to_string(newChatId) << member.second << close_document << finalize);
     }
 
-
-
-    bsoncxx::stdx::optional<bsoncxx::document::value> doc1 = coll.find_one(document{} << "type" << "users_data" << finalize);
-    boost::property_tree::ptree pt1;
-    std::string docStr1(bsoncxx::to_json(*doc1));
-    std::istringstream is1((docStr1));
-    boost::property_tree::read_json(is1, pt1);
-    int managersCount = pt1.get<int>("managers_count");
+    bsoncxx::stdx::optional<bsoncxx::document::value> userDataDoc = coll.find_one(document{} << "type" << "users_data" << finalize);
+    boost::property_tree::ptree userDataPtree;
+    std::string userDataStr(bsoncxx::to_json(*userDataDoc));
+    std::istringstream userDataIStream((userDataStr));
+    boost::property_tree::read_json(userDataIStream, userDataPtree);
+    int managersCount = userDataPtree.get<int>("managers_count");
     for (int manager = -1; manager >= -managersCount; manager--) {
         boost::property_tree::ptree member;
         member.put("", manager);
-        array.push_back(std::make_pair("", member));
+        membersList.push_back(std::make_pair("", member));
 
         mongocxx::collection chat = db[std::to_string(newChatId)];
         chat.update_one(document{} << "type" << "chat_data" << finalize,
@@ -167,7 +148,7 @@ void DataBaseConnector::createChat(boost::property_tree::ptree &params) {
 
     boost::property_tree::ptree member;
     member.put("", 0);
-    array.push_back(std::make_pair("", member));
+    membersList.push_back(std::make_pair("", member));
 
     params.put("body.chatId", newChatId);
     params.put("body.chatName", params.get<std::string>("body.title"));
@@ -185,18 +166,18 @@ void DataBaseConnector::deleteUser(boost::property_tree::ptree &params) {
 
 void DataBaseConnector::createUser(boost::property_tree::ptree &params) {
     mongocxx::collection coll = db["users"];
-    bsoncxx::stdx::optional<bsoncxx::document::value> doc = coll.find_one(document{} << "type" << "users_data" << finalize);
-    boost::property_tree::ptree pt;
-    std::string docStr(bsoncxx::to_json(*doc));
-    std::istringstream is((docStr));
-    boost::property_tree::read_json(is, pt);
+    bsoncxx::stdx::optional<bsoncxx::document::value> userDataDoc = coll.find_one(document{} << "type" << "users_data" << finalize);
+    boost::property_tree::ptree userDataPtree;
+    std::string userDataStr(bsoncxx::to_json(*userDataDoc));
+    std::istringstream userDataIStream((userDataStr));
+    boost::property_tree::read_json(userDataIStream, userDataPtree);
     int newUserId;
     if (params.get<std::string>("body.role") == "employee") {
-        newUserId = pt.get<int>("employees_count") + 1;
+        newUserId = userDataPtree.get<int>("employees_count") + 1;
         coll.update_one(document{} << "type" << "users_data" << finalize,
                         document{} << "$set" << open_document << "employees_count" << newUserId << close_document << finalize);
     } else if (params.get<std::string>("body.role") == "manager") {
-        newUserId = -(pt.get<int>("managers_count") + 1);
+        newUserId = -(userDataPtree.get<int>("managers_count") + 1);
         coll.update_one(document{} << "type" << "users_data" << finalize,
         document{} << "$set" << open_document << "managers_count" << -newUserId << close_document << finalize);
 
@@ -214,12 +195,12 @@ void DataBaseConnector::createUser(boost::property_tree::ptree &params) {
 
     if (params.get<std::string>("body.role") == "manager") {
         mongocxx::collection collChatsInfo = db["chats_info"];
-        bsoncxx::stdx::optional<bsoncxx::document::value> doc1 = collChatsInfo.find_one(document{} << "type" << "chats_info" << finalize);
-        boost::property_tree::ptree pt1;
-        std::string docStr1(bsoncxx::to_json(*doc1));
-        std::istringstream is1((docStr1));
-        boost::property_tree::read_json(is1, pt1);
-        int chatsCount = pt1.get<int>("chats_count");
+        bsoncxx::stdx::optional<bsoncxx::document::value> chatInfoDoc = collChatsInfo.find_one(document{} << "type" << "chats_info" << finalize);
+        boost::property_tree::ptree chatInfoPtree;
+        std::string chatInfoStr(bsoncxx::to_json(*chatInfoDoc));
+        std::istringstream chatInfoIStream((chatInfoStr));
+        boost::property_tree::read_json(chatInfoIStream, chatInfoPtree);
+        int chatsCount = chatInfoPtree.get<int>("chats_count");
         for (int chatId = 1; chatId <= chatsCount; chatId++) {
             mongocxx::collection chat = db[std::to_string(chatId)];
             chat.update_one(document{} << "type" << "chat_data" << finalize,
@@ -236,24 +217,22 @@ void DataBaseConnector::createUser(boost::property_tree::ptree &params) {
         }
 
     }
-
-    //coll.insert_one(document{} << "token" << params.get<std::string>("body.login") << finalize);
 }
 
 void DataBaseConnector::getUserInfo(boost::property_tree::ptree &params) {
     mongocxx::collection coll = db["users"];
-    bsoncxx::stdx::optional<bsoncxx::document::value> doc = coll.find_one(document{} << "login" << params.get<std::string>("body.login") << finalize);
-    boost::property_tree::ptree pt;
-    std::string docStr(bsoncxx::to_json(*doc));
-    std::istringstream is((docStr));
-    boost::property_tree::read_json(is, pt);
-    params.add("body.userId", pt.get<int>("userId"));
-    params.add("body.chatsId", pt.get<std::string>("chatsId"));
-    params.add("body.firstName", pt.get<std::string>("firstName"));
-    params.add("body.lastName", pt.get<std::string>("lastName"));
-    params.add("body.role", pt.get<std::string>("role"));
-    params.add("body.company", pt.get<std::string>("company"));
-    params.add_child("body.chatsId", pt.get_child("chatsId"));
+    bsoncxx::stdx::optional<bsoncxx::document::value> userInfoDoc = coll.find_one(document{} << "login" << params.get<std::string>("body.login") << finalize);
+    boost::property_tree::ptree userInfoPtree;
+    std::string userInfoStr(bsoncxx::to_json(*userInfoDoc));
+    std::istringstream userInfoIStream((userInfoStr));
+    boost::property_tree::read_json(userInfoIStream, userInfoPtree);
+    params.add("body.userId", userInfoPtree.get<int>("userId"));
+    params.add("body.chatsId", userInfoPtree.get<std::string>("chatsId"));
+    params.add("body.firstName", userInfoPtree.get<std::string>("firstName"));
+    params.add("body.lastName", userInfoPtree.get<std::string>("lastName"));
+    params.add("body.role", userInfoPtree.get<std::string>("role"));
+    params.add("body.company", userInfoPtree.get<std::string>("company"));
+    params.add_child("body.chatsId", userInfoPtree.get_child("chatsId"));
 
 }
 
@@ -366,8 +345,6 @@ void DataBaseConnector::getChatMessages(boost::property_tree::ptree &params) {
 
     for (int i = userLastMessageId + 1; i <= lastMessageId; i++) {
         bsoncxx::stdx::optional<bsoncxx::document::value> doc1 = coll.find_one(document{} << "number" << std::to_string(i) << finalize);
-//        coll.update_one(document{} << "number" << i << finalize,
-//                        document{} << "$set" << open_document << "isChecked" << "true" << close_document << finalize);
 
         boost::property_tree::ptree pt1;
         std::string docStr1(bsoncxx::to_json(*doc1));
@@ -394,10 +371,6 @@ void DataBaseConnector::getMessageAuthorInfo(boost::property_tree::ptree &params
 
 
     params.add("body.role", pt.get<std::string>("team_roles." + std::to_string(params.get<int>("body.chatId"))));
-//    for (auto &role : pt.get_child("team_roles")) {
-//        params.add("body.role", role.second.get<std::string>(""));
-//        break;
-//    }
 }
 
 void DataBaseConnector::logRequest(boost::property_tree::ptree &params) {
@@ -454,8 +427,5 @@ void DataBaseConnector::getServerLogs(boost::property_tree::ptree &params) {
 
         array.push_back(std::make_pair("", pt1));
     }
-//    params.put_child("chat_members", getChatMembers(chatId));
-
-
 }
 

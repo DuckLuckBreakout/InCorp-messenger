@@ -9,7 +9,6 @@ class CommandsManager: public BaseManager {
 public:
     ~CommandsManager() override = default;
     boost::property_tree::ptree command(boost::property_tree::ptree &params);
-
 };
 
 #endif //APPLICATION_NOTIFICATIONMANAGER_H

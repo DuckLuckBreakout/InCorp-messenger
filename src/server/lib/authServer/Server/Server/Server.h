@@ -7,10 +7,10 @@
 #include "src/libs/Connection/HttpConnection.h"
 
 
-class HttpServer: public BaseServer {
+class Server: public BaseServer {
 public:
-    HttpServer();
-    ~HttpServer() override = default;
+    Server();
+    ~Server() override = default;
 
     void startServer(int port) override;
     void read(boost::asio::io_service::strand &strandOne, std::shared_ptr<BaseConnection> client);

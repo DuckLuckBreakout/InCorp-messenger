@@ -10,50 +10,50 @@ boost::asio::ip::tcp::socket &Connection::socket() {
     return socket_;
 }
 
-void Connection::on_message(std::string &msg) {
-    bool write_in_progress = !write_msgs.empty();
-    write_msgs.push_back(msg);
-    if (!write_in_progress) {
-        std::cout << "Send message (on message): " << write_msgs.front() << std::endl;
+void Connection::onMessage(std::string &msg) {
+    bool writeInProgress = not writeMsgs.empty();
+    writeMsgs.push_back(msg);
+    if (not writeInProgress) {
+        std::cout << "Send message (on message): " << writeMsgs.front() << std::endl;
         boost::asio::async_write(socket_,
-                                 boost::asio::buffer(write_msgs.front(), write_msgs.front().size()),
-                                 strand.wrap(boost::bind(&Connection::write_handler, shared_from_this(), _1)));
+                                 boost::asio::buffer(writeMsgs.front(), writeMsgs.front().size()),
+                                 strand.wrap(boost::bind(&Connection::writeHandler, shared_from_this(), _1)));
     }
 }
 
 
 void Connection::read_handler(const boost::system::error_code& error, size_t bytes_transferred) {
-    if (!error) {
-        if (!this) {
+    if (not error) {
+        if (not this) {
             return;
         }
 
         if (bytes_transferred > 0) {
-            std::string str{buffers_begin(read_msg.data()),
-                            buffers_begin(read_msg.data()) + bytes_transferred - 2};
-            read_msg.consume(bytes_transferred);
+            std::string str{buffers_begin(readMsg.data()),
+                            buffers_begin(readMsg.data()) + bytes_transferred - 2};
+            readMsg.consume(bytes_transferred);
             std::cout << "Read message: " << str << std::endl;
 
             CommandHandler handler;
             handler.runRequest(shared_from_this(), str);
         }
 
-        boost::asio::async_read_until(socket_, read_msg, "\r\n",
+        boost::asio::async_read_until(socket_, readMsg, "\r\n",
                                       strand.wrap(boost::bind(&Connection::read_handler, shared_from_this(), _1, boost::asio::placeholders::bytes_transferred)));
     }
 }
 
-void Connection::write_handler(const boost::system::error_code &error) {
-    if (!error) {
+void Connection::writeHandler(const boost::system::error_code &error) {
+    if (not error) {
 
-        std::cout << "Send message: " << write_msgs.front() << std::endl;
-        write_msgs.pop_front();
+        std::cout << "Send message: " << writeMsgs.front() << std::endl;
+        writeMsgs.pop_front();
 
-        if (!write_msgs.empty())
+        if (not writeMsgs.empty())
         {
             boost::asio::async_write(socket_,
-                                     boost::asio::buffer(write_msgs.front(), write_msgs.front().size()),
-                                     strand.wrap(boost::bind(&Connection::write_handler, shared_from_this(), _1)));
+                                     boost::asio::buffer(writeMsgs.front(), writeMsgs.front().size()),
+                                     strand.wrap(boost::bind(&Connection::writeHandler, shared_from_this(), _1)));
         }
     }
 }

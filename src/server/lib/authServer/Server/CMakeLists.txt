@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 add_library(Server STATIC
-        Server/HttpServer.cpp
+        Server/Server.cpp
         MainServerLogic/CommandHandler/CommandHandler.cpp
         MainServerLogic/CommandCreator/CommandCreator.cpp
         MainServerLogic/Commands/Login.cpp

@@ -4,7 +4,7 @@
 using boost::asio::ip::tcp;
 
 
-class worker_thread {
+class WorkerThread {
 public:
     static void run(std::shared_ptr<boost::asio::io_service> io_service);
 private:

@@ -2,7 +2,6 @@
 
 
 #include "src/server/lib/CompanyServer/Server/Server.h"
-
 #include "src/server/lib/CompanyServer/MainServerLogic/CommandCreator/CommandCreator.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/Login.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/Logout.h"
@@ -19,50 +18,6 @@ using ::testing::DoAll;
 using ::testing::Return;
 using ::testing::SetArgReferee;
 
-//class MockServer : public HttpServer {
-//public:
-//
-//    MOCK_METHOD1(startServer, void (int port));
-//    MOCK_METHOD2(read, void(boost::asio::io_service::strand &strandOne, std::shared_ptr<BaseConnection> client));
-//    MOCK_METHOD2(send, void(boost::asio::io_service::strand &strandOne, std::shared_ptr<BaseConnection> client));
-//public:
-//    MOCK_METHOD2(onAccept, void(std::shared_ptr<BaseConnection> client,
-//            const boost::system::error_code& error));
-//    MOCK_METHOD0(startAccept, void ());
-//    MOCK_METHOD0(run, void ());
-//    MOCK_METHOD1(runTask, void(std::shared_ptr<BaseConnection> client));
-//    MOCK_METHOD1(restart, void(std::shared_ptr<BaseConnection> client));
-//};
-//
-//TEST(Server, startServer) {
-//    MockServer server;
-//    EXPECT_CALL(server, startServer(5000)).Times(AtLeast(1));
-//    server.startServer(5000);
-//}
-//
-//TEST(Server, startAccept) {
-//    MockServer server;
-//    EXPECT_CALL(server, startAccept()).Times(AtLeast(1));
-//    server.startAccept();
-//}
-//
-//
-//TEST(Server, run) {
-//    MockServer server;
-//    EXPECT_CALL(server, run()).Times(AtLeast(1));
-//    server.run();
-//}
-
-//class MockCommandCreator : public CommandCreator {
-//public:
-//    MOCK_METHOD1(createCommand, std::shared_ptr<BaseCommand>(std::string message));
-//};
-
-
-//class MockLogin : public Login {
-//public:
-//    MOCK_METHOD1(execute, boost::property_tree::ptree(std::shared_ptr<Controller> controller));
-//};
 
 TEST(Login, execute_bad_login) {
     boost::property_tree::ptree params;
@@ -96,6 +51,7 @@ TEST(Login, execute_good_login) {
     realResult.add("body.login", "newUser");
     realResult.add("body.password", "pas123");
     realResult.add("body.userId", "1");
+
     realResult.add("body.chatsId", "[1, 2, 3]");
     realResult.add("body.firstName", "Ivan");
     realResult.add("body.lastName", "Kovalenko");

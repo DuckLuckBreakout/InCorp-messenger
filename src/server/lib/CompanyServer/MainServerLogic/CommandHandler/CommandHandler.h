@@ -14,7 +14,7 @@ public:
     CommandHandler();
     ~CommandHandler() = default;
 
-    void runRequest(std::shared_ptr<Connection> connection, std::string message);
+    void runRequest(const std::shared_ptr<Connection>& connection, std::string &message);
 
 private:
     CommandCreator parser;

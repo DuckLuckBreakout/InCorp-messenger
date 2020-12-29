@@ -20,15 +20,15 @@ public:
     int currentChatId = -1;
 public:
     boost::asio::ip::tcp::socket &socket();
-    void on_message(std::string &msg);
+    void onMessage(std::string &msg);
 private:
-    void write_handler(const boost::system::error_code& error);
+    void writeHandler(const boost::system::error_code& error);
 
 private:
     boost::asio::ip::tcp::socket socket_;
     boost::asio::io_service::strand& strand;
-    boost::asio::streambuf read_msg;
-    std::deque<std::string> write_msgs;
+    boost::asio::streambuf readMsg;
+    std::deque<std::string> writeMsgs;
 };
 
 #endif

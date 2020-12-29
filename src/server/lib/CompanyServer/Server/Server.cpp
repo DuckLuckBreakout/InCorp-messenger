@@ -7,12 +7,11 @@
 
 Server::Server(boost::asio::io_service& io_service,
                boost::asio::io_service::strand& strand,
-               const tcp::endpoint& endpoint) :
+               const boost::asio::ip::tcp::endpoint& endpoint) :
         io_service(io_service),
         strand(strand),
         acceptor(io_service, endpoint)
          {
-
     run();
 }
 
@@ -30,7 +29,7 @@ void Server::on_accept(std::shared_ptr<Connection> connection, const boost::syst
     run();
 }
 
-std::shared_ptr<Collection> Collection::getInstance() {
-    static std::shared_ptr<Collection> collection(new Collection);
+std::shared_ptr<ClientsCollection> ClientsCollection::getInstance() {
+    static std::shared_ptr<ClientsCollection> collection(new ClientsCollection);
     return collection;
 }

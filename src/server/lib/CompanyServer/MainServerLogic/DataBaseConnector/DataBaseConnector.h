@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
+#include <utility>
 #include <bsoncxx/json.hpp>
 #include <mongocxx/client.hpp>
 #include <mongocxx/stdx.hpp>
@@ -13,6 +14,7 @@
 #include <bsoncxx/builder/stream/document.hpp>
 #include <bsoncxx/builder/stream/array.hpp>
 #include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 
 using bsoncxx::builder::stream::close_array;
@@ -56,4 +58,14 @@ private:
     mongocxx::client client;
     mongocxx::database db;
 };
+
+
+template <typename T>
+std::vector<T> ptreeVectorToStd(boost::property_tree::ptree const& pt, boost::property_tree::ptree::key_type const& key)
+{
+    std::vector<T> r;
+    for (auto& item : pt.get_child(key))
+        r.push_back(item.second.get_value<T>());
+    return r;
+}
 #endif //APPLICATION_DATABASECONNECTOR_H

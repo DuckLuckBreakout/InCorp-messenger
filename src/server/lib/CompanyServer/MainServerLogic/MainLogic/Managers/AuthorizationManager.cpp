@@ -2,9 +2,9 @@
 
 
 boost::property_tree::ptree AuthorizationManager::loginUser(boost::property_tree::ptree &params) {
-    std::string token = params.get<std::string>("body.login");
-    if (dbConnector.userIsRegistered(token)) {
-        dbConnector.authorizeUser(token);
+    auto login = params.get<std::string>("body.login");
+    if (dbConnector.userIsRegistered(login)) {
+        dbConnector.authorizeUser(login);
         dbConnector.getUserInfo(params);
         params.add("status", "true");
         params.add("error", "");
@@ -19,10 +19,10 @@ boost::property_tree::ptree AuthorizationManager::loginUser(boost::property_tree
 }
 
 boost::property_tree::ptree AuthorizationManager::logoutUser(boost::property_tree::ptree &params) {
-    std::string token = params.get<std::string>("body.login");
+    auto login = params.get<std::string>("body.login");
 
-    if (dbConnector.userIsAuthorized(token)) {
-        dbConnector.logoutUser(token);
+    if (dbConnector.userIsAuthorized(login)) {
+        dbConnector.logoutUser(login);
         params.add("status", "true");
         params.add("error", "");
     }
