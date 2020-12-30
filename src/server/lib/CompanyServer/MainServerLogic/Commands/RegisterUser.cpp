@@ -1,7 +1,3 @@
-//
-// Created by Иван Коваленко on 14.12.2020.
-//
-
 #include "RegisterUser.h"
 
 boost::property_tree::ptree RegisterUser::execute(std::shared_ptr<Controller> controller) {

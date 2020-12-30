@@ -3,8 +3,7 @@
 
 #include <boost/property_tree/ptree.hpp>
 #include "BaseManager.h"
-#include "Server/MainServerLogic/DataBaseConnector/DataBaseConnector.h"
-#include "src/libs/Connection/BaseConnection.h"
+#include "src/server/lib/Connection/BaseConnection.h"
 
 class AuthorizationManager: public BaseManager {
 public:

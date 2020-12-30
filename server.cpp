@@ -18,14 +18,11 @@ int main(int argc, char *argv[]) {
         boost::shared_ptr<boost::asio::io_service::work> work(new boost::asio::io_service::work(*io_service));
         boost::shared_ptr<boost::asio::io_service::strand> strand(new boost::asio::io_service::strand(*io_service));
 
-        std::cout << "[" << std::this_thread::get_id() << "]" << "Server starts" << std::endl;
-
-
         tcp::endpoint endpoint(tcp::v4(), 5556);
         Server server = Server(*io_service, *strand, endpoint);
 
         boost::thread_group workers;
-        for (int i = 0; i < 1; ++i) {
+        for (int i = 0; i < sysconf(_SC_NPROCESSORS_ONLN); ++i) {
             auto *t = new boost::thread{ [io_service] { return WorkerThread::run(io_service); } };
             workers.add_thread(t);
         }

@@ -1,15 +1,13 @@
 #include "CommandCreator.h"
 
 
-std::shared_ptr<BaseCommand> CommandCreator::createCommand(std::string message) {
-//    std::cout << message << std::endl;
+std::shared_ptr<BaseCommand> CommandCreator::createCommand(std::string &message) {
 
     boost::property_tree::ptree pt;
     std::istringstream is(message);
     boost::property_tree::read_json(is, pt);
 
     int requestCommand(pt.get<int>("command"));
-//    requestCommand++;
     std::cout << "command: " << requestCommand << std::endl;
     std::shared_ptr<BaseCommand> command;
     if (requestCommand == LOGIN) {
@@ -40,35 +38,35 @@ std::shared_ptr<BaseCommand> CommandCreator::createCommand(std::string message) 
         std::cout << "create user command" << std::endl;
         std::shared_ptr<CreateUser> createUser(new CreateUser(pt));
         return createUser;
-    }  else if (requestCommand == COMMAND1) {
+    }  else if (requestCommand == USERCHATSPREVIEW) {
         std::cout << "command 1" << std::endl;
         std::shared_ptr<GetUserChatsPreview> command1(new GetUserChatsPreview(pt));
         return command1;
-    }  else if (requestCommand == COMMAND2) {
+    }  else if (requestCommand == CHATINFO) {
         std::cout << "command 2" << std::endl;
         std::shared_ptr<GetChatInfo> command2(new GetChatInfo(pt));
         return command2;
-    }  else if (requestCommand == COMMAND3) {
+    }  else if (requestCommand == CHATMESSAGES) {
         std::cout << "command 3" << std::endl;
         std::shared_ptr<GetChatMessages> command3(new GetChatMessages(pt));
         return command3;
-    }  else if (requestCommand == COMMAND4) {
+    }  else if (requestCommand == CHATLASTMESSAGE) {
         std::cout << "command 4" << std::endl;
         std::shared_ptr<GetChatLastMessage> command4(new GetChatLastMessage(pt));
         return command4;
-    }  else if (requestCommand == COMMAND5) {
+    }  else if (requestCommand == MESSAGEAUTHORINFO) {
         std::cout << "command 5" << std::endl;
         std::shared_ptr<GetMessageAuthorInfo> command5(new GetMessageAuthorInfo(pt));
         return command5;
-    }  else if (requestCommand == COMMAND6) {
+    }  else if (requestCommand == SERVERLOGS) {
         std::cout << "command 6" << std::endl;
         std::shared_ptr<GetServerLogs> command6(new GetServerLogs(pt));
         return command6;
-    }  else if (requestCommand == COMMAND7) {
+    }  else if (requestCommand == COMPANYCOMMAND) {
         std::cout << "command 7" << std::endl;
         std::shared_ptr<CompanyCommand> command7(new CompanyCommand(pt));
         return command7;
-    }   else if (requestCommand == COMMAND8) {
+    }   else if (requestCommand == REGISTERUSER) {
         std::cout << "command 8" << std::endl;
         std::shared_ptr<RegisterUser> command8(new RegisterUser(pt));
         return command8;
