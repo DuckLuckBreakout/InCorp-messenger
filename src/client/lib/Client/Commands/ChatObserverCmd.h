@@ -8,6 +8,7 @@
 #include "ChatObjects/ChatAction.h"
 
 
+// Command for chat observe
 class ChatObserverCmd : public BaseCmd {
 public:
     ~ChatObserverCmd() override = default;
@@ -15,6 +16,7 @@ public:
     ChatObserverCmd(int numRequest, const std::optional<std::string>& error,
                     const std::string&  body);
 
+    // Execute command
     void execute(std::shared_ptr<CallbacksHolder> holder) override;
 };
 

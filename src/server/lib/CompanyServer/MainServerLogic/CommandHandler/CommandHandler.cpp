@@ -87,7 +87,7 @@ void CommandHandler::runRequest(const std::shared_ptr<Connection>& connection, s
                 std::string newMessageNoticeResultStr = newMessageNoticeResponse.str() + "\r\n";
                 connection->onMessage(newMessageNoticeResultStr);
             }
-        } else if (commandNumber == 22) {
+        } else if (commandNumber == CHATMESSAGES) {
             std::stringstream response;
             boost::property_tree::json_parser::write_json(response, result);
             std::string responseStr = response.str() + "\r\n";

@@ -9,6 +9,8 @@
 #include "ui/LogWidget/logwidget.h"
 #include "ui/MenuWidget/menuwidget.h"
 
+
+// Callback for Get Log
 class GetLogCallback : public BaseCallback {
 public:
     GetLogCallback(LogWidget* widget) : widget(widget) {};

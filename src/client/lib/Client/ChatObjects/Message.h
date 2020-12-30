@@ -5,6 +5,7 @@
 #include "KeyWords.h"
 
 
+// Message object
 class Message : public BaseObject {
 public:
     Message();
@@ -13,7 +14,10 @@ public:
     Message(int chatId);
     ~Message() override = default;
 
+    // Get encode string
     std::string encode() const override;
+
+    // Set string for decoding
     void decode(const std::string& jsonStr) override;
 
 public:

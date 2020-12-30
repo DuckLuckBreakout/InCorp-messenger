@@ -8,6 +8,7 @@
 #include "ChatObjects/ChatRoom.h"
 
 
+// Command for get chat room
 class GetChatRoomCmd : public BaseCmd {
 public:
     ~GetChatRoomCmd() override = default;
@@ -15,6 +16,7 @@ public:
     GetChatRoomCmd(int numRequest, const std::optional<std::string>& error,
                    const std::string&  body);
 
+    // Execute command
     void execute(std::shared_ptr<CallbacksHolder> holder) override;
 };
 

@@ -8,6 +8,7 @@
 #include "Commands/CmdCreator/Commands.h"
 
 
+// Command for send message
 class SendMessageCmd : public BaseCmd {
 public:
     ~SendMessageCmd() override = default;
@@ -15,6 +16,7 @@ public:
     SendMessageCmd(int numRequest, const std::optional<std::string>& error,
                    const std::string&  body);
 
+    // Execute command
     void execute(std::shared_ptr<CallbacksHolder> holder) override;
 };
 

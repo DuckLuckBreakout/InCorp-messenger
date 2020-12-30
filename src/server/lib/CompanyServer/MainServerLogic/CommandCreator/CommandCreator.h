@@ -20,6 +20,9 @@
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/CompanyCommand.h"
 #include "src/server/lib/CompanyServer/MainServerLogic/Commands/RegisterUser.h"
 
+/*
+ * Enum of command numbers
+ */
 enum Command {
     PING=-1,
     LOGIN,
@@ -29,19 +32,25 @@ enum Command {
     DELETE_CHAT,
     DELETE_USER,
     CREATE_USER,
-    COMMAND1=20,
-    COMMAND2=21,
-    COMMAND3=22,
-    COMMAND4=23,
-    COMMAND5=24,
-    COMMAND6=25,
-    COMMAND7=26,
-    COMMAND8=27,
+    USERCHATSPREVIEW=20,
+    CHATINFO=21,
+    CHATMESSAGES=22,
+    CHATLASTMESSAGE=23,
+    MESSAGEAUTHORINFO=24,
+    SERVERLOGS=25,
+    COMPANYCOMMAND=26,
+    REGISTERUSER=27,
 };
 
+/*
+ * Creates an object of the Command class from the received query string
+ */
 class CommandCreator {
 public:
-    std::shared_ptr<BaseCommand> createCommand(std::string message);
+    /*
+     * The query string is parsed and an object class Command is created
+     */
+    std::shared_ptr<BaseCommand> createCommand(std::string &message);
 };
 
 #endif

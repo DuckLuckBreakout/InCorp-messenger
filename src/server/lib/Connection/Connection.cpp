@@ -22,7 +22,7 @@ void Connection::onMessage(std::string &msg) {
 }
 
 
-void Connection::read_handler(const boost::system::error_code& error, size_t bytes_transferred) {
+void Connection::readHandler(const boost::system::error_code& error, size_t bytes_transferred) {
     if (not error) {
         if (not this) {
             return;
@@ -39,7 +39,7 @@ void Connection::read_handler(const boost::system::error_code& error, size_t byt
         }
 
         boost::asio::async_read_until(socket_, readMsg, "\r\n",
-                                      strand.wrap(boost::bind(&Connection::read_handler, shared_from_this(), _1, boost::asio::placeholders::bytes_transferred)));
+                                      strand.wrap(boost::bind(&Connection::readHandler, shared_from_this(), _1, boost::asio::placeholders::bytes_transferred)));
     }
 }
 

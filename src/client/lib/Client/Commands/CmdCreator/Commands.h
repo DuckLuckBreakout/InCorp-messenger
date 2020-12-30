@@ -1,7 +1,7 @@
 #ifndef APPLICATION_COMMANDS_H
 #define APPLICATION_COMMANDS_H
 
-
+// System code of command
 enum Commands {
     ChatObserver = -2,
     SystemUpdate = -1,

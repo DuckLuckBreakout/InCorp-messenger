@@ -8,6 +8,7 @@
 #include "BaseClient.h"
 
 
+// Client for connection with server 
 class Client : public BaseClient, public std::enable_shared_from_this<Client> {
 public:
     Client();
@@ -17,14 +18,20 @@ public:
     Client& operator= (Client&& client) = delete;
     ~Client() override = default;
 
+    // Send string to server
     void sendMessage(const std::string& message) override;
 
+    // Set message handler for answer from server
     void setMessageHandler(const std::function<void(const std::string&)>& handler) override;
+    
+    // Set error handler for answer from server
     void setErrorHandler(const std::function<void(int)>& handler) override;
-
+    // Get error handler
     std::optional<std::function<void(int)>> getErrorHandler() override;
 
+    // Start client
     void startClient(const std::string& ip, const std::string& port) override;
+    // End client
     void endClient() override;
 
 private:

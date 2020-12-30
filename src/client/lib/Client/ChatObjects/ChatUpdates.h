@@ -6,6 +6,7 @@
 #include "Message.h"
 
 
+// Chat updates for all chats
 class ChatUpdates : public BaseObject {
 public:
     ChatUpdates();
@@ -13,7 +14,10 @@ public:
                 int maxNumMessages);
     ~ChatUpdates() override = default;
 
+    // Get encode string
     std::string encode() const override;
+    
+    // Set string for decoding
     void decode(const std::string& jsonStr) override;
 
 public:

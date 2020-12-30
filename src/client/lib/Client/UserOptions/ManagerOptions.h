@@ -9,6 +9,7 @@ class ManagerOptions : public BaseUserOptions {
 public:
     ~ManagerOptions() override = default;
 
+    // Get log
     void getLog(const LogUpdates& logUpdates, int globalId,
                 const std::shared_ptr<BaseCallback> callback,
                 std::shared_ptr<BaseClient> client, std::shared_ptr<CallbacksHolder> callbackHolder) override;

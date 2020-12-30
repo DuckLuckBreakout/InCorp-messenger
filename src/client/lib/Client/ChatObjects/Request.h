@@ -7,6 +7,7 @@
 #include "KeyWords.h"
 
 
+// Request object
 class Request : public BaseObject {
 public:
     Request();
@@ -14,7 +15,10 @@ public:
             int globalId, int numRequest);
     ~Request() override = default;
 
+    // Get encode string
     std::string encode() const override;
+
+    // Set string for decoding
     void decode(const std::string& jsonStr) override;
 
 public:

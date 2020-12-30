@@ -8,12 +8,16 @@
 #include "ChatItem.h"
 
 
+// List of all user chats
 class ListChats : public BaseObject {
 public:
     ListChats();
     ~ListChats() override = default;
 
+	// Get encode string
     std::string encode() const override;
+
+    // Set string for decoding
     void decode(const std::string& jsonStr) override;
 
 public:

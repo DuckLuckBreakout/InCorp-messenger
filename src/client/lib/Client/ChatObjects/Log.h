@@ -5,12 +5,16 @@
 #include "KeyWords.h"
 
 
+// Log of one user command
 class Log : public BaseObject {
 public:
     Log();
     ~Log() override = default;
 
+	// Get encode string
     std::string encode() const override;
+
+    // Set string for decoding
     void decode(const std::string& jsonStr) override;
 
 public:

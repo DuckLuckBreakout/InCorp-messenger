@@ -7,7 +7,9 @@
 #include <boost/asio/streambuf.hpp>
 #include "BaseConnection.h"
 
-
+/*
+ * Connection class
+ */
 class Connection : public BaseConnection,
                    public std::enable_shared_from_this<Connection> {
 public:
@@ -15,11 +17,14 @@ public:
                boost::asio::io_service::strand& strand) :
             socket_(io_service),
             strand(strand) {}
-    void read_handler(const boost::system::error_code& error, size_t bytes_transferred);
+    void readHandler(const boost::system::error_code& error, size_t bytes_transferred);
 
     int currentChatId = -1;
-public:
     boost::asio::ip::tcp::socket &socket();
+
+    /*
+     * Sending a response to the client
+     */
     void onMessage(std::string &msg);
 private:
     void writeHandler(const boost::system::error_code& error);

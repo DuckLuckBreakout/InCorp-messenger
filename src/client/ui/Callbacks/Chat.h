@@ -10,6 +10,7 @@
 #include "ui/MainWidget/mainwidget.h"
 
 
+// Callback for Update Messages
 class UpdateMessagesCallback : public BaseCallback {
 public:
     UpdateMessagesCallback(std::shared_ptr<MainWidget> widget) : widget(widget) {};
@@ -26,6 +27,8 @@ private:
     std::shared_ptr<MainWidget> widget;
 };
 
+
+// Callback for Get Chat Messages
 class GetChatMessagesCallback : public BaseCallback {
 public:
     GetChatMessagesCallback(std::shared_ptr<MainWidget> widget) : widget(widget) {};
@@ -50,6 +53,8 @@ private:
     std::shared_ptr<MainWidget> widget;
 };
 
+
+// Callback for Get List Of Chats
 class GetListChatsCallback : public BaseCallback {
 public:
     GetListChatsCallback(std::shared_ptr<MainWidget> widget) : widget(widget) {};
@@ -68,6 +73,8 @@ private:
     std::shared_ptr<MainWidget> widget;
 };
 
+
+// Callback for Get Chat Room
 class GetChatRoomCallback : public BaseCallback {
 public:
     GetChatRoomCallback(std::shared_ptr<MainWidget> widget) : widget(widget) {};
@@ -84,6 +91,8 @@ private:
     std::shared_ptr<MainWidget> widget;
 };
 
+
+// Callback for Get User In Chat
 class GetUserForChatCallback : public BaseCallback {
 public:
     GetUserForChatCallback(std::shared_ptr<ChatModel> widget) : widget(widget) {};
@@ -108,6 +117,7 @@ private:
 };
 
 
+// Callback for Get User In Group
 class GetUserForGroupCallback : public BaseCallback {
 public:
     GetUserForGroupCallback(std::shared_ptr<GroupModel> widget) : widget(widget) {};
@@ -132,6 +142,8 @@ private:
     std::shared_ptr<GroupModel> widget;
 };
 
+
+// Callback for Get Last Message
 class GetLastMessageCallback : public BaseCallback {
 public:
     GetLastMessageCallback(std::shared_ptr<GroupModel> widget) : widget(widget) {};
@@ -158,6 +170,8 @@ private:
     std::shared_ptr<GroupModel> widget;
 };
 
+
+// Callback for Chat Observer
 class ChatObserverCallback : public BaseCallback {
 public:
     ChatObserverCallback(std::shared_ptr<GroupModel> widget) : widget(widget) {};
@@ -196,6 +210,8 @@ private:
     std::shared_ptr<GroupModel> widget;
 };
 
+
+// Callback for Send Message
 class SendMessageCallback : public BaseCallback {
 public:
     SendMessageCallback(std::shared_ptr<MainWidget> widget) : widget(widget) {};
@@ -216,6 +232,8 @@ private:
     std::shared_ptr<MainWidget> widget;
 };
 
+
+// Callback for System Update
 class SystemUpdateCallback : public BaseCallback {
 public:
     SystemUpdateCallback(std::shared_ptr<MainWidget> widget) : widget(widget) {};

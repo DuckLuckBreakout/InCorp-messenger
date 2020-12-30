@@ -4,6 +4,6 @@ boost::property_tree::ptree Login::execute(std::shared_ptr<Controller> controlle
     return controller->loginUser(commandParams);
 }
 
-Login::Login(boost::property_tree::ptree &params) {
+Login::Login(boost::property_tree::ptree &params) : BaseCommand("Login") {
     commandParams = params;
 }
