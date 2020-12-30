@@ -6,6 +6,7 @@
 #include "CallbacksHolder/CallbacksHolder.h"
 
 
+// Abstract command
 class BaseCmd {
 public:
     virtual ~BaseCmd() = default;
@@ -13,6 +14,7 @@ public:
     BaseCmd(int numRequest, const std::optional<std::string>& error,
             const std::string& body);
 
+    // Execute command
     virtual void execute(std::shared_ptr<CallbacksHolder> holder) = 0;
 
 protected:

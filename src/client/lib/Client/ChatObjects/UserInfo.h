@@ -7,13 +7,17 @@
 #include "KeyWords.h"
 
 
+// Info about user
 class UserInfo : public BaseObject {
 public:
     UserInfo();
     UserInfo(const std::string& login, const std::string& password);
     ~UserInfo() override = default;
 
+    // Get encode string
     std::string encode() const override;
+
+    // Set string for decoding
     void decode(const std::string& jsonStr) override;
 
 public:

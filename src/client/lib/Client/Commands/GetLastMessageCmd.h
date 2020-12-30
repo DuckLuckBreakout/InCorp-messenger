@@ -8,6 +8,7 @@
 #include "ChatObjects/Message.h"
 
 
+// Command for get last message in chat
 class GetLastMessageCmd : public BaseCmd {
 public:
     ~GetLastMessageCmd() override = default;
@@ -15,6 +16,7 @@ public:
     GetLastMessageCmd(int numRequest, const std::optional<std::string>& error,
                       const std::string&  body);
 
+    // Execute command
     void execute(std::shared_ptr<CallbacksHolder> holder) override;
 };
 

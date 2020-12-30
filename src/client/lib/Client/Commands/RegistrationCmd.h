@@ -8,6 +8,7 @@
 #include "ChatObjects/UserInfo.h"
 
 
+// Command for registration
 class RegistrationCmd : public BaseCmd {
 public:
     ~RegistrationCmd() override = default;
@@ -15,6 +16,7 @@ public:
     RegistrationCmd(int numRequest, const std::optional<std::string>& error,
                      const std::string& body);
 
+    // Execute command
     void execute(std::shared_ptr<CallbacksHolder> holder) override;
 };
 

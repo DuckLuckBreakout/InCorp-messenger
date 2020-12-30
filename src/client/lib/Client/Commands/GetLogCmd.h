@@ -8,6 +8,7 @@
 #include "ChatObjects/LogUpdates.h"
 
 
+// Command for get log
 class GetLogCmd : public BaseCmd {
 public:
     ~GetLogCmd() override = default;
@@ -15,6 +16,7 @@ public:
     GetLogCmd(int numRequest, const std::optional<std::string>& error,
               const std::string&  body);
 
+    // Execute command
     void execute(std::shared_ptr<CallbacksHolder> holder) override;
 };
 

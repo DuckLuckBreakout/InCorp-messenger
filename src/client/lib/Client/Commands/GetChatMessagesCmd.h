@@ -8,6 +8,7 @@
 #include "ChatObjects/ChatUpdates.h"
 
 
+// Command for get message in select chat
 class GetChatMessagesCmd : public BaseCmd {
 public:
     ~GetChatMessagesCmd() override = default;
@@ -15,6 +16,7 @@ public:
     GetChatMessagesCmd(int numRequest, const std::optional<std::string>& error,
                        const std::string& body);
 
+	// Execute command
     void execute(std::shared_ptr<CallbacksHolder> holder) override;
 };
 

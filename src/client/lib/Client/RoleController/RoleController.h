@@ -10,8 +10,10 @@
 #include "UserOptions/CompanyOptions.h"
 
 
+// Role controller for swap user options
 class RoleController {
 public:
+	// Set new user role
     static void setRole(std::shared_ptr<BaseUserOptions>& userOptions,
                         const std::string& role);
 };

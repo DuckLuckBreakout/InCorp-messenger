@@ -8,6 +8,7 @@
 #include "ChatObjects/ChatAction.h"
 
 
+// Command for system update from server
 class SystemUpdateCmd : public BaseCmd {
 public:
     ~SystemUpdateCmd() override = default;
@@ -15,6 +16,7 @@ public:
     SystemUpdateCmd(int numRequest, const std::optional<std::string>& error,
                     const std::string&  body);
 
+    // Execute command
     void execute(std::shared_ptr<CallbacksHolder> holder) override;
 };
 
