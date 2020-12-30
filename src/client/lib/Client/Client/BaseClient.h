@@ -12,6 +12,7 @@
 #include <boost/asio/streambuf.hpp>
 
 
+// Abstract Client for connection 
 class BaseClient {
 public:
     BaseClient()
@@ -20,13 +21,20 @@ public:
 
     virtual ~BaseClient() = default;
 
+    // Send string to server
     virtual void sendMessage(const std::string& message) = 0;
+    
+    // Set message handler for answer from server
     virtual void setMessageHandler(const std::function<void(const std::string&)>& func) = 0;
+    
+    // Set error handler for answer from server
     virtual void setErrorHandler(const std::function<void(int)>& func) = 0;
-
+    // Get error handler
     virtual std::optional<std::function<void(int)>> getErrorHandler() = 0;
 
+    // Start client
     virtual void startClient(const std::string& ip, const std::string& port) = 0;
+    // End client
     virtual void endClient() = 0;
 
 protected:

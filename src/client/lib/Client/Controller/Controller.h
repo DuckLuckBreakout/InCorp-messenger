@@ -15,6 +15,7 @@
 #include <ChatObjects/ChatRoom.h>
 
 
+// Facade of client lib
 class Controller: public std::enable_shared_from_this<Controller> {
 public:
     static std::shared_ptr<Controller> getInstance();
@@ -24,44 +25,59 @@ public:
     Controller& operator=(Controller &&controller) = delete;
     ~Controller() = default;
 
+    // Run client connection
     void runClient(const std::string& ip, const std::string& port,
                    const std::function<void(int)>& errHandler);
+    
+    // Reconnect client connection
     void reconnectClient(const std::string& ip, const std::string& port);
 
+    // Send message in select chat
     void sendMessage(const Message& message, int globalId,
                      const std::shared_ptr<BaseCallback>& callback);
 
+    // Authorization user
     void authorization(const UserInfo& authInfo, int globalId,
                        const std::shared_ptr<BaseCallback>& callback);
 
-
+    // Update select chat
     void chatUpdate(const ChatUpdates& chatUpdates, int globalId,
                     const std::shared_ptr<BaseCallback>& callback);
 
+    // Get list of chats
     void getListChats(const ListChats& listChats, int globalId,
                       const std::shared_ptr<BaseCallback>& callback);
 
+    // Get select chat room
     void getChatRoom(const ChatRoom& chatRoom, int globalId,
                      const std::shared_ptr<BaseCallback>& callback);
 
+    // Get messages in select chat
     void getChatMessages(const ChatUpdates& chatUpdates, int globalId,
                         const std::shared_ptr<BaseCallback>& callback);
 
+    // Get log
     void getLog(const LogUpdates& logUpdates, int globalId,
                 const std::shared_ptr<BaseCallback>& callback);
 
+    // Get last message in chat
     void getLastMessage(const Message& message, int globalId,
                         const std::shared_ptr<BaseCallback>& callback);
 
+    // Get user 
     void getUser(const UserPreview& user, int globalId,
                  const std::shared_ptr<BaseCallback>& callback);
 
+    // Set chat observer
     void setChatObserver(int chatId, const std::shared_ptr<BaseCallback>& callback);
 
+    // Message handler 
     void readMessageHandler(const std::string& str);
 
+    // Send chat command
     void sendChatCommand(const Message& message, int globalId);
 
+    // Registration new user
     void registration(const UserInfo& authInfo, int globalId,
                       const std::shared_ptr<BaseCallback>& callback);
 

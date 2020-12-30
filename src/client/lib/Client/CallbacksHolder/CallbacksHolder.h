@@ -8,9 +8,11 @@
 #include "Callback/BaseCallback.h"
 
 
+// Holder for save callback functions
 class CallbacksHolder {
 public:
     
+    // Add temporary callback 
     int addCallback(int command, const std::shared_ptr<BaseCallback>& callback) {
         auto callbackId = callbacks.count(command) + 1;
         callbacks.insert(std::pair<int, std::pair<int, const std::shared_ptr<BaseCallback>>>
@@ -18,6 +20,7 @@ public:
         return callbackId;
     }
 
+	// Add system callback 
     int addCallback(int command, int numRequest, const std::shared_ptr<BaseCallback>& callback) {
         auto callbackId = numRequest;
         callbacks.insert(std::pair<int, std::pair<int, const std::shared_ptr<BaseCallback>>>
@@ -25,6 +28,7 @@ public:
         return callbackId;
     }
 
+    // Get callback by num command and num request
     std::shared_ptr<BaseCallback> getCallback(int command, int position) {
         auto iterator1 = callbacks.equal_range(command);
 

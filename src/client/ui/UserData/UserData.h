@@ -6,6 +6,7 @@
 #include <map>
 
 
+// Data of current user
 class UserData {
 public:
     static std::shared_ptr<UserData> getInstance() {

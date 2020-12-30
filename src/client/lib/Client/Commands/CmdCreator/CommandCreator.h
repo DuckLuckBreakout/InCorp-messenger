@@ -19,8 +19,10 @@
 #include "Commands/RegistrationCmd.h"
 
 
+// Command creator for creating command by system number of command
 class CommandCreator {
 public:
+	// Create new command
     static std::shared_ptr<BaseCmd> createCommand(int command, const std::optional<std::string>& error,
                                                   const std::string& body, int numRequest);
 };

@@ -7,6 +7,7 @@
 #include "ChatObjects/BaseObject.h"
 
 
+// Abstract callback for lib interface 
 class BaseCallback {
 public:
     BaseCallback() {};

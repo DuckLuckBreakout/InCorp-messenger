@@ -8,6 +8,7 @@
 #include "ChatObjects/UserPreview.h"
 
 
+// Command for get user
 class GetUserCmd : public BaseCmd {
 public:
     ~GetUserCmd() override = default;
@@ -15,6 +16,7 @@ public:
     GetUserCmd(int numRequest, const std::optional<std::string>& error,
                const std::string& body);
 
+    // Execute command
     void execute(std::shared_ptr<CallbacksHolder> holder) override;
 };
 

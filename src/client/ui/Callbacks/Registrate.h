@@ -11,6 +11,7 @@
 #include "ui/UserData/UserData.h"
 
 
+// Callback for Registrate
 class RegistrationCallback : public BaseCallback {
 public:
     RegistrationCallback(RegistrateWidget* widget) : widget(widget) {};

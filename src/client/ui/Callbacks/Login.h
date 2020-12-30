@@ -12,6 +12,7 @@
 #include "ui/UserData/UserData.h"
 
 
+// Callback for Login
 class LoginCallback : public BaseCallback {
 public:
     LoginCallback(std::shared_ptr<LoginWidget> widget) : widget(widget) {};
